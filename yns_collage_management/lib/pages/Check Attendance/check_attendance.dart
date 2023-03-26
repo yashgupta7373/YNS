@@ -1,0 +1,35 @@
+import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+
+class CheckAttendance extends StatelessWidget {
+  const CheckAttendance({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.teal[300],
+        appBar: AppBar(
+          title: const Text('Check Attendance'),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Lottie.network(
+                  'https://assets1.lottiefiles.com/packages/lf20_0hxkpskc.json'),
+              const Center(
+                child: Text(
+                  "Oops!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      fontSize: 35),
+                ),
+              ),
+            ],
+          ),
+        ));
+  }
+}

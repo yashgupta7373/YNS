@@ -1,0 +1,32 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "yns_collage_management",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/pages/main.dart"
+        },
+        
+        {
+            "name": "yns_collage_management",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "yns_collage_management (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "yns_collage_management (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
