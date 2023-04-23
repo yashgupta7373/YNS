@@ -13,88 +13,64 @@ class CallClasses extends StatelessWidget {
           showDialog(
               context: context,
               builder: (ctx) => AlertDialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30.0)),
-                    backgroundColor: const Color.fromRGBO(100, 232, 222, 0.7),
-                    content: SizedBox(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  backgroundColor: const Color.fromRGBO(100, 232, 222, 0.7),
+                  content: SizedBox(
                       height: 80,
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          // Online Class
-
-                          InkWell(
-                            onTap: (() async {
-                              Navigator.of(ctx).pop();
-                              // Navigator.push(
-                              //     context,
-                              //     PageTransition(
-                              //         type: PageTransitionType.fade,
-                              //         child: const OnlineClass()));
-                              await LaunchApp.openApp(
-                                androidPackageName: 'us.zoom.videomeetings',
-                                iosUrlScheme: 'zoom?src=serp',
-                                openStore: true,
-                              );
-                            }),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: const [
-                                Icon(
-                                  FontAwesomeIcons.video,
-                                  color: Colors.white,
-                                ),
-                                Text('Online Classes',
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontStyle: FontStyle.normal,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white))
-                              ],
-                            ),
-                          ),
-                          // Class Room
-                          InkWell(
-                            onTap: (() async {
-                              Navigator.of(ctx).pop();
-                              // Navigator.push(
-                              //     context,
-                              //     PageTransition(
-                              //         type: PageTransitionType.fade,
-                              //         child: const ClassRoom()));
-                              await LaunchApp.openApp(
-                                androidPackageName:
-                                    'com.google.android.apps.classroom',
-                                iosUrlScheme: 'google-classroom/id924620788',
-                                openStore: true,
-                              );
-                            }),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: const [
-                                Icon(
-                                  FontAwesomeIcons.chalkboardUser,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  'Class Room       ',
-                                  style: TextStyle(
-                                      fontSize: 15,
-                                      fontStyle: FontStyle.normal,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ));
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            // Online Class
+                            InkWell(
+                                onTap: (() async {
+                                  Navigator.of(ctx).pop();
+                                  await LaunchApp.openApp(
+                                      androidPackageName:
+                                          'us.zoom.videomeetings',
+                                      iosUrlScheme: 'zoom?src=serp',
+                                      openStore: true);
+                                }),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: const [
+                                      Icon(FontAwesomeIcons.video,
+                                          color: Colors.white),
+                                      Text('Online Classes',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white))
+                                    ])),
+                            // Class Room
+                            InkWell(
+                                onTap: (() async {
+                                  Navigator.of(ctx).pop();
+                                  await LaunchApp.openApp(
+                                      androidPackageName:
+                                          'com.google.android.apps.classroom',
+                                      iosUrlScheme:
+                                          'google-classroom/id924620788',
+                                      openStore: true);
+                                }),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: const [
+                                      Icon(FontAwesomeIcons.chalkboardUser,
+                                          color: Colors.white),
+                                      Text('Class Room       ',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white))
+                                    ]))
+                          ]))));
         },
-        child: const Icon(
-          FontAwesomeIcons.personChalkboard,
-          color: Colors.white,
-        ));
+        child:
+            const Icon(FontAwesomeIcons.personChalkboard, color: Colors.white));
   }
 }

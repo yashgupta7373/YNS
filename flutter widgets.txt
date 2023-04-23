@@ -1,0 +1,2230 @@
+//*************************************************************** */
+//Container Widget....
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Welcome'),
+      ),
+      body: Center(
+        child: Container(
+          width: 100,
+          height: 100,
+          color: Colors.blue,
+          child: Center(child: Text('Hello Flutter...')),
+        ),
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Center Widget...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Welcome'),
+      ),
+      body: Center(
+        child: Text(
+          'Hello Flutter',
+          style: TextStyle(
+            fontSize: 25,
+            color: Colors.red,
+            backgroundColor: Colors.black,
+            
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Text Widget...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+          child: Text(
+        "Hello Flutter...",
+        style: TextStyle(
+          fontSize: 40,
+          color: Colors.green,
+          fontWeight: FontWeight.bold,
+          backgroundColor: Colors.black,
+          fontFamily: 'Noto Serif',
+        ),
+      )),
+    );
+  }
+}
+
+
+
+//*************************************************************** */
+// Button Widget...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Welcom !!!"),
+      ),
+      // Text Button........
+      // body: Center(
+      //   child: TextButton(
+      //     child: Text('Click here.'),
+      //     onPressed: () {
+      //       print('Hello...');
+      //     },
+      //     onLongPress: () {
+      //       print("Chod de bhai !!!");
+      //     },
+      //   ),
+      // ),
+
+      // // Elevatedbutton....
+      // body: Center(
+      //     child: ElevatedButton(
+      //   child: Text("Click here."),
+      //   onPressed: () {
+      //     print('Hello...');
+      //   },
+      //   onLongPress: () {
+      //     print("Chod de bhai !!!");
+      //   },
+      // )),
+
+      // Outline Button....
+      body: Center(
+          child: OutlinedButton(
+        child: Text("Click here."),
+        onPressed: () {
+          print('Hello...');
+        },
+        onLongPress: () {
+          print("Chod de bhai !!!");
+        },
+      )),
+    );
+  }
+}
+
+
+
+//*************************************************************** */
+// Images Widget...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom !!!")),
+      ),
+      body: Center(
+          child: Container(
+              width: 200,
+              height: 200,
+              color: Colors.grey,
+              child: Image.asset("assets/images/img1.png"))),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Column And Row Widget...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom !!!")),
+      ),
+      // Column.....
+      body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              "Yash Gupta",
+              style: TextStyle(fontSize: 30),
+            ),
+            Text("Yash Gupta"),
+            Text("Yash Gupta"),
+            Text("Yash Gupta"),
+            Text("Yash Gupta"),
+          ]),
+
+      // Row.....
+      // body: Container(
+      //   height: 300,
+      //   color: Colors.blue,
+      //   child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //       crossAxisAlignment: CrossAxisAlignment.end,
+      //       children: <Widget>[
+      //         Text(
+      //           "Yash Gupta",
+      //           style: TextStyle(fontSize: 10),
+      //         ),
+      //         Text("Yash Gupta"),
+      //         Text("Yash Gupta"),
+      //         Text("Yash Gupta"),
+      //         ElevatedButton(onPressed: () {}, child: Text("Click")),
+      //       ]),
+      // ),
+    );
+  }
+}
+
+
+// //*************************************************************** */
+// // Mix Column And Row Widget...
+//*************************************************************** */
+// import 'dart:developer';
+// import 'package:flutter/material.dart';
+// import 'package:yns_collage_management/utils/routes.dart';
+
+// class AboutClg extends StatelessWidget {
+//   const AboutClg({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Center(child: Text("Welcom !!!")),
+//       ),
+//       body: Container(
+//         height: 300,
+//         // width: 300,
+//         color: Colors.yellow,
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.start,
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//               children: [
+//                 Text(
+//                   "R1",
+//                   style: TextStyle(fontSize: 25),
+//                 ),
+//                 Text(
+//                   "R2",
+//                   style: TextStyle(fontSize: 25),
+//                 ),
+//                 Text(
+//                   "R3",
+//                   style: TextStyle(fontSize: 25),
+//                 ),
+//                 Text(
+//                   "R4",
+//                   style: TextStyle(fontSize: 25),
+//                 ),
+//                 Text(
+//                   "R5",
+//                   style: TextStyle(fontSize: 25),
+//                 ),
+//               ],
+//             ),
+//             Text(
+//               'A',
+//               style: TextStyle(fontSize: 25),
+//             ),
+//             Text(
+//               'B',
+//               style: TextStyle(fontSize: 25),
+//             ),
+//             Text(
+//               'C',
+//               style: TextStyle(fontSize: 25),
+//             ),
+//             Text(
+//               'D',
+//               style: TextStyle(fontSize: 25),
+//             ),
+//             Text(
+//               'D',
+//               style: TextStyle(fontSize: 25),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
+//*************************************************************** */
+// InkWell...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom !!!")),
+      ),
+      body: Center(
+        child: InkWell(
+          onTap: () {
+            print("Hello");
+          },
+          onDoubleTap: () {
+            print("Bs Kr Bhai..");
+          },
+          onLongPress: () {
+            print("Abe Chod BHi De Ab...");
+          },
+          child: Container(
+            width: 200,
+            height: 200,
+            color: Colors.blue,
+            child: Center(
+                child: InkWell(
+                    onTap: () {
+                      print("Yash Gupta");
+                    },
+                    child: Text("Yash Gupta"))),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Scroll View...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Scroll View")),
+      ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(children: [
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right: 11, bottom: 11),
+                    height: 200,
+                    width: 200,
+                    color: Colors.green,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 11, bottom: 11),
+                    height: 200,
+                    width: 200,
+                    color: Colors.orange,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 11, bottom: 11),
+                    height: 200,
+                    width: 200,
+                    color: Colors.yellow,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(right: 11, bottom: 11),
+                    height: 200,
+                    width: 200,
+                    color: Colors.blue,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 11),
+              height: 200,
+              width: 300,
+              color: Colors.orange,
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 11),
+              height: 200,
+              width: 300,
+              color: Colors.yellow,
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 11),
+              height: 200,
+              width: 300,
+              color: Colors.blue,
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 11),
+              height: 200,
+              width: 300,
+              color: Colors.green,
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 11),
+              height: 200,
+              width: 300,
+              color: Colors.orange,
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 11),
+              height: 200,
+              width: 300,
+              color: Colors.yellow,
+            ),
+            Container(
+              margin: EdgeInsets.only(bottom: 11),
+              height: 200,
+              width: 300,
+              color: Colors.blue,
+            ),
+          ]),
+        ),
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// List View...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Scroll View")),
+      ),
+      body: ListView(
+        // scrollDirection: Axis.horizontal,
+        // reverse: true,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "1 Yash Gupta",
+              style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "2 Yash Gupta",
+              style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "3 Yash Gupta",
+              style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "4 Yash Gupta",
+              style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "5 Yash Gupta",
+              style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "6 Yash Gupta",
+              style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// List View.builder ...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var ArrNames = [
+      'yash',
+      'sahil',
+      'arya',
+      'jitender',
+      'ayushi',
+      'navya',
+      'harsh'
+    ];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Scroll View")),
+      ),
+      // body: ListView.builder(
+      //   itemBuilder: (context, index) {
+      //     return Text(
+      //       ArrNames[index],
+      //       style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+      //     );
+      //   },
+      //   itemCount: ArrNames.length,
+      //   // reverse: true,
+      //   // scrollDirection: Axis.horizontal,
+      //   itemExtent: 150,
+      // ),
+      body: ListView.separated(
+        itemBuilder: (context, index) {
+          return Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  ArrNames[index],
+                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  ArrNames[index],
+                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  ArrNames[index],
+                  style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          );
+        },
+        itemCount: ArrNames.length,
+        separatorBuilder: (context, index) {
+          return Divider(
+            height: 100,
+            thickness: 4,
+          );
+        },
+        // reverse: true,
+        // scrollDirection: Axis.horizontal,
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Basis of Flutter ...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Flutter")),
+      ),
+      body: Container(
+        color: Colors.grey,
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Decoration in Container ...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Flutter")),
+      ),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        color: Colors.grey,
+        child: Center(
+          child: Container(
+            child: Center(child: Text("    Yash Gupta")),
+            width: 200,
+            height: 200,
+            // color: Colors.blue,
+            decoration: BoxDecoration(
+                color: Colors.blue,
+                // borderRadius: BorderRadius.circular(30),
+                // borderRadius: BorderRadius.only(
+                //     topLeft: Radius.circular(100),
+                //     topRight: Radius.circular(100)),
+                // borderRadius: BorderRadius.all(
+                //   Radius.circular(30),
+                // ),
+                border: Border.all(width: 5, color: Colors.green),
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 21, color: Colors.yellow, spreadRadius: 1)
+                ],
+                shape: BoxShape.circle),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Expand Widget ...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Flutter")),
+      ),
+      body: Row(
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 1,
+              child: Container(
+                width: 50,
+                // height: 100,
+                color: Colors.red,
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Container(
+                width: 50,
+                // height: 100,
+                color: Colors.yellow,
+              ),
+            ),
+            Expanded(
+              flex: 4,
+              child: Container(
+                width: 50,
+                // height: 100,
+                color: Colors.blue,
+              ),
+            ),
+            Expanded(
+              flex: 8,
+              child: Container(
+                width: 50,
+                // height: 100,
+                color: Colors.green,
+              ),
+            ),
+          ]),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Padding And Maegin Widget ...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Flutter")),
+      ),
+      // body: Padding(
+      //   // padding: EdgeInsets.all(8.0),
+      //   padding: EdgeInsets.only(top: 11, left: 34),
+      //   child: Text('Hello Flutter'),
+      // ),
+
+      body: Container(
+          color: Colors.green,
+          margin: EdgeInsets.all(11),
+          // padding: EdgeInsets.all(12),
+          child: Text('Hello Flutter')),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// List tile widget ...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var ArrNames = [
+      'yash',
+      'sahil',
+      'arya',
+      'jitender',
+      'ayushi',
+      'navya',
+      'harsh'
+    ];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom")),
+      ),
+      body: ListView.separated(
+        itemBuilder: (context, index) {
+          return ListTile(
+            leading: Text('${index + 1}'),
+            title: Text(ArrNames[index]),
+            subtitle: Text('Number'),
+            trailing: Icon(Icons.add),
+          );
+        },
+        itemCount: ArrNames.length,
+        separatorBuilder: (context, index) {
+          return Divider(
+            height: 100,
+            thickness: 4,
+          );
+        },
+        // reverse: true,
+        // scrollDirection: Axis.horizontal,
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Circle Avatar ...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var ArrNames = [
+      'yash',
+      'sahil',
+      'arya',
+      'jitender',
+      'ayushi',
+      'navya',
+      'harsh'
+    ];
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom")),
+      ),
+      // body: Container(
+      //   width: 60,
+      //   height: 60,
+      //   child: CircleAvatar(
+      //     backgroundImage: AssetImage("assets/images/img1.png"),
+      //     backgroundColor: Colors.blue,
+      //     // backgroundColor: Colors.transparent,
+      //   ),
+      // ),
+
+      // body: CircleAvatar(
+      //   child: Text(
+      //     "Name",
+      //     style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+      //   ),
+      //   // backgroundImage: AssetImage("assets/images/img1.png"),
+      //   backgroundColor: Colors.blue,
+      //   // radius: 100,
+      //   maxRadius: 50,
+      //   minRadius: 30,
+      // ),
+
+      body: Center(
+        child: CircleAvatar(
+          child: Container(
+            width: 50,
+            height: 50,
+            child: Column(
+              children: [
+                Container(
+                    width: 31,
+                    height: 31,
+                    child: Image.asset('assets/images/img1.png')),
+                Text(
+                  "Name",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+              ],
+              // backgroundImage: AssetImage("assets/images/img1.png"),
+            ),
+          ),
+          backgroundColor: Colors.blue,
+          radius: 50,
+        ),
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Style ...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom")),
+      ),
+      body: Column(
+        children: [
+          Text(
+            "Hello Flutter",
+            style: Theme.of(context)
+                .textTheme
+                .headline1!
+                .copyWith(color: Colors.amber),
+          ),
+          Text(
+            "Hello Flutter",
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1!
+                .copyWith(color: Colors.green),
+          ),
+          Text(
+            "Hello Flutter",
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+          Text(
+            "Hello Flutter",
+            style: Theme.of(context).textTheme.headline1,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Card Widget ...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom")),
+      ),
+      body: Center(
+        child: Card(
+            elevation: 20,
+            shadowColor: Colors.red,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Hello Flutter',
+                style: TextStyle(fontSize: 60),
+              ),
+            )),
+      ),
+    );
+  }
+}
+
+
+
+//*************************************************************** */
+// Card Widget ...
+//*************************************************************** */
+import 'dart:developer';
+// import 'dart:html';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+
+class AboutClg extends StatelessWidget {
+  const AboutClg({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var emailText = TextEditingController();
+    var passText = TextEditingController();
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom")),
+      ),
+      body: Center(
+          child: Container(
+              width: 300,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextField(
+                    keyboardType: TextInputType.emailAddress,
+                    controller: emailText,
+                    // enabled: false,
+                    decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Colors.red,
+                            // width: 3
+                          ),
+                        ),
+                        // border: OutlineInputBorder(
+                        //     // borderRadius: BorderRadius.circular(30),
+                        //     // borderSide: BorderSide(color: Colors.blue)
+                        //     )
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Colors.blue,
+                            // width: 3
+                          ),
+                        ),
+                        disabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                            // width: 3
+                          ),
+                        ),
+                        suffixText: "Username exits",
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            Icons.remove_red_eye,
+                            color: Colors.green,
+                          ),
+                          onPressed: () {},
+                        ),
+                        prefixIcon: Icon(Icons.password)),
+                  ),
+                  Container(
+                    height: 11,
+                  ),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    controller: passText,
+                    obscureText: true,
+                    // obscuringCharacter: '*',
+                    decoration: InputDecoration(
+                        hintText: 'Enter Password',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide: BorderSide(color: Colors.blue))),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        String uEmail = emailText.text.toString();
+                        String uPass = passText.text;
+                        print("Email: $uEmail\n Password: $uPass");
+                      },
+                      child: Text("Submit"))
+                ],
+              ))),
+    );
+  }
+}
+
+
+
+// //*************************************************************** */
+// // TextField Widget ...
+//*************************************************************** */
+// import 'dart:developer';
+// // import 'dart:html';
+// import 'package:flutter/material.dart';
+// import 'package:yns_collage_management/utils/routes.dart';
+
+// class AboutClg extends StatelessWidget {
+//   const AboutClg({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     var emailText = TextEditingController();
+//     var passText = TextEditingController();
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Center(child: Text("Welcom")),
+//       ),
+//       body: Center(
+//           child: Container(
+//               width: 300,
+//               child: Column(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: [
+//                   TextField(
+//                     keyboardType: TextInputType.emailAddress,
+//                     controller: emailText,
+//                     // enabled: false,
+//                     decoration: InputDecoration(
+//                         focusedBorder: OutlineInputBorder(
+//                           borderRadius: BorderRadius.circular(30),
+//                           borderSide: BorderSide(
+//                             color: Colors.red,
+//                             // width: 3
+//                           ),
+//                         ),
+//                         // border: OutlineInputBorder(
+//                         //     // borderRadius: BorderRadius.circular(30),
+//                         //     // borderSide: BorderSide(color: Colors.blue)
+//                         //     )
+//                         enabledBorder: OutlineInputBorder(
+//                           borderRadius: BorderRadius.circular(30),
+//                           borderSide: BorderSide(
+//                             color: Colors.blue,
+//                             // width: 3
+//                           ),
+//                         ),
+//                         disabledBorder: OutlineInputBorder(
+//                           borderRadius: BorderRadius.circular(30),
+//                           borderSide: BorderSide(
+//                             color: Colors.grey,
+//                             // width: 3
+//                           ),
+//                         ),
+//                         suffixText: "Username exits",
+//                         suffixIcon: IconButton(
+//                           icon: Icon(
+//                             Icons.remove_red_eye,
+//                             color: Colors.green,
+//                           ),
+//                           onPressed: () {},
+//                         ),
+//                         prefixIcon: Icon(Icons.password)),
+//                   ),
+//                   Container(
+//                     height: 11,
+//                   ),
+//                   TextField(
+//                     keyboardType: TextInputType.number,
+//                     controller: passText,
+//                     obscureText: true,
+//                     // obscuringCharacter: '*',
+//                     decoration: InputDecoration(
+//                         hintText: 'Enter Password',
+//                         border: OutlineInputBorder(
+//                             borderRadius: BorderRadius.circular(30),
+//                             borderSide: BorderSide(color: Colors.blue))),
+//                   ),
+//                   ElevatedButton(
+//                       onPressed: () {
+//                         String uEmail = emailText.text.toString();
+//                         String uPass = passText.text;
+//                         print("Email: $uEmail\n Password: $uPass");
+//                       },
+//                       child: Text("Submit"))
+//                 ],
+//               ))),
+//     );
+//   }
+// }
+
+// //*************************************************************** */
+// // Current Date and Time Widget ...
+//*************************************************************** */
+// import 'dart:developer';
+// // import 'dart:html';
+// import 'package:flutter/material.dart';
+// import 'package:yns_collage_management/utils/routes.dart';
+
+// class AboutClg extends StatefulWidget {
+//   const AboutClg({super.key});
+
+//   @override
+//   State<AboutClg> createState() => _AboutClgState();
+// }
+
+// class _AboutClgState extends State<AboutClg> {
+//   @override
+//   Widget build(BuildContext context) {
+//     var time = DateTime.now();
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Center(child: Text("Welcom")),
+//       ),
+//       body: Center(
+//         child: Container(
+//           width: 200,
+//           height: 200,
+//           child: Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               // Text('Current Time: $time',style: TextStyle(fontSize: 25),),
+//               Text(
+//                 'Current Time: ${time.year} : ${time.month} : ${time.day}',
+//                 style: TextStyle(fontSize: 25),
+//               ),
+
+//               ElevatedButton(
+//                   onPressed: () {
+//                     setState(() {});
+//                   },
+//                   child: Text("Current Time"))
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
+//*************************************************************** */
+// Current Date and Time Format ...
+//*************************************************************** */
+import 'dart:developer';
+// import 'dart:html';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  const AboutClg({super.key});
+
+  @override
+  State<AboutClg> createState() => _AboutClgState();
+}
+
+class _AboutClgState extends State<AboutClg> {
+  @override
+  Widget build(BuildContext context) {
+    var time = DateTime.now();
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom")),
+      ),
+      body: Center(
+        child: Container(
+          width: 200,
+          height: 200,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Current Time: ${DateFormat('Hms').format(time)}',
+                style: TextStyle(fontSize: 25),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    setState(() {});
+                  },
+                  child: Text("Current Time"))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+//*************************************************************** */
+// Date-Time Picker ...
+//*************************************************************** */
+import 'dart:developer';
+// import 'dart:html';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  const AboutClg({super.key});
+
+  @override
+  State<AboutClg> createState() => _AboutClgState();
+}
+
+class _AboutClgState extends State<AboutClg> {
+  @override
+  Widget build(BuildContext context) {
+    var time = DateTime.now();
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom")),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Select Date",
+              style: TextStyle(fontSize: 25),
+            ),
+            ElevatedButton(
+                onPressed: () async {
+                  DateTime? datePicked = await showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2030));
+
+                  if (datePicked != null) {
+                    print(
+                        "Date Selected: ${datePicked.day}-${datePicked.month}-${datePicked.year}");
+                  }
+                },
+                child: Text("Select Date")),
+            Text(
+              "Select Time",
+              style: TextStyle(fontSize: 25),
+            ),
+            ElevatedButton(
+                onPressed: () async {
+                  TimeOfDay? timePicked = await showTimePicker(
+                    context: context,
+                    initialTime: TimeOfDay.now(),
+                    // initialEntryMode: TimePickerEntryMode.input
+                  );
+
+                  if (timePicked != null) {
+                    print(
+                        "Date Selected: ${timePicked.hour}-${timePicked.minute}");
+                  }
+                },
+                child: Text("Select Time")),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+// //*************************************************************** */
+// // Grid View in flutter...
+//*************************************************************** */
+import 'dart:developer';
+// import 'dart:html';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  const AboutClg({super.key});
+
+  @override
+  State<AboutClg> createState() => _AboutClgState();
+}
+
+class _AboutClgState extends State<AboutClg> {
+  @override
+  Widget build(BuildContext context) {
+    var arrColors = [
+      Colors.yellow,
+      Colors.green,
+      Colors.red,
+      Colors.blue,
+      Colors.purple
+    ];
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+        title: Center(child: Text("Welcom")),
+      ),
+      // body: Column(
+      //   children: [
+      //     Container(
+      //       height: 150,
+      //       color: Colors.grey,
+      //       child: GridView.count(
+      //         crossAxisCount: 6,
+      //         crossAxisSpacing: 11,
+      //         mainAxisSpacing: 11,
+      //         children: [
+      //           Container(
+      //             color: Colors.red,
+      //           ),
+      //           Container(
+      //             color: Colors.yellow,
+      //           ),
+      //           Container(
+      //             color: Colors.blue,
+      //           ),
+      //           Container(
+      //             color: Colors.green,
+      //           ),
+      //           Container(
+      //             color: Colors.purple,
+      //           ),
+      //           Container(
+      //             color: Colors.pink,
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //     Container(
+      //       color: Colors.black,
+      //       height: 5,
+      //     ),
+      //     Container(
+      //       color: Colors.grey,
+      //       height: 200,
+      //       child: GridView.extent(
+      //         maxCrossAxisExtent: 100,
+      //         crossAxisSpacing: 11,
+      //         mainAxisSpacing: 11,
+      //         children: [
+      //           Container(
+      //             color: Colors.red,
+      //           ),
+      //           Container(
+      //             color: Colors.yellow,
+      //           ),
+      //           Container(
+      //             color: Colors.blue,
+      //           ),
+      //           Container(
+      //             color: Colors.green,
+      //           ),
+      //           Container(
+      //             color: Colors.purple,
+      //           ),
+      //           Container(
+      //             color: Colors.pink,
+      //           ),
+      //         ],
+      //       ),
+      //     )
+      //   ],
+      // ),
+      body: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3, mainAxisSpacing: 11, crossAxisSpacing: 11),
+          itemBuilder: ((context, index) {
+            return Container(
+              color: arrColors[index],
+            );
+          }),
+          itemCount: arrColors.length),
+    );
+  }
+}
+
+
+
+//*************************************************************** */
+// Grid View in flutter...
+//*************************************************************** */
+import 'dart:developer';
+// import 'dart:html';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  const AboutClg({super.key});
+
+  @override
+  State<AboutClg> createState() => _AboutClgState();
+}
+
+class _AboutClgState extends State<AboutClg> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom")),
+      ),
+      body: Container(
+        width: 300,
+        height: 300,
+        child: Stack(
+          children: [
+            Container(
+              width: 200,
+              height: 200,
+              color: Colors.green,
+            ),
+            Container(
+              width: 150,
+              height: 150,
+              color: Colors.orange,
+            ),
+            Positioned(
+              left: 21,
+              top: 21,
+              child: Container(
+                width: 100,
+                height: 100,
+                color: Colors.pink,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Stack Widget...
+//*************************************************************** */
+import 'dart:developer';
+// import 'dart:html';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  const AboutClg({super.key});
+
+  @override
+  State<AboutClg> createState() => _AboutClgState();
+}
+
+class _AboutClgState extends State<AboutClg> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom")),
+      ),
+      body: Container(
+        width: 300,
+        height: 300,
+        child: Stack(
+          children: [
+            Container(
+              width: 200,
+              height: 200,
+              color: Colors.green,
+            ),
+            Container(
+              width: 150,
+              height: 150,
+              color: Colors.orange,
+            ),
+            Positioned(
+              left: 21,
+              top: 21,
+              child: Container(
+                width: 100,
+                height: 100,
+                color: Colors.pink,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+//*************************************************************** */
+// Wrap Widget...
+//*************************************************************** */
+import 'dart:developer';
+// import 'dart:html';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  const AboutClg({super.key});
+
+  @override
+  State<AboutClg> createState() => _AboutClgState();
+}
+
+class _AboutClgState extends State<AboutClg> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom")),
+      ),
+      body: Container(
+        width: double.infinity,
+        child: Wrap(
+            // direction: Axis.vertical,
+            spacing: 11,
+            runSpacing: 11,
+            alignment: WrapAlignment.center,
+            children: [
+              Container(
+                height: 100,
+                width: 100,
+                color: Colors.red,
+              ),
+              Container(
+                height: 100,
+                width: 100,
+                color: Colors.yellow,
+              ),
+              Container(
+                height: 100,
+                width: 100,
+                color: Colors.blue,
+              ),
+              Container(
+                height: 100,
+                width: 100,
+                color: Colors.green,
+              ),
+              Container(
+                height: 100,
+                width: 100,
+                color: Colors.pink,
+              ),
+            ]),
+      ),
+    );
+  }
+}
+
+
+
+//*************************************************************** */
+// Sized Box Widget...
+//*************************************************************** */
+import 'dart:developer';
+// import 'dart:html';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  const AboutClg({super.key});
+
+  @override
+  State<AboutClg> createState() => _AboutClgState();
+}
+
+class _AboutClgState extends State<AboutClg> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom")),
+      ),
+      body: Center(
+        child: SizedBox(
+          width: 200,
+          height: 50,
+          child: ElevatedButton(
+            onPressed: () {},
+            child: Text('Click'),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+//*************************************************************** */
+// RichText Widget...
+//*************************************************************** */
+import 'dart:developer';
+// import 'dart:html';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  const AboutClg({super.key});
+
+  @override
+  State<AboutClg> createState() => _AboutClgState();
+}
+
+class _AboutClgState extends State<AboutClg> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Center(child: Text("Welcom")),
+        ),
+        body: RichText(
+          text: TextSpan(
+              style: TextStyle(color: Colors.red, fontSize: 26),
+              children: <TextSpan>[
+                TextSpan(
+                  text: "Hello ",
+                ),
+                TextSpan(
+                    text: "World ",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal,
+                        fontSize: 36)),
+                TextSpan(
+                  text: "In ",
+                ),
+                TextSpan(
+                    text: "Flutte ",
+                    style: TextStyle(
+                        fontStyle: FontStyle.italic, color: Colors.blue)),
+              ]),
+        ));
+  }
+}
+
+
+//*************************************************************** */
+// Icon Widget...
+//*************************************************************** */
+import 'dart:developer';
+// import 'dart:html';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  const AboutClg({super.key});
+
+  @override
+  State<AboutClg> createState() => _AboutClgState();
+}
+
+class _AboutClgState extends State<AboutClg> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Center(child: Text("Welcom")),
+        ),
+        body: Center(
+          child: Icon(
+            Icons.login,
+            size: 40,
+            color: Colors.red,
+          ),
+        ));
+  }
+}
+
+
+//*************************************************************** */
+// font Awesome Icon Widget...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+class AboutClg extends StatefulWidget {
+  const AboutClg({super.key});
+
+  @override
+  State<AboutClg> createState() => _AboutClgState();
+}
+
+class _AboutClgState extends State<AboutClg> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Center(child: Text("Welcom")),
+        ),
+        body: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.login,
+                size: 40,
+                color: Colors.red,
+              ),
+              FaIcon(
+                FontAwesomeIcons.user,
+                color: Colors.blue,
+                size: 50,
+              ),
+            ],
+          ),
+        ));
+  }
+}
+
+
+//*************************************************************** */
+// Positioned Widget...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  const AboutClg({super.key});
+
+  @override
+  State<AboutClg> createState() => _AboutClgState();
+}
+
+class _AboutClgState extends State<AboutClg> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text("Welcom")),
+      ),
+      body: Container(
+        width: 300,
+        height: 200,
+        color: Colors.blueGrey,
+        child: Stack(
+          children: [
+            Positioned(
+              bottom: 41,
+              left: 41,
+              child: Container(
+                width: 100,
+                height: 100,
+                color: Colors.white,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+
+//*************************************************************** */
+// Stateful Widget...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return AboutClgState();
+  }
+}
+
+class AboutClgState extends State<AboutClg> {
+  var count = 0;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text('Welcom')),
+      ),
+      body: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Text('Counter:  $count'),
+          ElevatedButton(
+              onPressed: () {
+                count++;
+                print("--> $count");
+                setState(() {});
+              },
+              child: Text("Count"))
+        ]),
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Calculater using Stateful Widget...
+//*************************************************************** */
+import 'dart:developer';
+// import 'dart:html';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return AboutClgState();
+  }
+}
+
+class AboutClgState extends State<AboutClg> {
+  var num1 = TextEditingController();
+  var num2 = TextEditingController();
+  var action = " ";
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.blueGrey,
+      appBar: AppBar(
+        title: Center(child: Text('Welcom')),
+      ),
+      body: Center(
+        child: Container(
+          height: 350,
+          width: 300,
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            children: [
+              Text(
+                "Calculator                   ",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 29,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  color: Colors.white,
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    controller: num1,
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  color: Colors.white,
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    controller: num2,
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "Result:   $action",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            var no1 = int.parse(num1.text.toString());
+                            var no2 = int.parse(num2.text.toString());
+
+                            var add = no1 + no2;
+
+                            action = "$add";
+                            setState(() {});
+                          },
+                          child: Text('add')),
+                      ElevatedButton(
+                          onPressed: () {
+                            var no1 = int.parse(num1.text.toString());
+                            var no2 = int.parse(num2.text.toString());
+
+                            var sub = no1 - no2;
+
+                            action = "$sub";
+                            setState(() {});
+                          },
+                          child: Text('subt')),
+                      ElevatedButton(
+                          onPressed: () {
+                            var no1 = int.parse(num1.text.toString());
+                            var no2 = int.parse(num2.text.toString());
+
+                            var mul = no1 * no2;
+
+                            action = "$mul";
+                            setState(() {});
+                          },
+                          child: Text('multi')),
+                      ElevatedButton(
+                          onPressed: () {
+                            var no1 = int.parse(num1.text.toString());
+                            var no2 = int.parse(num2.text.toString());
+
+                            var div = no1 / no2;
+
+                            action = "$div";
+                            setState(() {});
+                          },
+                          child: Text('Div')),
+                    ]),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Constraint Box...
+//*************************************************************** */
+import 'dart:developer';
+// import 'dart:html';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return AboutClgState();
+  }
+}
+
+class AboutClgState extends State<AboutClg> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text('Welcom')),
+      ),
+      body: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: 50,
+          ),
+          child: Text("Hello Flutter")),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Switching From one screen to another screen...
+//*************************************************************** */
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/pages/home_page.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return AboutClgState();
+  }
+}
+
+class AboutClgState extends State<AboutClg> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Center(child: Text('Welcom')),
+      ),
+      body: Column(
+        children: [
+          Text("Hello Flutter"),
+          ElevatedButton(
+              onPressed: () {
+                // Navigator.push(context, MaterialPageRoute(builder: (context) {return HomePage(); }));
+                Navigator.pushNamed(context, MyRoutes.homeRoute);
+                // Navigator.pop(context);
+              },
+              child: Text("Click"))
+        ],
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Splash screen...
+//*************************************************************** */
+import 'dart:async';
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/pages/home_page.dart';
+import 'package:yns_collage_management/pages/login_page.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+
+class AboutClg extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return AboutClgState();
+  }
+}
+
+class AboutClgState extends State<AboutClg> {
+  @override
+  void initState() {
+    super.initState();
+
+    Timer(Duration(seconds: 3), () {
+      // Navigator.pushNamed(context, MyRoutes.loginRoute);
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        color: Colors.black,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset("assets/images/img5.png"),
+              Text(
+                "Collage Management System",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+//*************************************************************** */
+// Shared Preferences...
+//*************************************************************** */
+import 'dart:async';
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:yns_collage_management/pages/home_page.dart';
+import 'package:yns_collage_management/pages/login_page.dart';
+import 'package:yns_collage_management/pages/whoru.dart';
+import 'package:yns_collage_management/utils/routes.dart';
+import 'package:flutter_intl/flutter_intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class AboutClg extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return AboutClgState();
+  }
+}
+
+class AboutClgState extends State<AboutClg> {
+  var nameController = TextEditingController();
+  static const String KEYNAME = "name";
+  var nameValue = "No Value Saved";
+  @override
+  void initState() {
+    super.initState();
+    getvalue();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Welcom'),
+      ),
+      body: Container(
+        child: Center(
+          child: SizedBox(
+            width: 250,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextField(
+                  controller: nameController,
+                  decoration: InputDecoration(
+                      label: Text("Name"),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(21))),
+                ),
+                SizedBox(
+                  height: 11,
+                ),
+                ElevatedButton(
+                    onPressed: () async {
+                      // var name = nameController.text.toString();
+                      var prefs = await SharedPreferences.getInstance();
+                      prefs.setString(KEYNAME, nameController.text.toString());
+                    },
+                    child: Text("Save")),
+                Text(nameValue)
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void getvalue() async {
+    var prefs = await SharedPreferences.getInstance();
+    var getName = prefs.getString(KEYNAME);
+
+    nameValue = getName != null ? getName : "No Value Saved";
+
+    setState(() {});
+  }
+}
+
