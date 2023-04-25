@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
             title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  (role == 'Admin' || role == 'Teacher')
+                  (role == 'Admin' || role == 'Teachers')
                       ? Text(name)
                       : Text(studentName),
                   Row(children: [
@@ -109,7 +109,7 @@ class HomePage extends StatelessWidget {
                                               RichText(
                                                   softWrap: true,
                                                   text: (role == 'Admin' ||
-                                                          role == 'Teacher')
+                                                          role == 'Teachers')
                                                       ? TextSpan(
                                                           text: '$name\n',
                                                           style: const TextStyle(
@@ -181,7 +181,7 @@ class HomePage extends StatelessWidget {
                               begin: Alignment.bottomLeft,
                               end: Alignment.centerRight)),
                       // for Admin & teacher...
-                      child: (role == 'Admin' || role == 'Teacher')
+                      child: (role == 'Admin' || role == 'Teachers')
                           ? GridView.count(crossAxisCount: 2, children: [
                               const AttendanceTakerBtn(),
                               const CheckAttendanceBtn(),

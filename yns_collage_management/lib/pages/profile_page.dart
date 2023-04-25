@@ -94,7 +94,7 @@ class ProfilePage extends StatelessWidget {
                                                   Text(
                                                       (role == 'Admin' ||
                                                               role ==
-                                                                  'teachers')
+                                                                  'Teachers')
                                                           ? name
                                                           : studentName,
                                                       style: TextStyle(
