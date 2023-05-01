@@ -12,12 +12,18 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String name = 'Ginni Dua';
-    String studentName = 'Shive sharma';
-    String Class = 'BCA';
+    String id = 'AD762372';
+    String name = 'Sanjay Kumar';
     String profile = 'HOD';
     String department = 'Computer Science Dep.';
-    String id = 'AD762372';
+    if (role == 'Teachers') {
+      id = 'TE89121';
+      name = 'Ginni Dua';
+      profile = 'Assistant Professor';
+      department = 'Computer Science';
+    }
+    String studentName = 'Yash Gupta';
+    String Class = 'BCA';
     String rollNo = 'SE723727';
     String phoneNo = '9056985643';
     int present = 86;
@@ -25,7 +31,7 @@ class ProfilePage extends StatelessWidget {
     String session = '2020-2023';
     String fName = 'Sidhart Sharma';
     String mName = "Seta Sharma";
-    String gender = 'Male';
+    String gender = ' ';
     String dob = '7-12-1999';
     String aadharNo = '123456789123';
     String category = 'general';

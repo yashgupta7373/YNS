@@ -16,13 +16,19 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String name = 'Ginni Dua';
+    String id = 'AD762372';
+    String name = 'Sanjay Kumar';
+    String department = 'Computer Science Dep.';
+    String profile = 'HOD';
+    if (role == 'Teachers') {
+      id = 'TE89121';
+      name = 'Ginni Dua';
+      profile = 'Assistant Professor';
+      department = 'Computer Science Dep.';
+    }
+    String rollNo = 'SE723727';
     String studentName = 'Yash Gupta';
     String Class = 'Bca';
-    String profile = 'HOD';
-    String department = 'Computer Science';
-    String id = 'AD762372';
-    String rollNo = 'SE723727';
     return Scaffold(
         extendBody: true,
         backgroundColor: const Color.fromRGBO(100, 232, 222, 1.0),
