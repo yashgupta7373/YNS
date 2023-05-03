@@ -124,7 +124,7 @@ class _CalendarState extends State<Calendar> {
         body: SingleChildScrollView(
             child: Center(
                 child: Column(children: [
-          Text("Calender",
+          Text("Calendar",
               style: TextStyle(
                   shadows: [
                     Shadow(

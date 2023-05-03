@@ -28,7 +28,7 @@ class _BackPageState extends State<BackPage> {
                             blurRadius: 5,
                             offset: const Offset(2, 2))
                       ],
-                      fontSize: 70,
+                      fontSize: 50,
                       fontWeight: FontWeight.bold,
                       color: Colors.white))),
           // Admin

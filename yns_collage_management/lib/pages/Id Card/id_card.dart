@@ -14,8 +14,7 @@ class IdCard extends StatelessWidget {
             child: Column(children: [
           SizedBox(
               height: mediaQuery.size.height * 0.5,
-              child: Lottie.network(
-                  'https://assets8.lottiefiles.com/packages/lf20_830nh3fg.json')),
+              child: Lottie.asset('assets/images/img73.json')),
           const Center(
               child: Text("Sorry !!!",
                   textAlign: TextAlign.center,

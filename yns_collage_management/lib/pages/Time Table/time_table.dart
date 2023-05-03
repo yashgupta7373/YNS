@@ -14,8 +14,7 @@ class TimeTable extends StatelessWidget {
             child: Column(children: [
           SizedBox(
               height: mediaQuery.size.height * 0.5,
-              child: Lottie.network(
-                  'https://assets3.lottiefiles.com/packages/lf20_6ft9bypa.json')),
+              child: Lottie.asset('assets/images/img59.json')),
           const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text('Time Table Will Be Uploaded Soon...',

@@ -3,8 +3,8 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:yns_collage_management/pages/College%20Web/clgweb_page.dart';
 import 'package:yns_collage_management/pages/College%20Web/getintouch_page.dart';
-import 'package:yns_collage_management/pages/College%20Web/noti.dart';
 import '../login_page.dart';
+import 'notification.dart';
 
 class BottomNavigation extends StatefulWidget {
   const BottomNavigation({super.key});
@@ -19,7 +19,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
   final Screens = [
     const ClgWebPage(),
     const GetInTouchPage(),
-    const Noti(),
+    const NotificationPage(),
     const LoginPage()
   ];
   @override

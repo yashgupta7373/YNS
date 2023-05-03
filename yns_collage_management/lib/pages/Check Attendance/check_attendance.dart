@@ -20,9 +20,9 @@ class _CheckAttendanceState extends State<CheckAttendance> {
         body: SingleChildScrollView(
             child: Column(children: [
           SizedBox(
-              height: mediaQuery.size.height * 0.5,
-              child: Lottie.network(
-                  'https://assets1.lottiefiles.com/packages/lf20_0hxkpskc.json')),
+            height: mediaQuery.size.height * 0.5,
+            child: Lottie.asset('assets/images/img58.json'),
+          ),
           const Center(
               child: Text("Oops!",
                   textAlign: TextAlign.center,

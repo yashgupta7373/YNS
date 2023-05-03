@@ -2,7 +2,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:yns_collage_management/pages/College%20Web/clgweb_page.dart';
-import 'package:yns_collage_management/pages/College%20Web/noti.dart';
+import 'package:yns_collage_management/pages/College%20Web/notification.dart';
 import 'package:yns_collage_management/pages/profile_page.dart';
 import 'home_page.dart';
 
@@ -22,7 +22,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     final Screens = [
       HomePage(role: widget.role),
       const ClgWebPage(),
-      const Noti(),
+      const NotificationPage(),
       ProfilePage(role: widget.role)
     ];
     final items = <Widget>[

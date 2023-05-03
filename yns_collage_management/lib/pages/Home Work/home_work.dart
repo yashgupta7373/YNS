@@ -49,9 +49,9 @@ class _HomeWorkState extends State<HomeWork> {
                       fontWeight: FontWeight.bold,
                       color: Colors.white))),
           SizedBox(
-              height: mediaQuery.size.height * 0.5,
-              child: Lottie.network(
-                  'https://assets9.lottiefiles.com/packages/lf20_xv1gn5by.json')),
+            height: mediaQuery.size.height * 0.5,
+            child: Lottie.asset('assets/images/img74.json'),
+          ),
           const Text("Home Work Not available",
               textAlign: TextAlign.center,
               style: TextStyle(

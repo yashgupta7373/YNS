@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-class Noti extends StatefulWidget {
-  const Noti({super.key});
+class NotificationPage extends StatefulWidget {
+  const NotificationPage({super.key});
   @override
-  State<Noti> createState() => _NotiState();
+  State<NotificationPage> createState() => _NotificationPageState();
 }
 
-class _NotiState extends State<Noti> {
+class _NotificationPageState extends State<NotificationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +25,7 @@ class _NotiState extends State<Noti> {
                   SizedBox(
                       height: 180,
                       width: 180,
-                      child: Lottie.network(
-                          'https://assets7.lottiefiles.com/packages/lf20_4qkb4ywv.json')),
+                      child: Lottie.asset('assets/images/img72.json')),
                   const SizedBox(height: 25),
                   Text("Notifications",
                       style: TextStyle(

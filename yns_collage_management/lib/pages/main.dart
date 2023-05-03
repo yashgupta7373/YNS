@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:yns_collage_management/pages/College%20Web/aboutclg_page.dart';
 import 'package:yns_collage_management/pages/College%20Web/clgweb_page.dart';
-import 'package:yns_collage_management/pages/College%20Web/noti.dart';
+import 'package:yns_collage_management/pages/College%20Web/notification.dart';
 import 'package:yns_collage_management/pages/Splash%20Screen/splash_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yns_collage_management/Utils/routes.dart';
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
           MyRoutes.ClgWebpageRoute: (context) => const ClgWebPage(),
           MyRoutes.AboutClgpageRoute: (context) => const AboutClgPage(),
           MyRoutes.founderpageRoute: (context) => const AboutFounderPage(),
-          MyRoutes.notiRoute: (context) => const Noti()
+          MyRoutes.notiRoute: (context) => const NotificationPage()
         });
   }
 }

@@ -48,8 +48,7 @@ class _NoticeBoardState extends State<NoticeBoard> {
                       fontSize: 50,
                       fontWeight: FontWeight.bold,
                       color: Colors.white))),
-          Lottie.network(
-              'https://assets7.lottiefiles.com/packages/lf20_4qkb4ywv.json')
+          Lottie.asset('assets/images/img72.json')
         ])),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
