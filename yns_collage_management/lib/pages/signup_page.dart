@@ -1,8 +1,8 @@
 // ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yns_collage_management/Resources/auth_method.dart';
-import 'package:yns_collage_management/pages/login_page.dart';
+import 'package:yns_college_management/Resources/auth_method.dart';
+import 'package:yns_college_management/pages/login_page.dart';
 import '../../Utils/utils.dart';
 import '../../Widgets/siginup_and_login_page_widget.dart';
 import 'navigation_bar.dart';

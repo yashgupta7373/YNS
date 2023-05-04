@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
 import 'package:flutter/material.dart';
-import 'package:yns_collage_management/widgets/input_field_student_registration.dart';
+import 'package:yns_college_management/widgets/input_field_student_registration.dart';
 import '../../../Resources/auth_method.dart';
 import '../../../Utils/utils.dart';
 

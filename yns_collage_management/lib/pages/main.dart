@@ -2,12 +2,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:yns_collage_management/pages/College%20Web/aboutclg_page.dart';
-import 'package:yns_collage_management/pages/College%20Web/clgweb_page.dart';
-import 'package:yns_collage_management/pages/College%20Web/notification.dart';
-import 'package:yns_collage_management/pages/Splash%20Screen/splash_page.dart';
+import 'package:yns_college_management/pages/College%20Web/aboutclg_page.dart';
+import 'package:yns_college_management/pages/College%20Web/clgweb_page.dart';
+import 'package:yns_college_management/pages/College%20Web/notification.dart';
+import 'package:yns_college_management/pages/Splash%20Screen/splash_page.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:yns_collage_management/Utils/routes.dart';
+import 'package:yns_college_management/Utils/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'College Management',
+        title: 'Clg Management',
         themeMode: ThemeMode.light,
         theme: ThemeData(
             primarySwatch: Colors.teal,

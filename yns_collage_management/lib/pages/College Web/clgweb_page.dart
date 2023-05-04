@@ -1,9 +1,9 @@
 // ignore_for_file: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yns_collage_management/pages/College%20Web/department.dart';
-import 'package:yns_collage_management/pages/College%20Web/footer.dart';
-import 'package:yns_collage_management/pages/College%20Web/photogallery_Page.dart';
+import 'package:yns_college_management/pages/College%20Web/department.dart';
+import 'package:yns_college_management/pages/College%20Web/footer.dart';
+import 'package:yns_college_management/pages/College%20Web/photogallery_Page.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'aboutclg_page.dart';
 import 'header.dart';

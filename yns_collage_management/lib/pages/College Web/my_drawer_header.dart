@@ -1,13 +1,13 @@
 // ignore_for_file: library_private_types_in_public_api
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yns_collage_management/pages/College%20Web/aboutclg_page.dart';
-import 'package:yns_collage_management/pages/College%20Web/courses_page.dart';
-import 'package:yns_collage_management/pages/College%20Web/developer_page.dart';
-import 'package:yns_collage_management/pages/College%20Web/fee_page.dart';
-import 'package:yns_collage_management/pages/College%20Web/getintouch_page.dart';
-import 'package:yns_collage_management/pages/College%20Web/help_page.dart';
-import 'package:yns_collage_management/pages/College%20Web/photogallery_Page.dart';
+import 'package:yns_college_management/pages/College%20Web/aboutclg_page.dart';
+import 'package:yns_college_management/pages/College%20Web/courses_page.dart';
+import 'package:yns_college_management/pages/College%20Web/developer_page.dart';
+import 'package:yns_college_management/pages/College%20Web/fee_page.dart';
+import 'package:yns_college_management/pages/College%20Web/getintouch_page.dart';
+import 'package:yns_college_management/pages/College%20Web/help_page.dart';
+import 'package:yns_college_management/pages/College%20Web/photogallery_Page.dart';
 
 // Profile
 class MyHeaderDrawer extends StatefulWidget {

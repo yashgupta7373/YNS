@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yns_collage_management/pages/Attendance/attendance_form.dart';
-import 'package:yns_collage_management/pages/Library/issue_book.dart';
+import 'package:yns_college_management/pages/Attendance/attendance_form.dart';
+import 'package:yns_college_management/pages/Library/issue_book.dart';
 import '../pages/Apply Leave/apply_leave.dart';
 import '../pages/Calender/calender.dart';
 import '../pages/Check Attendance/check_attendance.dart';

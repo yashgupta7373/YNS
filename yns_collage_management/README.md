@@ -1,4 +1,4 @@
-# yns_collage_management
+# yns_college_management
 
 A new Flutter project.
 

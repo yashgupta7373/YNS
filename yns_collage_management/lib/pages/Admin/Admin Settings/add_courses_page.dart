@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
-import 'package:yns_collage_management/widgets/input_field_student_registration.dart';
+import 'package:yns_college_management/widgets/input_field_student_registration.dart';
 
 class AddCoursesPage extends StatefulWidget {
   const AddCoursesPage({super.key});

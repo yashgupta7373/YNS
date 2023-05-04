@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:yns_collage_management/pages/College%20Web/clgweb_page.dart';
-import 'package:yns_collage_management/pages/College%20Web/getintouch_page.dart';
+import 'package:yns_college_management/pages/College%20Web/clgweb_page.dart';
+import 'package:yns_college_management/pages/College%20Web/getintouch_page.dart';
 import '../login_page.dart';
 import 'notification.dart';
 

@@ -1,5 +1,5 @@
-name: yns_collage_management
-description: A new Flutter project.
+name: yns_college_management
+description: A Web-Application For 'College Management System'.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.

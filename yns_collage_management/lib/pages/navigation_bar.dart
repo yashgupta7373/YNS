@@ -1,9 +1,9 @@
 // ignore_for_file: file_names, must_be_immutable, non_constant_identifier_names
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:yns_collage_management/pages/College%20Web/clgweb_page.dart';
-import 'package:yns_collage_management/pages/College%20Web/notification.dart';
-import 'package:yns_collage_management/pages/profile_page.dart';
+import 'package:yns_college_management/pages/College%20Web/clgweb_page.dart';
+import 'package:yns_college_management/pages/College%20Web/notification.dart';
+import 'package:yns_college_management/pages/profile_page.dart';
 import 'home_page.dart';
 
 class BottomNavBar extends StatefulWidget {

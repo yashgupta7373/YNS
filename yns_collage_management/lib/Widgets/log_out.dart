@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yns_collage_management/pages/College%20Web/bottomNav.dart';
+import 'package:yns_college_management/pages/College%20Web/bottomNav.dart';
 
 class LogOut extends StatelessWidget {
   const LogOut({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yns_collage_management/pages/College%20Web/footer.dart';
-import 'package:yns_collage_management/pages/College%20Web/header.dart';
+import 'package:yns_college_management/pages/College%20Web/footer.dart';
+import 'package:yns_college_management/pages/College%20Web/header.dart';
 
 class AboutClgPage extends StatefulWidget {
   const AboutClgPage({super.key});

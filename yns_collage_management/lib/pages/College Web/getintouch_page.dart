@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:yns_collage_management/pages/College%20Web/footer.dart';
+import 'package:yns_college_management/pages/College%20Web/footer.dart';
 
 class GetInTouchPage extends StatefulWidget {
   const GetInTouchPage({super.key});

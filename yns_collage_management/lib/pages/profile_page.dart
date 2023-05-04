@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:yns_collage_management/Widgets/log_out.dart';
+import 'package:yns_college_management/Widgets/log_out.dart';
 import '../../Widgets/call_class_room_and_online_class.dart';
 import '../../Widgets/profile_widget.dart';
 

@@ -1,7 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yns_collage_management/pages/Attendance/attendance_overviwe.dart';
+import 'package:yns_college_management/pages/Attendance/attendance_overviwe.dart';
 
 class AttendanceTaker extends StatefulWidget {
   const AttendanceTaker({super.key});

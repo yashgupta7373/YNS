@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yns_collage_management/pages/Library/return_book.dart';
+import 'package:yns_college_management/pages/Library/return_book.dart';
 
 class IssueBook extends StatefulWidget {
   String role;
