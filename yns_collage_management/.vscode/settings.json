@@ -166,5 +166,8 @@
     "Xmark",
     "Yash",
     "yashgupta"
-  ]
+  ],
+  "files.associations": {
+    "Program.C": "cpp"
+  }
 }
