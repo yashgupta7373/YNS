@@ -4,7 +4,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:yns_college_management/pages/Attendance/attendance_overviwe.dart';
 
 class AttendanceTaker extends StatefulWidget {
-  const AttendanceTaker({super.key});
+  const AttendanceTaker({Key? key}) : super(key: key);
+
   @override
   State<AttendanceTaker> createState() => _AttendanceTakerState();
 }
@@ -43,12 +44,13 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
     'Rahim',
     'Ram'
   ];
-  List<String> presentArray = [];
+  List<bool> presentArray = [];
 
-  int _totalPresen = 0;
+  int _totalPresent = 0;
+
   void countPresentStudent() {
     setState(() {
-      _totalPresen = presentArray.length;
+      _totalPresent = presentArray.where((present) => present).length;
     });
   }
 
@@ -64,83 +66,88 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
             elevation: 0),
         body: Column(children: [
           Center(
-              child: Container(
-                  height: 180,
-                  width: mediaQuery.size.width * 0.8,
-                  decoration: BoxDecoration(
-                      color: Colors.teal[700],
-                      borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(80),
-                          topLeft: Radius.circular(80),
-                          topRight: Radius.circular(20)),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.teal.shade500,
-                            blurRadius: 15,
-                            offset: const Offset(0, 10))
-                      ]),
-                  child: Column(
+            child: Container(
+              height: 180,
+              width: mediaQuery.size.width * 0.8,
+              decoration: BoxDecoration(
+                  color: Colors.teal[700],
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(80),
+                      topLeft: Radius.circular(80),
+                      topRight: Radius.circular(20)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.teal.shade500,
+                        blurRadius: 15,
+                        offset: const Offset(0, 10))
+                  ]),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        const CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 40,
+                            backgroundImage:
+                                AssetImage("assets/images/img60.png")),
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 40,
-                                  backgroundImage:
-                                      AssetImage("assets/images/img60.png")),
-                              Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text('Date: $date',
-                                        style: const TextStyle(
-                                            fontSize: 15, color: Colors.white)),
-                                    Text('Class: $Class',
-                                        style: const TextStyle(
-                                            fontSize: 15, color: Colors.white)),
-                                    Text('Subject: $subject',
-                                        style: const TextStyle(
-                                            fontSize: 15, color: Colors.white)),
-                                    Text('Teacher: $teacher',
-                                        style: const TextStyle(
-                                            fontSize: 15, color: Colors.white))
-                                  ])
+                              Text('Date: $date',
+                                  style: const TextStyle(
+                                      fontSize: 15, color: Colors.white)),
+                              Text('Class: $Class',
+                                  style: const TextStyle(
+                                      fontSize: 15, color: Colors.white)),
+                              Text('Subject: $subject',
+                                  style: const TextStyle(
+                                      fontSize: 15, color: Colors.white)),
+                              Text('Teacher: $teacher',
+                                  style: const TextStyle(
+                                      fontSize: 15, color: Colors.white))
+                            ])
+                      ]),
+                  Divider(
+                      color: Colors.teal[300],
+                      height: 0,
+                      thickness: 0,
+                      indent: 5,
+                      endIndent: 5),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Column(
+                      children: [
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text('Total Student',
+                                  style: TextStyle(color: Colors.teal[300])),
+                              Text('Total Present',
+                                  style: TextStyle(color: Colors.teal[300]))
                             ]),
-                        Divider(
-                            color: Colors.teal[300],
-                            height: 0,
-                            thickness: 0,
-                            indent: 5,
-                            endIndent: 5),
-                        Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 25),
-                            child: Column(children: [
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text('Total Student',
-                                        style:
-                                            TextStyle(color: Colors.teal[300])),
-                                    Text('Total Present',
-                                        style:
-                                            TextStyle(color: Colors.teal[300]))
-                                  ]),
-                              Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text('$totalStudent',
-                                        style:
-                                            TextStyle(color: Colors.teal[300])),
-                                    Text('$_totalPresen',
-                                        style:
-                                            TextStyle(color: Colors.teal[300]))
-                                  ])
-                            ]))
-                      ]))),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Text(
+                              '$totalStudent',
+                              style: TextStyle(color: Colors.teal[300]),
+                            ),
+                            Text(
+                              '$_totalPresent',
+                              style: TextStyle(color: Colors.teal[300]),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Expanded(
               child: SingleChildScrollView(
                   child: Column(children: [
@@ -150,24 +157,17 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
                 itemCount: arrRollno.length,
                 itemBuilder: (context, index) {
                   return InkWell(
-                      onTap: (() {
+                      onTap: () {
                         setState(() {
-                          if (presentArray
-                              .contains(arrRollno[index].toString())) {
-                            presentArray.remove(arrRollno[index].toString());
-                          } else {
-                            presentArray.add(arrRollno[index].toString());
-                          }
+                          presentArray[index] = !presentArray[index];
                         });
                         countPresentStudent();
-                      }),
+                      },
                       child: Card(
                           color: Colors.teal[700],
                           elevation: 5,
                           shadowColor:
-                              presentArray.contains(arrRollno[index].toString())
-                                  ? Colors.green
-                                  : Colors.red,
+                              presentArray[index] ? Colors.green : Colors.red,
                           child: ListTile(
                               leading: InkWell(
                                   onTap: (() {
@@ -189,17 +189,16 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
                                   height: 40,
                                   width: 90,
                                   decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(10)),
-                                      color: presentArray.contains(
-                                              arrRollno[index].toString())
-                                          ? Colors.red
-                                          : Colors.green),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10)),
+                                    color: presentArray[index]
+                                        ? Colors.red
+                                        : Colors.green,
+                                  ),
                                   child: Center(
-                                      child: Text(presentArray
-                                              .contains(arrRollno[index].toString())
-                                          ? 'Absent'
-                                          : 'Present'))))));
+                                      child: Text(
+                                    presentArray[index] ? 'Absent' : 'Present',
+                                  ))))));
                 }),
             Padding(
                 padding: const EdgeInsets.all(20),
