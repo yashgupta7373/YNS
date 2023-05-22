@@ -35,6 +35,8 @@ class _LoginPageState extends State<LoginPage> {
     String res = await AuthMethods()
         .loginUser(email: email.text, password: password.text);
     if (res == 'success') {
+      // Navigator.of(context)
+      //     .pushReplacement(MaterialPageRoute(builder: (context) => Try(role: role)));
       Navigator.pushReplacement(
           context,
           PageTransition(

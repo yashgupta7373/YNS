@@ -1,8 +1,11 @@
 // ignore_for_file: deprecated_member_use, non_constant_identifier_names, must_be_immutable
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:yns_college_management/Widgets/log_out.dart';
 import 'package:yns_college_management/pages/Admin/Admin%20Settings/add_student_page.dart';
 import 'package:yns_college_management/pages/College%20Web/my_drawer_header.dart';
 import '../../Widgets/call_class_room_and_online_class.dart';
@@ -10,25 +13,74 @@ import '../../Widgets/home_page_widget.dart';
 import 'Admin/Admin Settings/add_courses_page.dart';
 import 'Admin/Admin Settings/add_teachers_or_admin_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   String role;
   HomePage({super.key, required this.role});
 
   @override
-  Widget build(BuildContext context) {
-    String id = 'AD762372';
-    String name = 'Sanjay Kumar';
-    String department = 'Computer Science Dep.';
-    String profile = 'HOD';
-    if (role == 'Teachers') {
-      id = 'TE89121';
-      name = 'Ginni Dua';
-      profile = 'Assistant Professor';
-      department = 'Computer Science Dep.';
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  var username = "";
+  var userId = "";
+  var userProfile = "";
+  var userDepartment = "";
+  var studentName = "";
+  var rollNo = "";
+  var Class = "";
+  @override
+  void initState() {
+    super.initState();
+    getUsername();
+  }
+
+  void getUsername() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection(widget.role)
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    print(snap.data());
+    print(snap);
+    if (widget.role == 'Admin' || widget.role == 'Teachers') {
+      setState(() {
+        username = (snap.data() as Map<String, dynamic>)['name'];
+        userId = (snap.data() as Map<String, dynamic>)['id'];
+        userProfile = (snap.data() as Map<String, dynamic>)['profile'];
+        userDepartment = (snap.data() as Map<String, dynamic>)['department'];
+      });
+    } else {
+      username = (snap.data() as Map<String, dynamic>)['name'];
+      rollNo = (snap.data() as Map<String, dynamic>)['rollNo.'];
+      Class = (snap.data() as Map<String, dynamic>)['Class'];
+      userDepartment = (snap.data() as Map<String, dynamic>)['department'];
     }
-    String rollNo = 'SE723727';
-    String studentName = 'Yash Gupta';
-    String Class = 'Bca';
+    // setState(() {
+    //   username = (snap.data() as Map<String, dynamic>)['name'];
+    //   userId = (snap.data() as Map<String, dynamic>)['id'];
+    //   userProfile = (snap.data() as Map<String, dynamic>)['profile'];
+    //   // rollNo = (snap.data() as Map<String, dynamic>)['rollNo.'];
+    //   userDepartment = (snap.data() as Map<String, dynamic>)['department'];
+    //   // C = (snap.data() as Map<String, dynamic>)['Class'];
+    //   // studentName = (snap.data() as Map<String, dynamic>)['name'];
+    // });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // String id = 'AD762372';
+    // // String name = 'Sanjay Kumar';
+    // String department = 'Computer Science Dep.';
+    // String profile = 'HOD';
+    // if (widget.role == 'Teachers') {
+    //   id = 'TE89121';
+    //   // name = 'Ginni Dua';
+    //   profile = 'Assistant Professor';
+    //   department = 'Computer Science Dep.';
+    // }
+    // String rollNo = 'SE723727';
+    // String studentName = 'Yash Gupta';
+    // String Class = 'Bca';
     return Scaffold(
         extendBody: true,
         backgroundColor: const Color.fromRGBO(100, 232, 222, 1.0),
@@ -36,9 +88,9 @@ class HomePage extends StatelessWidget {
             title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  (role == 'Admin' || role == 'Teachers')
-                      ? Text(name)
-                      : Text(studentName),
+                  // (widget.role == 'Admin' || widget.role == 'Teachers')
+                  //     ? Text(username):
+                  Text(username),
                   Row(children: [
                     InkWell(
                         onTap: () {},
@@ -46,6 +98,7 @@ class HomePage extends StatelessWidget {
                             color: Colors.white)),
                     const SizedBox(width: 10),
                     const CallClasses(),
+                    LogOut(),
                     const SizedBox(width: 20),
                     InkWell(
                         onTap: () async {
@@ -114,10 +167,12 @@ class HomePage extends StatelessWidget {
                                                 children: [
                                               RichText(
                                                   softWrap: true,
-                                                  text: (role == 'Admin' ||
-                                                          role == 'Teachers')
+                                                  text: (widget.role ==
+                                                              'Admin' ||
+                                                          widget.role ==
+                                                              'Teachers')
                                                       ? TextSpan(
-                                                          text: '$name\n',
+                                                          text: '$username\n',
                                                           style: const TextStyle(
                                                               fontSize: 20,
                                                               fontWeight:
@@ -125,26 +180,26 @@ class HomePage extends StatelessWidget {
                                                                       .bold),
                                                           children: [
                                                               TextSpan(
-                                                                  text: '$id\n',
+                                                                  text:
+                                                                      '$userId\n',
                                                                   style: const TextStyle(
                                                                       fontSize:
                                                                           15)),
                                                               TextSpan(
                                                                   text:
-                                                                      '[$profile]\n',
+                                                                      '[$userProfile]\n',
                                                                   style: const TextStyle(
                                                                       fontSize:
                                                                           15)),
                                                               TextSpan(
                                                                   text:
-                                                                      department,
+                                                                      userDepartment,
                                                                   style: const TextStyle(
                                                                       fontSize:
                                                                           15)),
                                                             ])
                                                       : TextSpan(
-                                                          text:
-                                                              '$studentName\n',
+                                                          text: '$username\n',
                                                           style: const TextStyle(
                                                               fontSize: 20,
                                                               fontWeight:
@@ -165,7 +220,7 @@ class HomePage extends StatelessWidget {
                                                                           15)),
                                                               TextSpan(
                                                                   text:
-                                                                      department,
+                                                                      userDepartment,
                                                                   style: const TextStyle(
                                                                       fontSize:
                                                                           15))
@@ -187,20 +242,21 @@ class HomePage extends StatelessWidget {
                               begin: Alignment.bottomLeft,
                               end: Alignment.centerRight)),
                       // for Admin & teacher...
-                      child: (role == 'Admin' || role == 'Teachers')
+                      child: (widget.role == 'Admin' ||
+                              widget.role == 'Teachers')
                           ? GridView.count(crossAxisCount: 2, children: [
                               const AttendanceTakerBtn(),
                               const CheckAttendanceBtn(),
-                              LibraryBtn(role: role),
-                              CalendarBtn(role: role),
+                              LibraryBtn(role: widget.role),
+                              CalendarBtn(role: widget.role),
                               const TimeTableBtn(),
                               const ResultBtn(),
                               const TransportBtn(),
-                              NoticeBoardBtn(role: role),
+                              NoticeBoardBtn(role: widget.role),
                               const IdCardBtn(),
-                              HomeWorkBtn(role: role),
+                              HomeWorkBtn(role: widget.role),
                               const ApplyLeaveBtn(),
-                              if (role == 'Admin')
+                              if (widget.role == 'Admin')
                                 // Admin Settings
                                 ContainerWidget(
                                     text: 'Admin\nSettings',
@@ -316,14 +372,14 @@ class HomePage extends StatelessWidget {
                           // for Student...
                           : GridView.count(crossAxisCount: 2, children: [
                               const CheckAttendanceBtn(),
-                              LibraryBtn(role: role),
-                              CalendarBtn(role: role),
+                              LibraryBtn(role: widget.role),
+                              CalendarBtn(role: widget.role),
                               const TimeTableBtn(),
                               const ResultBtn(),
                               const TransportBtn(),
-                              NoticeBoardBtn(role: role),
+                              NoticeBoardBtn(role: widget.role),
                               const IdCardBtn(),
-                              HomeWorkBtn(role: role),
+                              HomeWorkBtn(role: widget.role),
                               const ApplyLeaveBtn()
                             ])))
             ])),

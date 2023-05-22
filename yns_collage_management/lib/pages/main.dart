@@ -54,6 +54,9 @@ class _MyAppState extends State<MyApp> {
             fontFamily: GoogleFonts.lato().fontFamily),
         darkTheme: ThemeData(brightness: Brightness.dark),
         routes: {
+          // "/": (context) => const SRegistrationPage(),
+          // "/": (context) => const LoginPage(),
+          // "/": (context) => const SignupScreen(),
           "/": (context) => const SplashPage(),
           MyRoutes.splashpageRoute: (context) => const SplashPage(),
           MyRoutes.ClgWebpageRoute: (context) => const ClgWebPage(),

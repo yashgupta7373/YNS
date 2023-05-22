@@ -1,30 +1,40 @@
 // ignore_for_file: non_constant_identifier_names
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:yns_college_management/models/user.dart' as model;
 
 class AuthMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  // // get user details for admin..
+  // Future<model.AdminAndTeachers> getUserDetails() async {
+  //   User currentUser = _auth.currentUser!;
+
+  //   DocumentSnapshot documentSnapshot =
+  //       await _firestore.collection('Admin').doc(currentUser.uid).get();
+
+  //   return model.AdminAndTeachers.fromSnap(documentSnapshot);
+  // }
+
 // Teachers or Admin Registration
-  Future<String> AddAdminOrTeacher({
-    required String role,
-    required String id,
-    required String subject,
-    required String profile,
-    required String department,
-    required String language,
-    required String name,
-    required String fName,
-    required String mName,
-    required String dob,
-    required String aadharNo,
-    required String gender,
-    required String address,
-    required String phoneNo,
-    required String email,
-    required String password
-  }) async {
+  Future<String> AddAdminOrTeacher(
+      {required String role,
+      required String id,
+      required String subject,
+      required String profile,
+      required String department,
+      required String language,
+      required String name,
+      required String fName,
+      required String mName,
+      required String dob,
+      required String aadharNo,
+      required String gender,
+      required String address,
+      required String phoneNo,
+      required String email,
+      required String password}) async {
     String res = "Some Error occurred";
     try {
       if (role.isNotEmpty ||
@@ -46,33 +56,46 @@ class AuthMethods {
         // register the user...
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
-        String Panel;
-        if (role == 'Admin') {
-          Panel = 'AD';
-        } else {
-          Panel = 'TE';
-        }
-        String docId = cred.user!.uid;
-        String UID = Panel + docId;
+        //user model...
+        model.AdminAndTeachers user = model.AdminAndTeachers(
+            role: role,
+            id: id,
+            subject: subject,
+            profile: profile,
+            department: department,
+            language: language,
+            name: name,
+            fName: fName,
+            mName: mName,
+            dob: dob,
+            aadharNo: aadharNo,
+            gender: gender,
+            address: address,
+            phoneNo: phoneNo,
+            email: email,
+            uid: cred.user!.uid);
         // add user in database...
-        await _firestore.collection(role).doc(UID).set({
-          'Role': role,
-          'Id': id,
-          'Subject': subject,
-          'Job Profile': profile,
-          'Department': department,
-          'Language': language,
-          'Name': name,
-          'Father Name': fName,
-          'Mother Name': mName,
-          'Date of Birth': dob,
-          'Aadhar No.': aadharNo,
-          'Gender': gender,
-          'Address': address,
-          'Phone No.': phoneNo,
-          'Email ID': email,
-          'uid': UID
-        });
+        await _firestore.collection(role).doc(cred.user!.uid).set(
+              user.toJson(),
+              //   {
+              //   'Role': role,
+              //   'Id': id,
+              //   'Subject': subject,
+              //   'Job Profile': profile,
+              //   'Department': department,
+              //   'Language': language,
+              //   'Name': name,
+              //   'Father Name': fName,
+              //   'Mother Name': mName,
+              //   'Date of Birth': dob,
+              //   'Aadhar No.': aadharNo,
+              //   'Gender': gender,
+              //   'Address': address,
+              //   'Phone No.': phoneNo,
+              //   'Email ID': email,
+              //   'uid': UID
+              // }
+            );
         res = "Success";
       }
     } catch (err) {
@@ -82,29 +105,28 @@ class AuthMethods {
   }
 
   // Student Registration
-  Future<String> AddStudent({
-    required String role,
-    required String session,
-    required String Class,
-    required String department,
-    required String rollNo,
-    required String name,
-    required String fName,
-    required String mName,
-    required String dob,
-    required String aadharNo,
-    required String gender,
-    required String category,
-    required String gOccupation,
-    required String gIncome,
-    required String address,
-    required String phoneNo,
-    required String email,
-    required String password
-  }) async {
+  Future<String> AddStudent(
+      {required String role,
+      required String session,
+      required String Class,
+      required String department,
+      required String rollNo,
+      required String name,
+      required String fName,
+      required String mName,
+      required String dob,
+      required String aadharNo,
+      required String gender,
+      required String category,
+      required String gOccupation,
+      required String gIncome,
+      required String address,
+      required String phoneNo,
+      required String email,
+      required String password}) async {
     String res = "Some Error occurred";
     try {
-      if (role.isEmpty ||
+      if (role.isNotEmpty ||
           session.isNotEmpty ||
           Class.isNotEmpty ||
           department.isNotEmpty ||
@@ -125,30 +147,31 @@ class AuthMethods {
         // register the user...
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
-        String Panel = 'SE';
-        String docId = cred.user!.uid;
-        String UID = Panel + docId;
+
+        model.Student user = model.Student(
+            role: role,
+            session: session,
+            Class: Class,
+            department: department,
+            rollNo: rollNo,
+            name: name,
+            fName: fName,
+            mName: mName,
+            dob: dob,
+            aadharNo: aadharNo,
+            gender: gender,
+            category: category,
+            gOccupation: gOccupation,
+            gIncome: gIncome,
+            address: address,
+            phoneNo: phoneNo,
+            email: email,
+            uid: cred.user!.uid);
         // add user in database...
-        await _firestore.collection(role).doc(UID).set({
-          'Role': role,
-          'Academic Session': session,
-          'Class': Class,
-          'Department': department,
-          'Roll No.': rollNo,
-          'Name': name,
-          'Father Name': fName,
-          'Mother Name': mName,
-          'Date of Birth': dob,
-          'Aadhar No.': aadharNo,
-          'Gender': gender,
-          'Category': category,
-          'Guardian Occupation': gOccupation,
-          'Guardian Income': gIncome,
-          'Address': address,
-          'Phone No.': phoneNo,
-          'Email ID': email,
-          'uid': UID
-        });
+        await _firestore
+            .collection(role)
+            .doc(cred.user!.uid)
+            .set(user.toJson());
         res = "Success";
       }
     } catch (err) {
@@ -167,9 +190,7 @@ class AuthMethods {
       if (email.isNotEmpty || password.isNotEmpty) {
         // logging in user with email and password
         await _auth.signInWithEmailAndPassword(
-          email: email,
-          password: password
-        );
+            email: email, password: password);
         res = "success";
       } else {
         res = "Please enter all the fields";

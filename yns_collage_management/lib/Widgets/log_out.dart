@@ -48,6 +48,7 @@ class LogOut extends StatelessWidget {
         child: const Icon(
           FontAwesomeIcons.signOut,
           color: Colors.white,
+          // color: Colors.black,
         ));
   }
 }
