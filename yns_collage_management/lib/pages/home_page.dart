@@ -33,52 +33,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // var username = "";
-  // var userId = "";
-  // var userProfile = "";
-  // var userDepartment = "";
-  // var studentName = "";
-  // var rollNo = "";
-  // var Class = "";
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getUsername();
-  // }
-  // void getUsername() async {
-  //   DocumentSnapshot snap = await FirebaseFirestore.instance
-  //       .collection(widget.role)
-  //       .doc(FirebaseAuth.instance.currentUser!.uid)
-  //       .get();
-  //   print(snap.data());
-  //   print(snap);
-  //   setState(() {
-  //     if (widget.role == 'Admin' || widget.role == 'Teachers') {
-  //       setState(() {
-  //         username = (snap.data() as Map<String, dynamic>)['name'];
-  //         userId = (snap.data() as Map<String, dynamic>)['id'];
-  //         userProfile = (snap.data() as Map<String, dynamic>)['profile'];
-  //         userDepartment = (snap.data() as Map<String, dynamic>)['department'];
-  //       });
-  //     } else {
-  //       setState(() {
-  //         username = (snap.data() as Map<String, dynamic>)['name'];
-  //         rollNo = (snap.data() as Map<String, dynamic>)['rollNo.'];
-  //         Class = (snap.data() as Map<String, dynamic>)['Class'];
-  //         userDepartment = (snap.data() as Map<String, dynamic>)['department'];
-  //       });
-  //     }
-  //   });
-  // setState(() {
-  //   username = (snap.data() as Map<String, dynamic>)['name'];
-  //   userId = (snap.data() as Map<String, dynamic>)['id'];
-  //   userProfile = (snap.data() as Map<String, dynamic>)['profile'];
-  //   userDepartment = (snap.data() as Map<String, dynamic>)['department'];
-  //   rollNo = (snap.data() as Map<String, dynamic>)['rollNo.'];
-  //   Class = (snap.data() as Map<String, dynamic>)['Class'];
-  // });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,8 +42,6 @@ class _HomePageState extends State<HomePage> {
             title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // (widget.role == 'Admin' || widget.role == 'Teachers')
-                  //     ? Text(username):
                   Text(widget.username),
                   Row(children: [
                     InkWell(

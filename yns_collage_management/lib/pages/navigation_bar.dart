@@ -22,12 +22,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
       session = "",
       id = "",
       rollNo = "",
-      // studentName = "",
       profile = "",
       Class = "",
       department = "",
-      // present = "",
-      // absent = "",
       phoneNo = "",
       fName = "",
       mName = "",
@@ -40,7 +37,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
       occupation = "",
       email = "",
       income = "",
-      // i = 0,
       address = "";
   @override
   void initState() {
@@ -77,10 +73,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
         rollNo = (snap.data() as Map<String, dynamic>)['rollNo.'];
         Class = (snap.data() as Map<String, dynamic>)['Class'];
         department = (snap.data() as Map<String, dynamic>)['department'];
-        // present = '87';
-        // = (snap.data() as Map<String, dynamic>)['department'];
-        // absent = '13';
-        // = (snap.data() as Map<String, dynamic>)['department'];
+        // present = (snap.data() as Map<String, dynamic>)['present'];
+        // absent =  (snap.data() as Map<String, dynamic>)['absent'];
         session = (snap.data() as Map<String, dynamic>)['session'];
         username = (snap.data() as Map<String, dynamic>)['name'];
         fName = (snap.data() as Map<String, dynamic>)['fName'];
@@ -101,12 +95,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     final Screens = [
-      // HomePage(role: widget.role),
       HomePage(
           role: widget.role,
           Class: Class,
           rollNo: rollNo,
-          // studentName: username,
           department: department,
           id: id,
           profile: profile,
@@ -133,11 +125,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
           profile: profile,
           rollNo: rollNo,
           session: session,
-          // studentName: studentName,
           subject: subject,
           username: username)
-      // Test(role: widget.role)
-      // Try()
     ];
     final items = <Widget>[
       const Icon(Icons.home, size: 30),

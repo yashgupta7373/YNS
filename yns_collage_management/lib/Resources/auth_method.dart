@@ -75,27 +75,10 @@ class AuthMethods {
             email: email,
             uid: cred.user!.uid);
         // add user in database...
-        await _firestore.collection(role).doc(cred.user!.uid).set(
-              user.toJson(),
-              //   {
-              //   'Role': role,
-              //   'Id': id,
-              //   'Subject': subject,
-              //   'Job Profile': profile,
-              //   'Department': department,
-              //   'Language': language,
-              //   'Name': name,
-              //   'Father Name': fName,
-              //   'Mother Name': mName,
-              //   'Date of Birth': dob,
-              //   'Aadhar No.': aadharNo,
-              //   'Gender': gender,
-              //   'Address': address,
-              //   'Phone No.': phoneNo,
-              //   'Email ID': email,
-              //   'uid': UID
-              // }
-            );
+        await _firestore
+            .collection(role)
+            .doc(cred.user!.uid)
+            .set(user.toJson());
         res = "Success";
       }
     } catch (err) {
@@ -147,7 +130,6 @@ class AuthMethods {
         // register the user...
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
-
         model.Student user = model.Student(
             role: role,
             session: session,

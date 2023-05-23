@@ -15,8 +15,6 @@ class ProfilePage extends StatefulWidget {
       profile = "",
       Class = "",
       department = "",
-      // present = "",
-      // absent = "",
       phoneNo = "",
       fName = "",
       mName = "",
@@ -29,7 +27,6 @@ class ProfilePage extends StatefulWidget {
       occupation = "",
       email = "",
       income = "",
-      // i = 0;
       address = "";
   ProfilePage(
       {super.key,
@@ -52,7 +49,6 @@ class ProfilePage extends StatefulWidget {
       required this.profile,
       required this.rollNo,
       required this.session,
-      // required this.studentName,
       required this.subject,
       required this.username});
 
@@ -61,85 +57,6 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  // var username = "",
-  //     session = "",
-  //     id = "",
-  //     rollNo = "",
-  //     studentName = "",
-  //     profile = "",
-  //     Class = "",
-  //     department = "",
-  // present = "",
-  // absent = "",
-  //     phoneNo = "",
-  //     fName = "",
-  //     mName = "",
-  //     dob = "",
-  //     subject = "",
-  //     language = "",
-  //     aadharNo = "",
-  //     gender = "",
-  //     category = "",
-  //     occupation = "",
-  //     email = "",
-  //     income = "",
-  //     address = "",
-  //     i = 0;
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getUsername();
-  // }
-
-  // void getUsername() async {
-  //   DocumentSnapshot snap = await FirebaseFirestore.instance
-  //       .collection(widget.role)
-  //       .doc(FirebaseAuth.instance.currentUser!.uid)
-  //       .get();
-  //   print(snap.data());
-  //   print(snap);
-  //   if (widget.role == 'Admin' || widget.role == 'Teachers') {
-  //     setState(() {
-  //       id = (snap.data() as Map<String, dynamic>)['id'];
-  //       username = (snap.data() as Map<String, dynamic>)['name'];
-  //       profile = (snap.data() as Map<String, dynamic>)['profile'];
-  //       department = (snap.data() as Map<String, dynamic>)['department'];
-  //       subject = (snap.data() as Map<String, dynamic>)['subject'];
-  //       language = (snap.data() as Map<String, dynamic>)['language'];
-  //       fName = (snap.data() as Map<String, dynamic>)['fName'];
-  //       mName = (snap.data() as Map<String, dynamic>)['mName'];
-  //       dob = (snap.data() as Map<String, dynamic>)['dob'];
-  //       aadharNo = (snap.data() as Map<String, dynamic>)['aadharNo.'];
-  //       gender = (snap.data() as Map<String, dynamic>)['gender'];
-  //       address = (snap.data() as Map<String, dynamic>)['address'];
-  //       phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo.'];
-  //       email = (snap.data() as Map<String, dynamic>)['email'];
-  //     });
-  //   } else {
-  //     setState(() {
-  //       rollNo = (snap.data() as Map<String, dynamic>)['rollNo.'];
-  //       Class = (snap.data() as Map<String, dynamic>)['Class'];
-  //       department = (snap.data() as Map<String, dynamic>)['department'];
-  //       present = '87';
-  //       // = (snap.data() as Map<String, dynamic>)['department'];
-  //       absent = '13';
-  //       // = (snap.data() as Map<String, dynamic>)['department'];
-  //       session = (snap.data() as Map<String, dynamic>)['session'];
-  //       username = (snap.data() as Map<String, dynamic>)['name'];
-  //       fName = (snap.data() as Map<String, dynamic>)['fName'];
-  //       mName = (snap.data() as Map<String, dynamic>)['mName'];
-  //       dob = (snap.data() as Map<String, dynamic>)['dob'];
-  //       aadharNo = (snap.data() as Map<String, dynamic>)['aadharNo.'];
-  //       gender = (snap.data() as Map<String, dynamic>)['gender'];
-  //       category = (snap.data() as Map<String, dynamic>)['category'];
-  //       occupation = (snap.data() as Map<String, dynamic>)['gOccupation'];
-  //       income = (snap.data() as Map<String, dynamic>)['gIncome'];
-  //       address = (snap.data() as Map<String, dynamic>)['address'];
-  //       phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo'];
-  //       email = (snap.data() as Map<String, dynamic>)['email'];
-  //     });
-  //   }
-  // }
   var present = "86", absent = "14";
 
   @override
@@ -197,12 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                                // (widget.role == 'Admin' ||
-                                                //         widget.role ==
-                                                //             'Teachers')
-                                                //     ? username :
-                                                widget.username,
+                                            Text(widget.username,
                                                 style: TextStyle(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.bold,
@@ -259,7 +171,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               bottomRight: Radius.elliptical(120, 90))),
                       child: InkWell(
                           onTap: (() {
-                            launch('http://wa.me/+91$widget.phoneNo');
+                            var number = widget.phoneNo;
+                            launch('http://wa.me/+91$number');
                           }),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
