@@ -1,6 +1,4 @@
 // ignore_for_file: must_be_immutable, non_constant_identifier_names, deprecated_member_use, camel_case_types, prefer_typing_uninitialized_variables
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -10,23 +8,15 @@ import '../../Widgets/profile_widget.dart';
 
 class ProfilePage extends StatefulWidget {
   String role;
-  ProfilePage({super.key, required this.role});
-
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
   var username = "",
       session = "",
       id = "",
       rollNo = "",
-      studentName = "",
       profile = "",
       Class = "",
       department = "",
-      present = "",
-      absent = "",
+      // present = "",
+      // absent = "",
       phoneNo = "",
       fName = "",
       mName = "",
@@ -39,61 +29,118 @@ class _ProfilePageState extends State<ProfilePage> {
       occupation = "",
       email = "",
       income = "",
-      address = "",
-      i = 0;
-  @override
-  void initState() {
-    super.initState();
-    getUsername();
-  }
+      // i = 0;
+      address = "";
+  ProfilePage(
+      {super.key,
+      required this.role,
+      required this.Class,
+      required this.aadharNo,
+      required this.address,
+      required this.category,
+      required this.department,
+      required this.dob,
+      required this.email,
+      required this.fName,
+      required this.gender,
+      required this.id,
+      required this.income,
+      required this.language,
+      required this.mName,
+      required this.occupation,
+      required this.phoneNo,
+      required this.profile,
+      required this.rollNo,
+      required this.session,
+      // required this.studentName,
+      required this.subject,
+      required this.username});
 
-  void getUsername() async {
-    DocumentSnapshot snap = await FirebaseFirestore.instance
-        .collection(widget.role)
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
-    print(snap.data());
-    print(snap);
-    if (widget.role == 'Admin' || widget.role == 'Teachers') {
-      setState(() {
-        id = (snap.data() as Map<String, dynamic>)['id'];
-        username = (snap.data() as Map<String, dynamic>)['name'];
-        profile = (snap.data() as Map<String, dynamic>)['profile'];
-        department = (snap.data() as Map<String, dynamic>)['department'];
-        subject = (snap.data() as Map<String, dynamic>)['subject'];
-        language = (snap.data() as Map<String, dynamic>)['language'];
-        fName = (snap.data() as Map<String, dynamic>)['fName'];
-        mName = (snap.data() as Map<String, dynamic>)['mName'];
-        dob = (snap.data() as Map<String, dynamic>)['dob'];
-        aadharNo = (snap.data() as Map<String, dynamic>)['aadharNo.'];
-        gender = (snap.data() as Map<String, dynamic>)['gender'];
-        address = (snap.data() as Map<String, dynamic>)['address'];
-        phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo.'];
-        email = (snap.data() as Map<String, dynamic>)['email'];
-      });
-    } else {
-      rollNo = (snap.data() as Map<String, dynamic>)['rollNo.'];
-      Class = (snap.data() as Map<String, dynamic>)['Class'];
-      department = (snap.data() as Map<String, dynamic>)['department'];
-      present = '87';
-      // = (snap.data() as Map<String, dynamic>)['department'];
-      absent = '13';
-      // = (snap.data() as Map<String, dynamic>)['department'];
-      session = (snap.data() as Map<String, dynamic>)['session'];
-      username = (snap.data() as Map<String, dynamic>)['name'];
-      fName = (snap.data() as Map<String, dynamic>)['fName'];
-      mName = (snap.data() as Map<String, dynamic>)['mName'];
-      dob = (snap.data() as Map<String, dynamic>)['dob'];
-      aadharNo = (snap.data() as Map<String, dynamic>)['aadharNo.'];
-      gender = (snap.data() as Map<String, dynamic>)['gender'];
-      category = (snap.data() as Map<String, dynamic>)['category'];
-      occupation = (snap.data() as Map<String, dynamic>)['gOccupation'];
-      income = (snap.data() as Map<String, dynamic>)['gIncome'];
-      address = (snap.data() as Map<String, dynamic>)['address'];
-      phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo'];
-      email = (snap.data() as Map<String, dynamic>)['email'];
-    }
-  }
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  // var username = "",
+  //     session = "",
+  //     id = "",
+  //     rollNo = "",
+  //     studentName = "",
+  //     profile = "",
+  //     Class = "",
+  //     department = "",
+  // present = "",
+  // absent = "",
+  //     phoneNo = "",
+  //     fName = "",
+  //     mName = "",
+  //     dob = "",
+  //     subject = "",
+  //     language = "",
+  //     aadharNo = "",
+  //     gender = "",
+  //     category = "",
+  //     occupation = "",
+  //     email = "",
+  //     income = "",
+  //     address = "",
+  //     i = 0;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getUsername();
+  // }
+
+  // void getUsername() async {
+  //   DocumentSnapshot snap = await FirebaseFirestore.instance
+  //       .collection(widget.role)
+  //       .doc(FirebaseAuth.instance.currentUser!.uid)
+  //       .get();
+  //   print(snap.data());
+  //   print(snap);
+  //   if (widget.role == 'Admin' || widget.role == 'Teachers') {
+  //     setState(() {
+  //       id = (snap.data() as Map<String, dynamic>)['id'];
+  //       username = (snap.data() as Map<String, dynamic>)['name'];
+  //       profile = (snap.data() as Map<String, dynamic>)['profile'];
+  //       department = (snap.data() as Map<String, dynamic>)['department'];
+  //       subject = (snap.data() as Map<String, dynamic>)['subject'];
+  //       language = (snap.data() as Map<String, dynamic>)['language'];
+  //       fName = (snap.data() as Map<String, dynamic>)['fName'];
+  //       mName = (snap.data() as Map<String, dynamic>)['mName'];
+  //       dob = (snap.data() as Map<String, dynamic>)['dob'];
+  //       aadharNo = (snap.data() as Map<String, dynamic>)['aadharNo.'];
+  //       gender = (snap.data() as Map<String, dynamic>)['gender'];
+  //       address = (snap.data() as Map<String, dynamic>)['address'];
+  //       phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo.'];
+  //       email = (snap.data() as Map<String, dynamic>)['email'];
+  //     });
+  //   } else {
+  //     setState(() {
+  //       rollNo = (snap.data() as Map<String, dynamic>)['rollNo.'];
+  //       Class = (snap.data() as Map<String, dynamic>)['Class'];
+  //       department = (snap.data() as Map<String, dynamic>)['department'];
+  //       present = '87';
+  //       // = (snap.data() as Map<String, dynamic>)['department'];
+  //       absent = '13';
+  //       // = (snap.data() as Map<String, dynamic>)['department'];
+  //       session = (snap.data() as Map<String, dynamic>)['session'];
+  //       username = (snap.data() as Map<String, dynamic>)['name'];
+  //       fName = (snap.data() as Map<String, dynamic>)['fName'];
+  //       mName = (snap.data() as Map<String, dynamic>)['mName'];
+  //       dob = (snap.data() as Map<String, dynamic>)['dob'];
+  //       aadharNo = (snap.data() as Map<String, dynamic>)['aadharNo.'];
+  //       gender = (snap.data() as Map<String, dynamic>)['gender'];
+  //       category = (snap.data() as Map<String, dynamic>)['category'];
+  //       occupation = (snap.data() as Map<String, dynamic>)['gOccupation'];
+  //       income = (snap.data() as Map<String, dynamic>)['gIncome'];
+  //       address = (snap.data() as Map<String, dynamic>)['address'];
+  //       phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo'];
+  //       email = (snap.data() as Map<String, dynamic>)['email'];
+  //     });
+  //   }
+  // }
+  var present = "86", absent = "14";
 
   @override
   Widget build(BuildContext context) {
@@ -106,8 +153,8 @@ class _ProfilePageState extends State<ProfilePage> {
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             // Id...
             (widget.role == 'Admin' || widget.role == 'Teachers')
-                ? Text(id)
-                : (Text(rollNo)),
+                ? Text(widget.id)
+                : (Text(widget.rollNo)),
             Row(children: const [
               // google classroom, zoom, and logout...
               CallClasses(),
@@ -155,7 +202,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 //         widget.role ==
                                                 //             'Teachers')
                                                 //     ? username :
-                                                username,
+                                                widget.username,
                                                 style: TextStyle(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.bold,
@@ -164,13 +211,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 (widget.role == 'Admin' ||
                                                         widget.role ==
                                                             'Teachers')
-                                                    ? profile
-                                                    : Class,
+                                                    ? widget.profile
+                                                    : widget.Class,
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.teal[900])),
-                                            Text(department,
+                                            Text(widget.department,
                                                 style: TextStyle(
                                                     fontSize: 15,
                                                     fontWeight: FontWeight.bold,
@@ -212,7 +259,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               bottomRight: Radius.elliptical(120, 90))),
                       child: InkWell(
                           onTap: (() {
-                            launch('http://wa.me/+91$phoneNo');
+                            launch('http://wa.me/+91$widget.phoneNo');
                           }),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -236,64 +283,73 @@ class _ProfilePageState extends State<ProfilePage> {
                       // academic session
                       if (widget.role == 'Students')
                         AdminRowWidget(
-                            text1: 'Academic Session:', text2: session),
+                            text1: 'Academic Session:', text2: widget.session),
                       // Id or RollNo
                       (widget.role == 'Admin' || widget.role == 'Teachers')
                           ? AdminRowWidget(
-                              text1: '${widget.role} Id:', text2: id)
-                          : AdminRowWidget(text1: 'Roll-No.:', text2: rollNo),
+                              text1: '${widget.role} Id:', text2: widget.id)
+                          : AdminRowWidget(
+                              text1: 'Roll-No.:', text2: widget.rollNo),
                       // profile or class
                       (widget.role == 'Admin' || widget.role == 'Teachers')
                           ? AdminRowWidget(
-                              text1: 'Job Profile:', text2: profile)
-                          : AdminRowWidget(text1: 'Class:', text2: Class),
+                              text1: 'Job Profile:', text2: widget.profile)
+                          : AdminRowWidget(
+                              text1: 'Class:', text2: widget.Class),
                       // Department
-                      AdminRowWidget(text1: 'Department', text2: department),
+                      AdminRowWidget(
+                          text1: 'Department', text2: widget.department),
                       // Subjects for teachers
                       if (widget.role != 'Students')
                         AdminRowWidget(
                             text1: 'Subjects:',
-                            text2: subject), // display all subjects...
+                            text2: widget.subject), // display all subjects...
                       // language for teachers
                       if (widget.role != 'Students')
                         AdminRowWidget(
                             text1: 'Language:',
-                            text2: language), // display all language...
+                            text2: widget.language), // display all language...
                       // Name
                       (widget.role == 'Admin' || widget.role == 'Teachers')
                           ? AdminRowWidget(
-                              text1: '${widget.role} Name:', text2: username)
+                              text1: '${widget.role} Name:',
+                              text2: widget.username)
                           : AdminRowWidget(
-                              text1: 'Student Name:', text2: username),
+                              text1: 'Student Name:', text2: widget.username),
                       // Father Name
-                      AdminRowWidget(text1: 'Father\'s Name:', text2: fName),
+                      AdminRowWidget(
+                          text1: 'Father\'s Name:', text2: widget.fName),
                       // Mother Name
-                      AdminRowWidget(text1: 'Mother\'s Name:', text2: mName),
+                      AdminRowWidget(
+                          text1: 'Mother\'s Name:', text2: widget.mName),
                       // Date fo Birth
-                      AdminRowWidget(text1: 'Date Of Birth:', text2: dob),
+                      AdminRowWidget(
+                          text1: 'Date Of Birth:', text2: widget.dob),
                       // Aadhar card number
                       AdminRowWidget(
-                          text1: 'Aadhar Card No.:', text2: aadharNo),
+                          text1: 'Aadhar Card No.:', text2: widget.aadharNo),
                       // Gender
-                      AdminRowWidget(text1: 'Gender:', text2: gender),
+                      AdminRowWidget(text1: 'Gender:', text2: widget.gender),
                       // Category
                       if (widget.role == 'Students')
-                        AdminRowWidget(text1: 'Category:', text2: category),
+                        AdminRowWidget(
+                            text1: 'Category:', text2: widget.category),
                       // Guardian's Occupation
                       if (widget.role == 'Students')
                         AdminRowWidget(
                             text1: 'Guardian\'s Occupation:',
-                            text2: occupation),
+                            text2: widget.occupation),
                       // Guardian's Income
                       if (widget.role == 'Students')
                         AdminRowWidget(
-                            text1: 'Guardian\'s Income:', text2: income),
+                            text1: 'Guardian\'s Income:', text2: widget.income),
                       // Address
-                      AdminRowWidget(text1: 'Address:', text2: address),
+                      AdminRowWidget(text1: 'Address:', text2: widget.address),
                       // Phone Number
-                      AdminRowWidget(text1: 'Phone Number:', text2: phoneNo),
+                      AdminRowWidget(
+                          text1: 'Phone Number:', text2: widget.phoneNo),
                       // Email Id
-                      AdminRowWidget(text1: 'Email Id:', text2: email),
+                      AdminRowWidget(text1: 'Email Id:', text2: widget.email),
                       const SizedBox(height: 10),
                       // social media icon
                       Row(

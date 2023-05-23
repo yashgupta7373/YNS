@@ -1,11 +1,8 @@
 // ignore_for_file: deprecated_member_use, non_constant_identifier_names, must_be_immutable
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yns_college_management/Widgets/log_out.dart';
 import 'package:yns_college_management/pages/Admin/Admin%20Settings/add_student_page.dart';
 import 'package:yns_college_management/pages/College%20Web/my_drawer_header.dart';
 import '../../Widgets/call_class_room_and_online_class.dart';
@@ -15,72 +12,75 @@ import 'Admin/Admin Settings/add_teachers_or_admin_page.dart';
 
 class HomePage extends StatefulWidget {
   String role;
-  HomePage({super.key, required this.role});
+  var username = "";
+  var id = "";
+  var profile = "";
+  var department = "";
+  var rollNo = "";
+  var Class = "";
+  HomePage(
+      {super.key,
+      required this.role,
+      required this.Class,
+      required this.rollNo,
+      required this.department,
+      required this.id,
+      required this.profile,
+      required this.username});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  var username = "";
-  var userId = "";
-  var userProfile = "";
-  var userDepartment = "";
-  var studentName = "";
-  var rollNo = "";
-  var Class = "";
-  @override
-  void initState() {
-    super.initState();
-    getUsername();
-  }
-
-  void getUsername() async {
-    DocumentSnapshot snap = await FirebaseFirestore.instance
-        .collection(widget.role)
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
-    print(snap.data());
-    print(snap);
-    if (widget.role == 'Admin' || widget.role == 'Teachers') {
-      setState(() {
-        username = (snap.data() as Map<String, dynamic>)['name'];
-        userId = (snap.data() as Map<String, dynamic>)['id'];
-        userProfile = (snap.data() as Map<String, dynamic>)['profile'];
-        userDepartment = (snap.data() as Map<String, dynamic>)['department'];
-      });
-    } else {
-      username = (snap.data() as Map<String, dynamic>)['name'];
-      rollNo = (snap.data() as Map<String, dynamic>)['rollNo.'];
-      Class = (snap.data() as Map<String, dynamic>)['Class'];
-      userDepartment = (snap.data() as Map<String, dynamic>)['department'];
-    }
-    // setState(() {
-    //   username = (snap.data() as Map<String, dynamic>)['name'];
-    //   userId = (snap.data() as Map<String, dynamic>)['id'];
-    //   userProfile = (snap.data() as Map<String, dynamic>)['profile'];
-    //   // rollNo = (snap.data() as Map<String, dynamic>)['rollNo.'];
-    //   userDepartment = (snap.data() as Map<String, dynamic>)['department'];
-    //   // C = (snap.data() as Map<String, dynamic>)['Class'];
-    //   // studentName = (snap.data() as Map<String, dynamic>)['name'];
-    // });
-  }
+  // var username = "";
+  // var userId = "";
+  // var userProfile = "";
+  // var userDepartment = "";
+  // var studentName = "";
+  // var rollNo = "";
+  // var Class = "";
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getUsername();
+  // }
+  // void getUsername() async {
+  //   DocumentSnapshot snap = await FirebaseFirestore.instance
+  //       .collection(widget.role)
+  //       .doc(FirebaseAuth.instance.currentUser!.uid)
+  //       .get();
+  //   print(snap.data());
+  //   print(snap);
+  //   setState(() {
+  //     if (widget.role == 'Admin' || widget.role == 'Teachers') {
+  //       setState(() {
+  //         username = (snap.data() as Map<String, dynamic>)['name'];
+  //         userId = (snap.data() as Map<String, dynamic>)['id'];
+  //         userProfile = (snap.data() as Map<String, dynamic>)['profile'];
+  //         userDepartment = (snap.data() as Map<String, dynamic>)['department'];
+  //       });
+  //     } else {
+  //       setState(() {
+  //         username = (snap.data() as Map<String, dynamic>)['name'];
+  //         rollNo = (snap.data() as Map<String, dynamic>)['rollNo.'];
+  //         Class = (snap.data() as Map<String, dynamic>)['Class'];
+  //         userDepartment = (snap.data() as Map<String, dynamic>)['department'];
+  //       });
+  //     }
+  //   });
+  // setState(() {
+  //   username = (snap.data() as Map<String, dynamic>)['name'];
+  //   userId = (snap.data() as Map<String, dynamic>)['id'];
+  //   userProfile = (snap.data() as Map<String, dynamic>)['profile'];
+  //   userDepartment = (snap.data() as Map<String, dynamic>)['department'];
+  //   rollNo = (snap.data() as Map<String, dynamic>)['rollNo.'];
+  //   Class = (snap.data() as Map<String, dynamic>)['Class'];
+  // });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    // String id = 'AD762372';
-    // // String name = 'Sanjay Kumar';
-    // String department = 'Computer Science Dep.';
-    // String profile = 'HOD';
-    // if (widget.role == 'Teachers') {
-    //   id = 'TE89121';
-    //   // name = 'Ginni Dua';
-    //   profile = 'Assistant Professor';
-    //   department = 'Computer Science Dep.';
-    // }
-    // String rollNo = 'SE723727';
-    // String studentName = 'Yash Gupta';
-    // String Class = 'Bca';
     return Scaffold(
         extendBody: true,
         backgroundColor: const Color.fromRGBO(100, 232, 222, 1.0),
@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   // (widget.role == 'Admin' || widget.role == 'Teachers')
                   //     ? Text(username):
-                  Text(username),
+                  Text(widget.username),
                   Row(children: [
                     InkWell(
                         onTap: () {},
@@ -98,7 +98,6 @@ class _HomePageState extends State<HomePage> {
                             color: Colors.white)),
                     const SizedBox(width: 10),
                     const CallClasses(),
-                    LogOut(),
                     const SizedBox(width: 20),
                     InkWell(
                         onTap: () async {
@@ -127,7 +126,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(15.0),
                   child: Container(
                       height: 180,
-                      width: double.infinity,
+                      // width: double.infinity,
                       decoration: BoxDecoration(
                           gradient: const LinearGradient(
                               colors: [
@@ -172,55 +171,67 @@ class _HomePageState extends State<HomePage> {
                                                           widget.role ==
                                                               'Teachers')
                                                       ? TextSpan(
-                                                          text: '$username\n',
+                                                          text: widget.username,
                                                           style: const TextStyle(
                                                               fontSize: 20,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold),
                                                           children: [
+                                                              const TextSpan(
+                                                                  text: '\n'),
                                                               TextSpan(
                                                                   text:
-                                                                      '$userId\n',
+                                                                      widget.id,
                                                                   style: const TextStyle(
                                                                       fontSize:
                                                                           15)),
+                                                              const TextSpan(
+                                                                  text: '\n'),
                                                               TextSpan(
-                                                                  text:
-                                                                      '[$userProfile]\n',
+                                                                  text: widget
+                                                                      .profile,
                                                                   style: const TextStyle(
                                                                       fontSize:
                                                                           15)),
+                                                              const TextSpan(
+                                                                  text: '\n'),
                                                               TextSpan(
-                                                                  text:
-                                                                      userDepartment,
+                                                                  text: widget
+                                                                      .department,
                                                                   style: const TextStyle(
                                                                       fontSize:
                                                                           15)),
                                                             ])
                                                       : TextSpan(
-                                                          text: '$username\n',
+                                                          text: widget.username,
                                                           style: const TextStyle(
                                                               fontSize: 20,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold),
                                                           children: [
+                                                              const TextSpan(
+                                                                  text: '\n'),
                                                               TextSpan(
-                                                                  text:
-                                                                      '$rollNo\n',
+                                                                  text: widget
+                                                                      .rollNo,
                                                                   style: const TextStyle(
                                                                       fontSize:
                                                                           15)),
+                                                              const TextSpan(
+                                                                  text: '\n'),
                                                               TextSpan(
-                                                                  text:
-                                                                      '$Class\n',
+                                                                  text: widget
+                                                                      .Class,
                                                                   style: const TextStyle(
                                                                       fontSize:
                                                                           15)),
+                                                              const TextSpan(
+                                                                  text: '\n'),
                                                               TextSpan(
-                                                                  text:
-                                                                      userDepartment,
+                                                                  text: widget
+                                                                      .department,
                                                                   style: const TextStyle(
                                                                       fontSize:
                                                                           15))
