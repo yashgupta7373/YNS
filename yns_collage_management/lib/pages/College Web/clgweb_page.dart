@@ -16,6 +16,9 @@ class ClgWebPage extends StatefulWidget {
 }
 
 class _ClgWebPageState extends State<ClgWebPage> {
+  // bool iconBool = false;
+  // IconData iconLight = Icons.wb_sunny;
+  // IconData iconDark = Icons.nights_stay;
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -23,7 +26,20 @@ class _ClgWebPageState extends State<ClgWebPage> {
         backgroundColor: Colors.teal[300],
         // App Bar
         appBar: AppBar(
-            title: const Text('I.P. College, Campus-2'),
+            title:
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //   children: [
+                const Text('I.P. College, Campus-2'),
+            //     IconButton(
+            //         onPressed: () {
+            //           setState(() {
+            //             iconBool = !iconBool;
+            //           });
+            //         },
+            //         icon: Icon(iconBool ? iconDark : iconLight))
+            //   ],
+            // ),
             centerTitle: true,
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
@@ -116,6 +132,7 @@ class _ClgWebPageState extends State<ClgWebPage> {
                         padding: EdgeInsets.all(8.0),
                         child: Text(
                             "I.P. (P.G.) College, Campus-2, Bulandshahr is situated at NH-91, Bulandshahr to Delhi, far away 3 Km. from Bhoor Chauraha towards Delhi. Having three storey building, well equipped with excellent infrastructure and high-tech facilities. This Campus-2 is originated and founded by I.P. College Campus-I, Bulandshahr is situated near siyana bus stand Bulandshahr which has grant-in-aid courses. The Parents Society of both campus is \"Ishwar Dayal Parsandi Devi Vidhya Prasarni Sabha\" a charitable society entitled to receive donations under section '80G' of Income Tax. I.P. College campus-2 is covered in 24730 sqm land. For Dept. of Teacher Education total land area 10000 sqm. is earmarked and remaining land area i.e. 14730 sqm. is earmarked for other courses. Total built up area of I.P. College, Campus-2 is 9172.49 sqm. certified and approved by architect and BDA. In this campus B.Ed., M.Ed., BCA, BBA, B.Sc.(B.T.), M.Sc.(B.T.) are being offered after taken permission of shifting premises from Campus I to Campus-2 by honourable body as NCTE, UP Govt. and CCS University and getting recognition by UGC under section 2(f) and 12(b) and D.El.Ed., B.Sc.(Home Science), B.Sc.(Maths), B.Sc.(Bio), B.Com., M.Com. and M.Sc.(Computer Science) are also being offered in this campus after getting affiliation and recognition by concerned honorable body.",
+                            textAlign: TextAlign.justify,
                             style: TextStyle(fontStyle: FontStyle.italic)))
                   ])))),
           const SizedBox(height: 10),
@@ -172,6 +189,7 @@ class _ClgWebPageState extends State<ClgWebPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text("Department of Computer Science",
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
@@ -213,6 +231,7 @@ class _ClgWebPageState extends State<ClgWebPage> {
                           children: [
                             Text(
                                 "Department of Commerce & Business Administration",
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,

@@ -43,7 +43,7 @@ class _AboutClgPageState extends State<AboutClgPage> {
               padding: EdgeInsets.all(8.0),
               child: Text(
                   "I.P. College, Campus-2, Bulandshahr is situated at NH-91, BulandShahr Delhi Road, far away 3Km. from Bhoor Chauraha towards Delhi. Having three storey building, equiped with excellent infrastructure and high-tech facilities. This Campus-2 is originated and founded by I.P. College Campus-I, BulandShahr is situated at near siyana bus stand BulandShahr which has grant-in-aid courses recognized by UGC under section 2(f) and 12(b). The Parents Society of both campus is \"Ishwar Dayal Parsandi Devi Vidhya Prasarni Sabha\" a charitable society entitled to receive donations in under section '80G' of Income Tax. I.P. College campus-2 is covered in 24730 sqm. land. For dept of Teacher Education (M.Ed., B.Ed.,D.El.Ed.,etc.) total land area 10000 sqm. is earmarked and remaining land area i.e. 14730 sqm. is earmarked for BCA, BBA, B.Sc.(B.T.), Msc.(B.T.) courses. Total built up area I.P. College, Campus-2 is 9172.49 sqm. certified by architect and BKDA BulandShahr. In which 4506 sqm. build up area is demarked for Teacher Education. In this campus all self-finance courses i.e. B.Ed., M.Ed., D.El.Ed., M.Phil.(Edu), BCA, BBA, B.Sc.(B.T.), M.Sc.(B.T.) are being offered after taken permission of shifting premises from Campus I to Campus-2 by honourable body as NCTE, UP Govt. and CCS University.",
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.justify,
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.white))),
           const SizedBox(height: 20),
@@ -171,7 +171,7 @@ class _AboutManagementPageState extends State<AboutManagementPage> {
               padding: EdgeInsets.all(8.0),
               child: Text(
                   "Both campus or colleges are run by Ishwar Dayal Parsandi Devi Vidhya Prasarni Sabha, Bulandshahr which is a registered body under Society Registration Act. This was founded in 1969 with the intention to develop and spread general and technical education among students. The parent society of the college Ishwar Dayal Parsandi Devi Vidhya Prasarni Sabha (Reg.), Bulandshahr -203001 (U.P.) is a charitable society and is entitled to receive donations under Income Tax clause '80 G' for which certificate issued will be valid for Income Tax purpose.\nManagement Committee - The general body of the Society elects the Executive Body of the Society after every five years. The executive body of the Society, Principal of the college, teachers equal to 25 % strength of the teachers members by rotation and a non-teaching member by rotation every year together constitute management committee of the college.",
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.justify,
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.white))),
           const footer()
@@ -217,7 +217,7 @@ class _AboutFounderPageState extends State<AboutFounderPage> {
               padding: EdgeInsets.all(8.0),
               child: Text(
                   "The College was founded in 1970 by Late Shri Iswar Dayal Ji and his wife Late Smt. Parsandi Devi Ji.",
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.justify,
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.white))),
           const footer()
@@ -269,20 +269,26 @@ class _AboutMissionPageState extends State<AboutMissionPage> {
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: Colors.teal[900]),
               textAlign: TextAlign.center),
-          const Text(
-              "The vision of the IP society is to ensure holistic development of the youth while inculcating traditional value system, promoting the use of technology, fostering global competency and including a quest for creativity; innovation and excellence in students for contributing to national integration and development and for producing socially responsible and aware future citizens to hold I. P. College's torch high..",
-              textAlign: TextAlign.center,
-              style:
-                  TextStyle(fontStyle: FontStyle.italic, color: Colors.white)),
+          const Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+                "The vision of the IP society is to ensure holistic development of the youth while inculcating traditional value system, promoting the use of technology, fostering global competency and including a quest for creativity; innovation and excellence in students for contributing to national integration and development and for producing socially responsible and aware future citizens to hold I. P. College's torch high..",
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                    fontStyle: FontStyle.italic, color: Colors.white)),
+          ),
           Text("\nMISSION -",
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: Colors.teal[900]),
               textAlign: TextAlign.center),
-          const Text(
-              "In its mission, the society is committed to cater to the educational needs of the area at large and socio - economically weaker sections of the society in particular. The society aims to pursue quality and excellence and to set pace in the field of higher education through novel educational endeavors for achieving fullest development of human potential in order to meet the future demands and challenges in context of emerging global knowledge society.",
-              textAlign: TextAlign.center,
-              style:
-                  TextStyle(fontStyle: FontStyle.italic, color: Colors.white)),
+          const Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+                "In its mission, the society is committed to cater to the educational needs of the area at large and socio - economically weaker sections of the society in particular. The society aims to pursue quality and excellence and to set pace in the field of higher education through novel educational endeavors for achieving fullest development of human potential in order to meet the future demands and challenges in context of emerging global knowledge society.",
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                    fontStyle: FontStyle.italic, color: Colors.white)),
+          ),
           Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text("VALUES -",
@@ -291,11 +297,14 @@ class _AboutMissionPageState extends State<AboutMissionPage> {
                       fontSize: 20,
                       color: Colors.teal[900]),
                   textAlign: TextAlign.center)),
-          const Text(
-              "'Satyamev Jayate, Tamso maa Jyotirgamay' \"(Truth always triumphs and lead me unto light)\".\n'Vidhya Dhanam, Param Dhanam' \"'The Wealth of Learning is supreme\". \nContributing to national Integration and Development.\nFulfilment of educational needs of society.\nQuest for excellence\nPreservation of Indian Culture and Heritage..",
-              textAlign: TextAlign.center,
-              style:
-                  TextStyle(fontStyle: FontStyle.italic, color: Colors.white)),
+          const Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+                "'Satyamev Jayate, Tamso maa Jyotirgamay' \"(Truth always triumphs and lead me unto light)\".\n'Vidhya Dhanam, Param Dhanam' \"'The Wealth of Learning is supreme\". \nContributing to national Integration and Development.\nFulfilment of educational needs of society.\nQuest for excellence\nPreservation of Indian Culture and Heritage..",
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                    fontStyle: FontStyle.italic, color: Colors.white)),
+          ),
           const SizedBox(height: 20),
           const footer()
         ])));
@@ -444,7 +453,7 @@ class _BooksLibraryPageState extends State<BooksLibraryPage> {
               child: Image.asset('assets/images/img33.jpg', fit: BoxFit.cover)),
           Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Image.asset('assets/images/img53.jpg', fit: BoxFit.cover)),
+              child: Image.asset('assets/images/img51.jpg', fit: BoxFit.cover)),
           const footer()
         ])));
   }
@@ -482,15 +491,15 @@ class _GameSportsPageState extends State<GameSportsPage> {
                       color: Colors.teal[900]),
                   textAlign: TextAlign.center)),
           Icon(Icons.compare_arrows, color: Colors.teal[900]),
-          Padding(
-              padding: const EdgeInsets.all(16.0),
+          const Padding(
+              padding: EdgeInsets.all(16.0),
               child: Text(
                   "Games and Sports are encouraged in college to develop fitness, physical and neuromuscular skills and to promote the spirit of cooperation and sportsman.C.C.S. university, Meerut organizes inter collegiate level events to select university team to participate in Zonal level and National level university sports meets.The Followings games and sports available for students in I.P.College Bulandshahr:-1. Basketball, 2. Chess, 3. Cricket, 4. Volleyball, 5. Table-Tennis, 6. Athletics, 7. Kho-Kho , 8. Kabbadi, 9. Handball, 10. Badminton.",
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w900,
-                      color: Colors.teal[900]),
-                  textAlign: TextAlign.center)),
+                      color: Colors.white),
+                  textAlign: TextAlign.justify)),
           Padding(
               padding: const EdgeInsets.all(8.0),
               child: Image.asset('assets/images/img52.jpg', fit: BoxFit.cover)),

@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
         darkTheme: ThemeData(brightness: Brightness.dark),
         routes: {
           "/": (context) => const SplashPage(),
-          MyRoutes.splashpageRoute: (context) => const SplashPage(),
+          // MyRoutes.splashpageRoute: (context) => const SplashPage(),
           MyRoutes.ClgWebpageRoute: (context) => const ClgWebPage(),
           MyRoutes.AboutClgpageRoute: (context) => const AboutClgPage(),
           MyRoutes.founderpageRoute: (context) => const AboutFounderPage(),
