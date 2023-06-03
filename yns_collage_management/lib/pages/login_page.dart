@@ -14,12 +14,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String role = '';
+  // String role = '';
   final TextEditingController email = TextEditingController();
   final TextEditingController password = TextEditingController();
   var isPasswordVisible = true;
   bool isLoading = false;
   final forrmkey = GlobalKey<FormState>();
+  
 
   @override
   void dispose() {
@@ -35,10 +36,8 @@ class _LoginPageState extends State<LoginPage> {
     String res = await AuthMethods()
         .loginUser(email: email.text, password: password.text);
     if (res == 'success') {
-      Navigator.pushReplacement(
-          context,
-          PageTransition(
-              type: PageTransitionType.fade, child: BottomNavBar(role: role)));
+      Navigator.pushReplacement(context,
+          PageTransition(type: PageTransitionType.fade, child: BottomNavBar()));
       setState(() {
         isLoading = false;
       });
@@ -119,69 +118,69 @@ class _LoginPageState extends State<LoginPage> {
                                   // Title
                                   Padding(
                                       padding: const EdgeInsets.only(
-                                          top: 20, left: 25),
+                                          top: 30, left: 35, bottom: 20),
                                       child: Text('Log In',
                                           style: TextStyle(
-                                              fontSize: 30,
+                                              fontSize: 40,
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Pacifico'))),
                                   SizedBox(height: 5),
-                                  // Role
-                                  Column(children: [
-                                    Center(
-                                        child: FittedBox(
-                                            child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                          const Text('Admin',
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                          Radio(
-                                              value: 'Admin',
-                                              activeColor: Colors.white,
-                                              fillColor: MaterialStateColor
-                                                  .resolveWith(
-                                                      (states) => Colors.white),
-                                              groupValue: role,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  role = value.toString();
-                                                });
-                                              }),
-                                          const Text('Teacher',
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                          Radio(
-                                              value: 'Teachers',
-                                              activeColor: Colors.white,
-                                              fillColor: MaterialStateColor
-                                                  .resolveWith(
-                                                      (states) => Colors.white),
-                                              groupValue: role,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  role = value.toString();
-                                                });
-                                              }),
-                                          const Text('Student',
-                                              style: TextStyle(
-                                                  color: Colors.white)),
-                                          Radio(
-                                              value: 'Students',
-                                              activeColor: Colors.white,
-                                              fillColor: MaterialStateColor
-                                                  .resolveWith(
-                                                      (states) => Colors.white),
-                                              groupValue: role,
-                                              onChanged: (value) {
-                                                setState(() {
-                                                  role = value.toString();
-                                                });
-                                              })
-                                        ])))
-                                  ]),
+                                  // // Role
+                                  // Column(children: [
+                                  //   Center(
+                                  //       child: FittedBox(
+                                  //           child: Row(
+                                  //               mainAxisAlignment:
+                                  //                   MainAxisAlignment.start,
+                                  //               children: [
+                                  //         const Text('Admin',
+                                  //             style: TextStyle(
+                                  //                 color: Colors.white)),
+                                  //         Radio(
+                                  //             value: 'Admin',
+                                  //             activeColor: Colors.white,
+                                  //             fillColor: MaterialStateColor
+                                  //                 .resolveWith(
+                                  //                     (states) => Colors.white),
+                                  //             groupValue: role,
+                                  //             onChanged: (value) {
+                                  //               setState(() {
+                                  //                 role = value.toString();
+                                  //               });
+                                  //             }),
+                                  //         const Text('Teacher',
+                                  //             style: TextStyle(
+                                  //                 color: Colors.white)),
+                                  //         Radio(
+                                  //             value: 'Teachers',
+                                  //             activeColor: Colors.white,
+                                  //             fillColor: MaterialStateColor
+                                  //                 .resolveWith(
+                                  //                     (states) => Colors.white),
+                                  //             groupValue: role,
+                                  //             onChanged: (value) {
+                                  //               setState(() {
+                                  //                 role = value.toString();
+                                  //               });
+                                  //             }),
+                                  //         const Text('Student',
+                                  //             style: TextStyle(
+                                  //                 color: Colors.white)),
+                                  //         Radio(
+                                  //             value: 'Students',
+                                  //             activeColor: Colors.white,
+                                  //             fillColor: MaterialStateColor
+                                  //                 .resolveWith(
+                                  //                     (states) => Colors.white),
+                                  //             groupValue: role,
+                                  //             onChanged: (value) {
+                                  //               setState(() {
+                                  //                 role = value.toString();
+                                  //               });
+                                  //             })
+                                  //       ])))
+                                  // ]),
                                   // Enter Email ID...
                                   SignUpPageTextField(
                                       textEditingController: email,

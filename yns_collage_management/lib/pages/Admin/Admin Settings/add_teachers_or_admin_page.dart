@@ -11,8 +11,8 @@ class TRegistrationPage extends StatefulWidget {
 }
 
 class _TRegistrationPageState extends State<TRegistrationPage> {
-  String type = '';
-  String gender = '';
+  var role = '';
+  var gender = '';
   bool _isLoading = false;
   final TextEditingController idController = TextEditingController();
   final TextEditingController subjectController = TextEditingController();
@@ -28,6 +28,15 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
   final TextEditingController MobileController = TextEditingController();
   final TextEditingController EmailController = TextEditingController();
   final TextEditingController PasswordController = TextEditingController();
+  //
+  String dropdownclass = 'Class 1';
+  var classes = [
+    'Class 1',
+    'Class 2',
+    'Class 3',
+    'Class 4',
+    'Class 5',
+  ];
   @override
   void dispose() {
     super.dispose();
@@ -47,6 +56,32 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
     PasswordController.dispose();
   }
 
+  //
+  String dropdowndepartment = 'Department 1';
+  String dropdownprofile = 'profile 1';
+  String dropdownsubject = 'profile 1';
+  var department = [
+    'Department 1',
+    'Department 2',
+    'Department 3',
+    'Department 4',
+    'Department 5',
+  ];
+  var profile = [
+    'profile 1',
+    'profile 2',
+    'profile 3',
+    'profile 4',
+    'profile 5',
+  ];
+  var subject = [
+    'profile 1',
+    'profile 2',
+    'profile 3',
+    'profile 4',
+    'profile 5',
+  ];
+
   void AddAdminOrTeacher() async {
     // set loading to true
     setState(() {
@@ -65,12 +100,12 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
         mName: motherController.text,
         name: nameController.text,
         phoneNo: MobileController.text,
-        department: departmentController.text,
+        department: dropdowndepartment,
         id: idController.text,
         language: languagesController.text,
         profile: profileController.text,
         subject: subjectController.text,
-        role: type);
+        role: role);
     // if string returned is success, user has been created
     if (res == "Success") {
       // navigate to the home screen
@@ -144,32 +179,33 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                                             children: [
                                       const Text('Admin'),
                                       Radio(
-                                          value: 'Admin',
-                                          groupValue: type,
+                                          value: 'admin',
+                                          groupValue: role,
                                           onChanged: (value) {
                                             setState(() {
-                                              type = value.toString();
+                                              role = value.toString();
                                             });
                                           }),
                                       SizedBox(
                                           width: mediaQuery.size.width * 0.1),
                                       const Text('Teacher'),
                                       Radio(
-                                          value: 'Teachers',
-                                          groupValue: type,
+                                          value: 'teacher',
+                                          groupValue: role,
                                           onChanged: (value) {
                                             setState(() {
-                                              type = value.toString();
+                                              role = value.toString();
                                             });
                                           })
                                     ])))
                               ]),
                               // ID...
                               Row(children: [
-                                Text('$type ID:'),
+                                Text('$role ID:'),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
-                                        textEditingController: idController))
+                                        textEditingController: idController,
+                                        keyboard: TextInputType.text))
                               ]),
                               // subjects...
                               Row(children: [
@@ -177,23 +213,77 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                                 Expanded(
                                     child: InputFieldStudentRegistration(
                                         textEditingController:
-                                            subjectController))
+                                            subjectController,
+                                        keyboard: TextInputType.text))
                               ]),
                               // Profile
                               Row(children: [
                                 const Text('Job Profile:'),
                                 Expanded(
-                                    child: InputFieldStudentRegistration(
-                                        textEditingController:
-                                            profileController))
+                                    child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20),
+                                        child: DropdownButton(
+                                            dropdownColor: Colors.teal[400],
+                                            hint: const Text(
+                                                'Select Job Profile'),
+                                            menuMaxHeight: 300,
+                                            isExpanded: true,
+                                            underline: Container(
+                                                color: Colors.transparent),
+                                            iconEnabledColor: Colors.teal[800],
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 13, 71, 161),
+                                                fontSize: 13),
+                                            value: dropdownprofile,
+                                            icon: const Icon(
+                                                Icons.keyboard_arrow_down),
+                                            items: profile.map((String items) {
+                                              return DropdownMenuItem(
+                                                  value: items,
+                                                  child: Text(items));
+                                            }).toList(),
+                                            onChanged: (String? newValue) {
+                                              setState(() {
+                                                dropdownprofile = newValue!;
+                                              });
+                                            })))
                               ]),
                               // Department
                               Row(children: [
                                 const Text('Department:'),
                                 Expanded(
-                                    child: InputFieldStudentRegistration(
-                                        textEditingController:
-                                            departmentController))
+                                    child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20),
+                                        child: DropdownButton(
+                                            dropdownColor: Colors.teal[400],
+                                            hint:
+                                                const Text('Select Department'),
+                                            menuMaxHeight: 300,
+                                            isExpanded: true,
+                                            underline: Container(
+                                                color: Colors.transparent),
+                                            iconEnabledColor: Colors.teal[800],
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 13, 71, 161),
+                                                fontSize: 13),
+                                            value: dropdowndepartment,
+                                            icon: const Icon(
+                                                Icons.keyboard_arrow_down),
+                                            items:
+                                                department.map((String items) {
+                                              return DropdownMenuItem(
+                                                  value: items,
+                                                  child: Text(items));
+                                            }).toList(),
+                                            onChanged: (String? newValue) {
+                                              setState(() {
+                                                dropdowndepartment = newValue!;
+                                              });
+                                            })))
                               ]),
                               // Languages
                               Row(children: [
@@ -201,7 +291,8 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                                 Expanded(
                                     child: InputFieldStudentRegistration(
                                         textEditingController:
-                                            languagesController))
+                                            languagesController,
+                                        keyboard: TextInputType.text))
                               ])
                             ]))
                   ]))),
@@ -221,41 +312,43 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                             children: [
                               // name...
                               Row(children: [
-                                Text('$type Name:'),
+                                Text('$role Name:'),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
-                                        textEditingController: nameController))
+                                        textEditingController: nameController,
+                                        keyboard: TextInputType.name))
                               ]),
                               // father name...
                               Row(children: [
                                 const Text("Father's Name:"),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
-                                        textEditingController:
-                                            fatherController))
+                                        textEditingController: fatherController,
+                                        keyboard: TextInputType.name))
                               ]),
                               // mother name...
                               Row(children: [
                                 const Text("Mother's Name:"),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
-                                        textEditingController:
-                                            motherController))
+                                        textEditingController: motherController,
+                                        keyboard: TextInputType.name))
                               ]),
                               // student dob...
                               Row(children: [
                                 const Text("Date of Birth:"),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
-                                        textEditingController: dateController))
+                                        textEditingController: dateController,
+                                        keyboard: TextInputType.number))
                               ]),
                               // aadhar number...
                               Row(children: [
                                 const Text("Aadhar No:"),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
-                                        textEditingController:
-                                            aadharController))
+                                        textEditingController: aadharController,
+                                        keyboard: TextInputType.datetime))
                               ])
                             ]))
                   ]))),
@@ -329,22 +422,24 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                                 Expanded(
                                     child: InputFieldStudentRegistration(
                                         textEditingController:
-                                            AddressController))
+                                            AddressController,
+                                        keyboard: TextInputType.text))
                               ]),
                               // phone number...
                               Row(children: [
                                 const Text("Mobile NO:"),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
-                                        textEditingController:
-                                            MobileController))
+                                        textEditingController: MobileController,
+                                        keyboard: TextInputType.datetime))
                               ]),
                               // email id...
                               Row(children: [
                                 const Text("E-mail ID:"),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
-                                        textEditingController: EmailController))
+                                        textEditingController: EmailController,
+                                        keyboard: TextInputType.emailAddress))
                               ]),
                               // create password...
                               Row(children: [
@@ -352,7 +447,8 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                                 Expanded(
                                     child: InputFieldStudentRegistration(
                                         textEditingController:
-                                            PasswordController))
+                                            PasswordController,
+                                        keyboard: TextInputType.text))
                               ]),
                               const SizedBox(height: 20.0),
                               // submit button...

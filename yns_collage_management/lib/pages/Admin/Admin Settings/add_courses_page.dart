@@ -63,14 +63,16 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
                                 const Text('Course ID:'),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
-                                        textEditingController: idController))
+                                        textEditingController: idController,
+                                        keyboard: TextInputType.number))
                               ]),
                               // subjects...
                               Row(children: [
                                 const Text('Course Name:'),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
-                                        textEditingController: nameController))
+                                        textEditingController: nameController,
+                                        keyboard: TextInputType.number))
                               ]),
                               // Profile
                               Row(children: [
@@ -78,7 +80,8 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
                                 Expanded(
                                     child: InputFieldStudentRegistration(
                                         textEditingController:
-                                            durationController))
+                                            durationController,
+                                        keyboard: TextInputType.number))
                               ]),
                               // Department
                               Row(children: [
@@ -86,7 +89,8 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
                                 Expanded(
                                     child: InputFieldStudentRegistration(
                                         textEditingController:
-                                            departmentController))
+                                            departmentController,
+                                        keyboard: TextInputType.number))
                               ]),
                               // Languages
                               Row(children: [
@@ -94,7 +98,8 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
                                 Expanded(
                                     child: InputFieldStudentRegistration(
                                         textEditingController:
-                                            languagesController))
+                                            languagesController,
+                                        keyboard: TextInputType.number))
                               ])
                             ])),
                     const SizedBox(height: 20.0),

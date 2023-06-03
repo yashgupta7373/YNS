@@ -119,9 +119,9 @@ class _HomePageState extends State<HomePage> {
                                               RichText(
                                                   softWrap: true,
                                                   text: (widget.role ==
-                                                              'Admin' ||
+                                                              'admin' ||
                                                           widget.role ==
-                                                              'Teachers')
+                                                              'teacher')
                                                       ? TextSpan(
                                                           text: widget.username,
                                                           style: const TextStyle(
@@ -205,8 +205,8 @@ class _HomePageState extends State<HomePage> {
                               begin: Alignment.bottomLeft,
                               end: Alignment.centerRight)),
                       // for Admin & teacher...
-                      child: (widget.role == 'Admin' ||
-                              widget.role == 'Teachers')
+                      child: (widget.role == 'admin' ||
+                              widget.role == 'teacher')
                           ? GridView.count(crossAxisCount: 2, children: [
                               const AttendanceTakerBtn(),
                               const CheckAttendanceBtn(),
@@ -219,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                               const IdCardBtn(),
                               HomeWorkBtn(role: widget.role),
                               const ApplyLeaveBtn(),
-                              if (widget.role == 'Admin')
+                              if (widget.role == 'admin')
                                 // Admin Settings
                                 ContainerWidget(
                                     text: 'Admin\nSettings',

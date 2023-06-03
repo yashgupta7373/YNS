@@ -2,12 +2,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:yns_college_management/pages/College%20Web/aboutclg_page.dart';
 import 'package:yns_college_management/pages/College%20Web/clgweb_page.dart';
 import 'package:yns_college_management/pages/College%20Web/notification.dart';
 import 'package:yns_college_management/pages/Splash%20Screen/splash_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yns_college_management/Utils/routes.dart';
+import 'package:yns_college_management/pages/try.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,8 +56,9 @@ class _MyAppState extends State<MyApp> {
             fontFamily: GoogleFonts.lato().fontFamily),
         darkTheme: ThemeData(brightness: Brightness.dark),
         routes: {
-          "/": (context) => const SplashPage(),
-          // MyRoutes.splashpageRoute: (context) => const SplashPage(),
+          "/": (context) =>
+              SplashPage(image: Lottie.asset('assets/images/img75.json')),
+          // "/": (context) => Try(),
           MyRoutes.ClgWebpageRoute: (context) => const ClgWebPage(),
           MyRoutes.AboutClgpageRoute: (context) => const AboutClgPage(),
           MyRoutes.founderpageRoute: (context) => const AboutFounderPage(),

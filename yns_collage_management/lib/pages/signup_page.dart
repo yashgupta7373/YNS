@@ -17,7 +17,7 @@ class Controller extends State<SignUpPage> {
   var isPasswordVisible = true;
   var isPasswordVisible2 = true;
   bool _isLoading = false;
-  String role = '';
+  var role;
   // Controller...
   final TextEditingController Id = TextEditingController();
   final TextEditingController Email = TextEditingController();
@@ -59,10 +59,8 @@ class Controller extends State<SignUpPage> {
     // if string returned is success, user has been created
     if (res == "Success") {
       // navigate to the home screen
-      Navigator.pushReplacement(
-          context,
-          PageTransition(
-              type: PageTransitionType.fade, child: BottomNavBar(role: role)));
+      Navigator.pushReplacement(context,
+          PageTransition(type: PageTransitionType.fade, child: BottomNavBar()));
       setState(() {
         // _isLoading = false;
       });
@@ -163,7 +161,7 @@ class Controller extends State<SignUpPage> {
                                               style: TextStyle(
                                                   color: Colors.white)),
                                           Radio(
-                                              value: 'Admin',
+                                              value: 'admin',
                                               activeColor: Colors.white,
                                               fillColor: MaterialStateColor
                                                   .resolveWith(
@@ -178,7 +176,7 @@ class Controller extends State<SignUpPage> {
                                               style: TextStyle(
                                                   color: Colors.white)),
                                           Radio(
-                                              value: 'Teachers',
+                                              value: 'teacher',
                                               activeColor: Colors.white,
                                               fillColor: MaterialStateColor
                                                   .resolveWith(
@@ -193,7 +191,7 @@ class Controller extends State<SignUpPage> {
                                               style: TextStyle(
                                                   color: Colors.white)),
                                           Radio(
-                                              value: 'Students',
+                                              value: 'student',
                                               activeColor: Colors.white,
                                               fillColor: MaterialStateColor
                                                   .resolveWith(
@@ -210,7 +208,7 @@ class Controller extends State<SignUpPage> {
                                   SignUpPageTextField(
                                       textEditingController: Id,
                                       hint: 'AD203458',
-                                      label: 'Enter Your Admin ID',
+                                      label: 'Create Your Admin ID',
                                       icon: Icons.person),
                                   // Enter Email ID...
                                   SignUpPageTextField(

@@ -1,13 +1,16 @@
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
+
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import '../College Web/bottomNav.dart';
-import 'back_page.dart';
+import '../navigation_bar.dart';
 
 class SplashPage extends StatefulWidget {
-  const SplashPage({super.key});
+  var image;
+  SplashPage({required this.image, super.key});
   @override
   State<StatefulWidget> createState() {
     return SplashPageState();
@@ -18,7 +21,7 @@ class SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(milliseconds: 5500), () {
       // StreamBuilder(
       //   stream: FirebaseAuth.instance.authStateChanges(),
       //   builder: ((context, snapshot) {
@@ -45,7 +48,7 @@ class SplashPageState extends State<SplashPage> {
         Navigator.pushReplacement(
             context,
             PageTransition(
-                type: PageTransitionType.fade, child: const BackPage()));
+                type: PageTransitionType.fade, child: BottomNavBar()));
       } else {
         Navigator.pushReplacement(
             context,
@@ -67,9 +70,11 @@ class SplashPageState extends State<SplashPage> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                  SizedBox(height: mediaQuery.size.height * 0.2),
                   SizedBox(
-                      height: mediaQuery.size.height * 0.3,
-                      child: Image.asset("assets/images/img1.png")),
+                      height: mediaQuery.size.height * 0.3, child: widget.image
+                      // child: Image.asset("assets/images/img1.png")
+                      ),
                   SizedBox(
                       height: mediaQuery.size.height * 0.2,
                       width: mediaQuery.size.width * 0.9,
@@ -85,7 +90,29 @@ class SplashPageState extends State<SplashPage> {
                                   ],
                                   fontWeight: FontWeight.w900,
                                   color: const Color.fromARGB(
-                                      255, 43, 232, 213)))))
+                                      255, 43, 232, 213))))),
+                  SizedBox(height: mediaQuery.size.height * 0.22),
+                  SizedBox(
+                      height: mediaQuery.size.height * 0.02,
+                      child: Text("From",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.teal[300], fontSize: 15))),
+                  SizedBox(
+                      height: mediaQuery.size.height * 0.04,
+                      child: Text("YNS Group",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.passeroOne(
+                              textStyle: const TextStyle(fontSize: 20),
+                              shadows: [
+                                Shadow(
+                                    color: Colors.teal.shade700,
+                                    blurRadius: 5,
+                                    offset: const Offset(2, 2))
+                              ],
+                              fontWeight: FontWeight.w900,
+                              color: const Color.fromARGB(255, 2, 54, 46)))),
+                  SizedBox(height: mediaQuery.size.height * 0.02)
                 ]))));
   }
 }

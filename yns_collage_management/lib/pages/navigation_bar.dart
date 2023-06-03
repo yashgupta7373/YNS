@@ -9,8 +9,7 @@ import 'package:yns_college_management/pages/profile_page.dart';
 import 'home_page.dart';
 
 class BottomNavBar extends StatefulWidget {
-  String role;
-  BottomNavBar({super.key, required this.role});
+  const BottomNavBar({super.key});
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
 }
@@ -18,7 +17,8 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int index = 0;
   final navigationKey = GlobalKey<CurvedNavigationBarState>();
-  var username = "",
+  var role = "",
+      username = "",
       session = "",
       id = "",
       rollNo = "",
@@ -46,12 +46,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   void getUsername() async {
     DocumentSnapshot snap = await FirebaseFirestore.instance
-        .collection(widget.role)
+        .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
-    print(snap.data());
-    print(snap);
-    if (widget.role == 'Admin' || widget.role == 'Teachers') {
+    // print(snap.data());
+    // print(snap);
+    setState(() {
+      role = (snap.data() as Map<String, dynamic>)['role'];
+    });
+    if (role == 'admin' || role == 'teacher') {
       setState(() {
         id = (snap.data() as Map<String, dynamic>)['id'];
         username = (snap.data() as Map<String, dynamic>)['name'];
@@ -96,7 +99,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     final Screens = [
       HomePage(
-          role: widget.role,
+          role: role,
           Class: Class,
           rollNo: rollNo,
           department: department,
@@ -106,7 +109,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       const ClgWebPage(),
       const NotificationPage(),
       ProfilePage(
-          role: widget.role,
+          role: role,
           Class: Class,
           aadharNo: aadharNo,
           address: address,

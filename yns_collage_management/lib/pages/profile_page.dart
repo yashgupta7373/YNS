@@ -7,8 +7,8 @@ import '../../Widgets/call_class_room_and_online_class.dart';
 import '../../Widgets/profile_widget.dart';
 
 class ProfilePage extends StatefulWidget {
-  String role;
-  var username = "",
+  var role = "",
+      username = "",
       session = "",
       id = "",
       rollNo = "",
@@ -69,7 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
           title:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             // Id...
-            (widget.role == 'Admin' || widget.role == 'Teachers')
+            (widget.role == 'admin' || widget.role == 'teacher')
                 ? Text(widget.id)
                 : (Text(widget.rollNo)),
             Row(children: const [
@@ -120,9 +120,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.teal[900])),
                                             Text(
-                                                (widget.role == 'Admin' ||
+                                                (widget.role == 'admin' ||
                                                         widget.role ==
-                                                            'Teachers')
+                                                            'teacher')
                                                     ? widget.profile
                                                     : widget.Class,
                                                 style: TextStyle(
@@ -135,7 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     fontWeight: FontWeight.bold,
                                                     color: Colors.teal[900])),
                                             const SizedBox(height: 8),
-                                            if (widget.role == 'Students')
+                                            if (widget.role == 'student')
                                               Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -194,17 +194,17 @@ class _ProfilePageState extends State<ProfilePage> {
                     padding: const EdgeInsets.all(15),
                     child: Column(children: [
                       // academic session
-                      if (widget.role == 'Students')
+                      if (widget.role == 'student')
                         AdminRowWidget(
                             text1: 'Academic Session:', text2: widget.session),
                       // Id or RollNo
-                      (widget.role == 'Admin' || widget.role == 'Teachers')
+                      (widget.role == 'admin' || widget.role == 'teacher')
                           ? AdminRowWidget(
                               text1: '${widget.role} Id:', text2: widget.id)
                           : AdminRowWidget(
                               text1: 'Roll-No.:', text2: widget.rollNo),
                       // profile or class
-                      (widget.role == 'Admin' || widget.role == 'Teachers')
+                      (widget.role == 'admin' || widget.role == 'teacher')
                           ? AdminRowWidget(
                               text1: 'Job Profile:', text2: widget.profile)
                           : AdminRowWidget(
@@ -213,17 +213,17 @@ class _ProfilePageState extends State<ProfilePage> {
                       AdminRowWidget(
                           text1: 'Department', text2: widget.department),
                       // Subjects for teachers
-                      if (widget.role != 'Students')
+                      if (widget.role != 'student')
                         AdminRowWidget(
                             text1: 'Subjects:',
                             text2: widget.subject), // display all subjects...
                       // language for teachers
-                      if (widget.role != 'Students')
+                      if (widget.role != 'student')
                         AdminRowWidget(
                             text1: 'Language:',
                             text2: widget.language), // display all language...
                       // Name
-                      (widget.role == 'Admin' || widget.role == 'Teachers')
+                      (widget.role == 'admin' || widget.role == 'teacher')
                           ? AdminRowWidget(
                               text1: '${widget.role} Name:',
                               text2: widget.username)
@@ -244,16 +244,16 @@ class _ProfilePageState extends State<ProfilePage> {
                       // Gender
                       AdminRowWidget(text1: 'Gender:', text2: widget.gender),
                       // Category
-                      if (widget.role == 'Students')
+                      if (widget.role == 'student')
                         AdminRowWidget(
                             text1: 'Category:', text2: widget.category),
                       // Guardian's Occupation
-                      if (widget.role == 'Students')
+                      if (widget.role == 'student')
                         AdminRowWidget(
                             text1: 'Guardian\'s Occupation:',
                             text2: widget.occupation),
                       // Guardian's Income
-                      if (widget.role == 'Students')
+                      if (widget.role == 'student')
                         AdminRowWidget(
                             text1: 'Guardian\'s Income:', text2: widget.income),
                       // Address
