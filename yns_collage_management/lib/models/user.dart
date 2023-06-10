@@ -18,6 +18,7 @@ class AdminAndTeachers {
   final String gender;
   final String address;
   final String phoneNo;
+  final String photoUrl;
   final String email;
   final String uid;
 
@@ -36,6 +37,7 @@ class AdminAndTeachers {
       required this.gender,
       required this.address,
       required this.phoneNo,
+      required this.photoUrl,
       required this.email,
       required this.uid});
 
@@ -57,6 +59,7 @@ class AdminAndTeachers {
         gender: snapshot["gender"],
         address: snapshot["address"],
         phoneNo: snapshot[" phoneNo"],
+        photoUrl: snapshot["photoUrl"],
         email: snapshot["email"],
         uid: snapshot["uid"]);
   }
@@ -76,6 +79,7 @@ class AdminAndTeachers {
         'gender': gender,
         'address': address,
         'phoneNo': phoneNo,
+        "photoUrl": photoUrl,
         'email': email,
         'uid': uid
       };
@@ -100,6 +104,7 @@ class Student {
   final String address;
   final String phoneNo;
   final String email;
+  final String photoUrl;
   final String uid;
 
   const Student(
@@ -120,6 +125,7 @@ class Student {
       required this.address,
       required this.phoneNo,
       required this.email,
+      required this.photoUrl,
       required this.uid});
 
   static Student fromSnap(DocumentSnapshot snap) {
@@ -143,6 +149,7 @@ class Student {
         address: snapshot["address"],
         phoneNo: snapshot["phoneNo"],
         email: snapshot["email"],
+        photoUrl: snapshot["photoUrl"],
         uid: snapshot["uid"]);
   }
 
@@ -164,6 +171,7 @@ class Student {
         'address': address,
         'phoneNo.': phoneNo,
         'email': email,
+        "photoUrl": photoUrl,
         'uid': uid
       };
 }

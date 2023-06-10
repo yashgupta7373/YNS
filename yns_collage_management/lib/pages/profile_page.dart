@@ -27,6 +27,7 @@ class ProfilePage extends StatefulWidget {
       occupation = "",
       email = "",
       income = "",
+      photo = "",
       address = "";
   ProfilePage(
       {super.key,
@@ -50,6 +51,7 @@ class ProfilePage extends StatefulWidget {
       required this.rollNo,
       required this.session,
       required this.subject,
+      required this.photo,
       required this.username});
 
   @override
@@ -93,11 +95,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const CircleAvatar(
+                        CircleAvatar(
                             backgroundColor: Colors.white,
                             radius: 50,
-                            backgroundImage:
-                                AssetImage("assets/images/img60.png")),
+                            backgroundImage: NetworkImage(
+                              widget.photo,
+                            )),
                         Expanded(
                             child: Row(
                                 mainAxisAlignment:

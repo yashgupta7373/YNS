@@ -1,8 +1,12 @@
-// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, prefer_typing_uninitialized_variables
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:yns_college_management/widgets/input_field_student_registration.dart';
 import '../../../Resources/auth_method.dart';
 import '../../../Utils/utils.dart';
+import 'dart:typed_data';
 
 class TRegistrationPage extends StatefulWidget {
   const TRegistrationPage({super.key});
@@ -15,9 +19,9 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
   var gender = '';
   bool _isLoading = false;
   final TextEditingController idController = TextEditingController();
-  final TextEditingController subjectController = TextEditingController();
-  final TextEditingController profileController = TextEditingController();
-  final TextEditingController departmentController = TextEditingController();
+  // final TextEditingController subjectController = TextEditingController();
+  // final TextEditingController profileController = TextEditingController();
+  // final TextEditingController departmentController = TextEditingController();
   final TextEditingController languagesController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController fatherController = TextEditingController();
@@ -28,22 +32,16 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
   final TextEditingController MobileController = TextEditingController();
   final TextEditingController EmailController = TextEditingController();
   final TextEditingController PasswordController = TextEditingController();
+  Uint8List? _image;
   //
-  String dropdownclass = 'Class 1';
-  var classes = [
-    'Class 1',
-    'Class 2',
-    'Class 3',
-    'Class 4',
-    'Class 5',
-  ];
+
   @override
   void dispose() {
     super.dispose();
     idController.dispose();
-    subjectController.dispose();
-    profileController.dispose();
-    departmentController.dispose();
+    // subjectController.dispose();
+    // profileController.dispose();
+    // departmentController.dispose();
     languagesController.dispose();
     nameController.dispose();
     fatherController.dispose();
@@ -56,30 +54,105 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
     PasswordController.dispose();
   }
 
-  //
-  String dropdowndepartment = 'Department 1';
-  String dropdownprofile = 'profile 1';
-  String dropdownsubject = 'profile 1';
+  //drop ]down list..
+  var dropdowndepartment;
+  var dropdownprofile;
+  var dropdownsubject;
   var department = [
-    'Department 1',
-    'Department 2',
-    'Department 3',
-    'Department 4',
-    'Department 5',
+    'Computer Science Dep.',
+    'Commerce & Business Dep.',
+    'Teacher Education Dep.',
+    'Biotechnology Dep.',
+    'B.Sc(Home Science) Dep.',
+    'B.Sc Department'
   ];
   var profile = [
-    'profile 1',
-    'profile 2',
-    'profile 3',
-    'profile 4',
-    'profile 5',
+    'HOD',
+    'Assistant Professor',
+    'Associate Professor',
+    'Professor',
+    'Namely',
   ];
   var subject = [
-    'profile 1',
-    'profile 2',
-    'profile 3',
-    'profile 4',
-    'profile 5',
+    'Mathematics',
+    'Programming Principle and Algorithm',
+    'Fundamental of Computer MS Office',
+    'Principle of Management',
+    'Business Communication',
+    'C Programming Language',
+    'Organisation Behaviour',
+    'Digital Electronics',
+    'Financial Management and Accounting',
+    'C++',
+    'Data Structure',
+    'Computer Architecture',
+    'Business Economics',
+    'Statistics',
+    'Computer Graphics',
+    'Operating System',
+    'Optimisation Techniques',
+    'Software Engineering',
+    'DBMS',
+    'Java and Web technology',
+    'Networking',
+    'Numerical Techniques',
+    'Knowledge Management',
+    'Network Security',
+    'E -Commerce',
+    'System Analysis and Design',
+    'Foundation Course in Computers',
+    'Programming in C and data structure',
+    'Discrete Mathematical Structures',
+    'Computer Oriented Statistical Techniques',
+    'Design and analysis of Algorithms',
+    'File Structure and Database Management System',
+    'Computer Oriented Numerical Analysis',
+    'Interactive Computer Graphics',
+    'Computer Networks and Internet',
+    'Computer Oriented Optimization Methods',
+    'Object Oriented System',
+    'Fuzzy sets and Applications',
+    'Cryptology and Secure Systems',
+    'Artificial Intelligence and Neural networks',
+    'Fundamentals of Management',
+    'OrganizationalBehavior',
+    'Managerial Economics',
+    'Accounting and Financial Analysis',
+    'Business Law',
+    'BusinessOrganization and Ethics',
+    'Environmental Studies (Qualifying paper)',
+    'Quantitative Techniques for Business',
+    'Business Communication',
+    'Human Resource Management',
+    'Marketing Management',
+    'Business Environment',
+    'Fundamentals of Computer',
+    'Assessments on Soft Skill Based on Presentations/ G.D/ Personality traits',
+    'Advertising Management',
+    'Team Building & Leadership',
+    'Indian Economy',
+    'Customer Relationship Management',
+    'Management Information System',
+    'Income Tax Law & practice',
+    'ConsumerBehavior',
+    'Financial Management',
+    'Production& Operation Management',
+    'Sales& Distribution Management',
+    'Research Methodology',
+    'Entrepreneurship& Small Business Management',
+    'Computer Oriented Practical &Viva- Voce',
+    'Arithmetic Aptitude',
+    'Aptitude Reasoning',
+    'General Business Awareness',
+    'General English',
+    'Elective Paper M-1/ F-1',
+    'Elective Paper M-2 / F-2',
+    'Strategic Management & Business Policy',
+    'Operation Research',
+    'Fundamentals of E Commerce',
+    'Economic and Industrial Law',
+    'Elective Paper M-3/ F-3',
+    'Elective Paper M-4/ F-4',
   ];
 
   void AddAdminOrTeacher() async {
@@ -103,9 +176,10 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
         department: dropdowndepartment,
         id: idController.text,
         language: languagesController.text,
-        profile: profileController.text,
-        subject: subjectController.text,
-        role: role);
+        profile: dropdownprofile,
+        subject: dropdownsubject,
+        role: role,
+        file: _image!);
     // if string returned is success, user has been created
     if (res == "Success") {
       // navigate to the home screen
@@ -121,6 +195,25 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
     }
     // show the error
     showSnackBar(context, res);
+  }
+
+  // for picking up image from gallery
+  pickImage(ImageSource source) async {
+    final ImagePicker _imagePicker = ImagePicker();
+    XFile? _file = await _imagePicker.pickImage(source: source);
+    if (_file != null) {
+      return await _file.readAsBytes();
+    }
+    // print('No Image Selected');
+  }
+
+  //select image
+  selectImage() async {
+    Uint8List im = await pickImage(ImageSource.gallery);
+    // set state because we need to display the image we selected on the circle avatar
+    setState(() {
+      _image = im;
+    });
   }
 
   @override
@@ -153,7 +246,7 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                               // fontSize: 50,
                               fontWeight: FontWeight.bold,
                               color: Colors.white))))),
-          // Role, Id, Subject, Job Profile, Department
+          // Role, Id, Subject, Job Profile, Department, Languages
           Padding(
               padding: const EdgeInsets.only(
                   left: 20, right: 20, top: 20, bottom: 2),
@@ -211,10 +304,36 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                               Row(children: [
                                 const Text('Subjects:'),
                                 Expanded(
-                                    child: InputFieldStudentRegistration(
-                                        textEditingController:
-                                            subjectController,
-                                        keyboard: TextInputType.text))
+                                    child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20),
+                                        child: DropdownButton(
+                                            dropdownColor: Colors.teal[400],
+                                            hint: const Text('Select Subject'),
+                                            menuMaxHeight: 300,
+                                            isExpanded: true,
+                                            underline: Container(
+                                              color: Colors.teal[800],
+                                              height: 1,
+                                            ),
+                                            iconEnabledColor: Colors.teal[800],
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 13, 71, 161),
+                                                fontSize: 13),
+                                            value: dropdownsubject,
+                                            icon: const Icon(
+                                                Icons.keyboard_arrow_down),
+                                            items: subject.map((String items) {
+                                              return DropdownMenuItem(
+                                                  value: items,
+                                                  child: Text(items));
+                                            }).toList(),
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                dropdownsubject = newValue!;
+                                              });
+                                            })))
                               ]),
                               // Profile
                               Row(children: [
@@ -230,7 +349,9 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                                             menuMaxHeight: 300,
                                             isExpanded: true,
                                             underline: Container(
-                                                color: Colors.transparent),
+                                              color: Colors.teal[800],
+                                              height: 1,
+                                            ),
                                             iconEnabledColor: Colors.teal[800],
                                             style: const TextStyle(
                                                 color: Color.fromARGB(
@@ -244,7 +365,7 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                                                   value: items,
                                                   child: Text(items));
                                             }).toList(),
-                                            onChanged: (String? newValue) {
+                                            onChanged: (newValue) {
                                               setState(() {
                                                 dropdownprofile = newValue!;
                                               });
@@ -264,7 +385,9 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                                             menuMaxHeight: 300,
                                             isExpanded: true,
                                             underline: Container(
-                                                color: Colors.transparent),
+                                              color: Colors.teal[800],
+                                              height: 1,
+                                            ),
                                             iconEnabledColor: Colors.teal[800],
                                             style: const TextStyle(
                                                 color: Color.fromARGB(
@@ -279,7 +402,7 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                                                   value: items,
                                                   child: Text(items));
                                             }).toList(),
-                                            onChanged: (String? newValue) {
+                                            onChanged: (newValue) {
                                               setState(() {
                                                 dropdowndepartment = newValue!;
                                               });
@@ -296,6 +419,45 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                               ])
                             ]))
                   ]))),
+          //image
+          Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 2),
+              child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.teal[400]),
+                  child: Center(
+                    child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Stack(
+                          children: [
+                            _image != null
+                                ? CircleAvatar(
+                                    radius: 64,
+                                    backgroundImage: MemoryImage(_image!),
+                                    backgroundColor: Colors.teal,
+                                  )
+                                : const CircleAvatar(
+                                    radius: 64,
+                                    backgroundImage: NetworkImage(
+                                        'https://i.stack.imgur.com/l60Hf.png'),
+                                    backgroundColor: Colors.teal,
+                                  ),
+                            Positioned(
+                              bottom: -10,
+                              left: 80,
+                              child: IconButton(
+                                onPressed: selectImage,
+                                icon: const Icon(
+                                  Icons.add_a_photo,
+                                  color: Color.fromARGB(255, 0, 73, 65),
+                                ),
+                              ),
+                            )
+                          ],
+                        )),
+                  ))),
           //Name, Father Name, Mother Name, Date of birth, Aadhar No.
           Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, bottom: 2),
@@ -338,9 +500,37 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                               Row(children: [
                                 const Text("Date of Birth:"),
                                 Expanded(
-                                    child: InputFieldStudentRegistration(
-                                        textEditingController: dateController,
-                                        keyboard: TextInputType.number))
+                                    child: Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: TextField(
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontStyle: FontStyle.normal,
+                                              color: Colors.blue[900]),
+                                          controller: dateController,
+                                          decoration: const InputDecoration(
+                                              contentPadding: EdgeInsets.all(8),
+                                              icon: Icon(
+                                                Icons.calendar_today_rounded,
+                                                // color: Colors.teal[800],
+                                              ),
+                                              hintText: "Select Date"),
+                                          onTap: () async {
+                                            DateTime? pickedDate =
+                                                await showDatePicker(
+                                                    context: context,
+                                                    initialDate: DateTime.now(),
+                                                    firstDate: DateTime(1900),
+                                                    lastDate: DateTime.now());
+                                            if (pickedDate != null) {
+                                              setState(() {
+                                                dateController.text =
+                                                    DateFormat('dd-MM-yyyy')
+                                                        .format(pickedDate);
+                                              });
+                                            }
+                                          },
+                                        )))
                               ]),
                               // aadhar number...
                               Row(children: [

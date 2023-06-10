@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use, non_constant_identifier_names, must_be_immutable
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
@@ -18,6 +20,7 @@ class HomePage extends StatefulWidget {
   var department = "";
   var rollNo = "";
   var Class = "";
+  var photo = "";
   HomePage(
       {super.key,
       required this.role,
@@ -26,13 +29,34 @@ class HomePage extends StatefulWidget {
       required this.department,
       required this.id,
       required this.profile,
-      required this.username});
+      required this.username,
+      required this.photo});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  // var userData = {};
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getData();
+  // }
+
+  // getData() async {
+  //   try {
+  //     var snap = await FirebaseFirestore.instance
+  //         .collection('users')
+  //         .doc(FirebaseAuth.instance.currentUser!.uid)
+  //         .get();
+  //     userData = snap.data()!;
+  //     setState(() {});
+  //   } catch (e) {
+  //     // showSnakBar(context, e.toString());
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,11 +127,12 @@ class _HomePageState extends State<HomePage> {
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const CircleAvatar(
+                                CircleAvatar(
                                     backgroundColor: Colors.white,
                                     radius: 50,
-                                    backgroundImage:
-                                        AssetImage("assets/images/img60.png")),
+                                    backgroundImage: NetworkImage(
+                                      widget.photo,
+                                    )),
                                 Expanded(
                                     child: Padding(
                                         padding: const EdgeInsets.all(15.0),

@@ -1,4 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, prefer_const_literals_to_create_immutables, prefer_const_constructors
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:yns_college_management/Resources/auth_method.dart';
@@ -22,6 +23,7 @@ class Controller extends State<SignUpPage> {
   final TextEditingController Id = TextEditingController();
   final TextEditingController Email = TextEditingController();
   final TextEditingController Password = TextEditingController();
+  Uint8List? _image;
   final forrmkey = GlobalKey<FormState>();
 
   @override
@@ -55,7 +57,8 @@ class Controller extends State<SignUpPage> {
         phoneNo: '',
         profile: '',
         role: '',
-        subject: '');
+        subject: '',
+        file: _image!);
     // if string returned is success, user has been created
     if (res == "Success") {
       // navigate to the home screen

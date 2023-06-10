@@ -9,6 +9,24 @@ class AddCoursesPage extends StatefulWidget {
 }
 
 class _AddCoursesPageState extends State<AddCoursesPage> {
+  var dropdowndepartment;
+  var dropdownduration;
+  var department = [
+    'Computer Science Dep.',
+    'Commerce & Business Dep.',
+    'Teacher Education Dep.',
+    'Biotechnology Dep.',
+    'B.Sc(Home Science) Dep.',
+    'B.Sc Department'
+  ];
+  var duration = [
+    '6 Months',
+    '1 Year',
+    '2 Years',
+    '3 Years',
+    '4 Years',
+    '5 Years'
+  ];
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -17,6 +35,7 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
     final TextEditingController departmentController = TextEditingController();
     final TextEditingController languagesController = TextEditingController();
     final TextEditingController nameController = TextEditingController();
+    final TextEditingController subjectController = TextEditingController();
     return Scaffold(
         backgroundColor: Colors.teal[300],
         appBar: AppBar(
@@ -64,33 +83,97 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
                                 Expanded(
                                     child: InputFieldStudentRegistration(
                                         textEditingController: idController,
-                                        keyboard: TextInputType.number))
+                                        keyboard: TextInputType.name))
                               ]),
-                              // subjects...
+                              // course...
                               Row(children: [
                                 const Text('Course Name:'),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
                                         textEditingController: nameController,
-                                        keyboard: TextInputType.number))
+                                        keyboard: TextInputType.name))
                               ]),
-                              // Profile
+                              // Duration
                               Row(children: [
                                 const Text('Course Duration:'),
                                 Expanded(
-                                    child: InputFieldStudentRegistration(
-                                        textEditingController:
-                                            durationController,
-                                        keyboard: TextInputType.number))
+                                    child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20),
+                                        child: DropdownButton(
+                                            dropdownColor: Colors.teal[400],
+                                            hint: const Text(
+                                                'Select Course Duration'),
+                                            menuMaxHeight: 300,
+                                            isExpanded: true,
+                                            underline: Container(
+                                              color: Colors.teal[800],
+                                              height: 1,
+                                            ),
+                                            iconEnabledColor: Colors.teal[800],
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 13, 71, 161),
+                                                fontSize: 13),
+                                            value: dropdownduration,
+                                            icon: const Icon(
+                                                Icons.keyboard_arrow_down),
+                                            items: duration.map((String items) {
+                                              return DropdownMenuItem(
+                                                  value: items,
+                                                  child: Text(items));
+                                            }).toList(),
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                dropdownduration = newValue!;
+                                              });
+                                            })))
                               ]),
                               // Department
                               Row(children: [
                                 const Text('Department:'),
                                 Expanded(
+                                    child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20),
+                                        child: DropdownButton(
+                                            dropdownColor: Colors.teal[400],
+                                            hint:
+                                                const Text('Select Department'),
+                                            menuMaxHeight: 300,
+                                            isExpanded: true,
+                                            underline: Container(
+                                              color: Colors.teal[800],
+                                              height: 1,
+                                            ),
+                                            iconEnabledColor: Colors.teal[800],
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 13, 71, 161),
+                                                fontSize: 13),
+                                            value: dropdowndepartment,
+                                            icon: const Icon(
+                                                Icons.keyboard_arrow_down),
+                                            items:
+                                                department.map((String items) {
+                                              return DropdownMenuItem(
+                                                  value: items,
+                                                  child: Text(items));
+                                            }).toList(),
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                dropdowndepartment = newValue!;
+                                              });
+                                            })))
+                              ]),
+                              // subjects
+                              Row(children: [
+                                const Text('Subjects:'),
+                                Expanded(
                                     child: InputFieldStudentRegistration(
                                         textEditingController:
-                                            departmentController,
-                                        keyboard: TextInputType.number))
+                                            subjectController,
+                                        keyboard: TextInputType.name))
                               ]),
                               // Languages
                               Row(children: [
@@ -99,7 +182,7 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
                                     child: InputFieldStudentRegistration(
                                         textEditingController:
                                             languagesController,
-                                        keyboard: TextInputType.number))
+                                        keyboard: TextInputType.name))
                               ])
                             ])),
                     const SizedBox(height: 20.0),

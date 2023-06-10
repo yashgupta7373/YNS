@@ -1,5 +1,8 @@
-// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, prefer_typing_uninitialized_variables
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:yns_college_management/widgets/input_field_student_registration.dart';
 import '../../../Resources/auth_method.dart';
@@ -37,24 +40,39 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
   final TextEditingController EmailController = TextEditingController();
   final TextEditingController PasswordController = TextEditingController();
   // final TextEditingController departmentController = TextEditingController();
-  //
-  String dropdownclass = 'Class 1';
-  String dropdowndepartment = 'Department 1';
-  var classes = [
-    'Class 1',
-    'Class 2',
-    'Class 3',
-    'Class 4',
-    'Class 5',
-  ];
-  var department = [
-    'Department 1',
-    'Department 2',
-    'Department 3',
-    'Department 4',
-    'Department 5',
-  ];
+  Uint8List? _image;
 
+  //
+
+  var dropdownclass;
+  var dropdowndepartment;
+  var department = [
+    'Computer Science Dep.',
+    'Commerce & Business Dep.',
+    'Teacher Education Dep.',
+    'Biotechnology Dep.',
+    'B.Sc(Home Science) Dep.',
+    'B.Sc Department'
+  ];
+  var classes = [
+    'BCA',
+    'MCA',
+    'BBA',
+    'MBA',
+    'Bcom.',
+    'MCom.',
+    'BA',
+    'MA',
+    'B.Ed',
+    'M.Ed',
+    'D.EI.Ed',
+    'B.Sc(Biotechnology)',
+    'M.Sc(Biotechnology)',
+    'B.Sc(HomeScience)',
+    'M.Sc(HomeScience)',
+    'B.Sc(Bio)-BCZ',
+    'B.Sc(Math)-PCM'
+  ];
   @override
   void dispose() {
     super.dispose();
@@ -100,7 +118,8 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
         mName: motherController.text,
         name: nameController.text,
         phoneNo: MobileController.text,
-        session: sessionController.text);
+        session: sessionController.text,
+        file: _image!);
     // if string returned is success, user has been created
     if (res == "Success") {
       // navigate to the home screen
@@ -116,6 +135,25 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
     }
     // show the error
     showSnackBar(context, res);
+  }
+
+// for picking up image from gallery
+  pickImage(ImageSource source) async {
+    final ImagePicker _imagePicker = ImagePicker();
+    XFile? _file = await _imagePicker.pickImage(source: source);
+    if (_file != null) {
+      return await _file.readAsBytes();
+    }
+    // print('No Image Selected');
+  }
+
+  //select image
+  selectImage() async {
+    Uint8List im = await pickImage(ImageSource.gallery);
+    // set state because we need to display the image we selected on the circle avatar
+    setState(() {
+      _image = im;
+    });
   }
 
   @override
@@ -172,39 +210,7 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
                                         keyboard: const TextInputType
                                             .numberWithOptions(signed: true)))
                               ]),
-                              // class...
-                              Row(children: [
-                                const Text('Class:'),
-                                Expanded(
-                                    child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20),
-                                        child: DropdownButton(
-                                            dropdownColor: Colors.teal[400],
-                                            hint: const Text('Select Class'),
-                                            menuMaxHeight: 300,
-                                            isExpanded: true,
-                                            underline:
-                                                Container(color: Colors.black),
-                                            iconEnabledColor: Colors.teal[800],
-                                            style: const TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 13, 71, 161),
-                                                fontSize: 13),
-                                            value: dropdownclass,
-                                            icon: const Icon(
-                                                Icons.keyboard_arrow_down),
-                                            items: classes.map((String items) {
-                                              return DropdownMenuItem(
-                                                  value: items,
-                                                  child: Text(items));
-                                            }).toList(),
-                                            onChanged: (String? newValue) {
-                                              setState(() {
-                                                dropdownclass = newValue!;
-                                              });
-                                            })))
-                              ]),
+
                               // Department
                               Row(children: [
                                 const Text('Department:'),
@@ -219,7 +225,9 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
                                             menuMaxHeight: 300,
                                             isExpanded: true,
                                             underline: Container(
-                                                color: Colors.transparent),
+                                              color: Colors.teal[800],
+                                              height: 1,
+                                            ),
                                             iconEnabledColor: Colors.teal[800],
                                             style: const TextStyle(
                                                 color: Color.fromARGB(
@@ -234,12 +242,49 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
                                                   value: items,
                                                   child: Text(items));
                                             }).toList(),
-                                            onChanged: (String? newValue) {
+                                            onChanged: (newValue) {
                                               setState(() {
                                                 dropdowndepartment = newValue!;
                                               });
                                             })))
                               ]),
+
+                              // class...
+                              Row(children: [
+                                const Text('Class:'),
+                                Expanded(
+                                    child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20),
+                                        child: DropdownButton(
+                                            dropdownColor: Colors.teal[400],
+                                            hint: const Text('Select Class'),
+                                            menuMaxHeight: 300,
+                                            isExpanded: true,
+                                            underline: Container(
+                                              color: Colors.teal[800],
+                                              height: 1,
+                                            ),
+                                            iconEnabledColor: Colors.teal[800],
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 13, 71, 161),
+                                                fontSize: 13),
+                                            value: dropdownclass,
+                                            icon: const Icon(
+                                                Icons.keyboard_arrow_down),
+                                            items: classes.map((String items) {
+                                              return DropdownMenuItem(
+                                                  value: items,
+                                                  child: Text(items));
+                                            }).toList(),
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                dropdownclass = newValue!;
+                                              });
+                                            })))
+                              ]),
+
                               // rollno...
                               Row(children: [
                                 const Text('University Roll No.:'),
@@ -250,6 +295,45 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
                               ])
                             ]))
                   ]))),
+          //image
+          Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 2),
+              child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.teal[400]),
+                  child: Center(
+                    child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Stack(
+                          children: [
+                            _image != null
+                                ? CircleAvatar(
+                                    radius: 64,
+                                    backgroundImage: MemoryImage(_image!),
+                                    backgroundColor: Colors.teal,
+                                  )
+                                : const CircleAvatar(
+                                    radius: 64,
+                                    backgroundImage: NetworkImage(
+                                        'https://i.stack.imgur.com/l60Hf.png'),
+                                    backgroundColor: Colors.teal,
+                                  ),
+                            Positioned(
+                              bottom: -10,
+                              left: 80,
+                              child: IconButton(
+                                onPressed: selectImage,
+                                icon: const Icon(
+                                  Icons.add_a_photo,
+                                  color: Color.fromARGB(255, 0, 73, 65),
+                                ),
+                              ),
+                            )
+                          ],
+                        )),
+                  ))),
           Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, bottom: 2),
               child: Container(

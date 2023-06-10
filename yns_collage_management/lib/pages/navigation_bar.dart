@@ -37,6 +37,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       occupation = "",
       email = "",
       income = "",
+      photo = "",
       address = "";
   @override
   void initState() {
@@ -70,6 +71,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         address = (snap.data() as Map<String, dynamic>)['address'];
         phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo'];
         email = (snap.data() as Map<String, dynamic>)['email'];
+        photo = (snap.data() as Map<String, dynamic>)['photoUrl'];
       });
     } else {
       setState(() {
@@ -91,6 +93,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         address = (snap.data() as Map<String, dynamic>)['address'];
         phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo.'];
         email = (snap.data() as Map<String, dynamic>)['email'];
+        photo = (snap.data() as Map<String, dynamic>)['photoUrl'];
       });
     }
   }
@@ -99,37 +102,41 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     final Screens = [
       HomePage(
-          role: role,
-          Class: Class,
-          rollNo: rollNo,
-          department: department,
-          id: id,
-          profile: profile,
-          username: username),
+        role: role,
+        Class: Class,
+        rollNo: rollNo,
+        department: department,
+        id: id,
+        profile: profile,
+        username: username,
+        photo: photo,
+      ),
       const ClgWebPage(),
       const NotificationPage(),
       ProfilePage(
-          role: role,
-          Class: Class,
-          aadharNo: aadharNo,
-          address: address,
-          category: category,
-          department: department,
-          dob: dob,
-          email: email,
-          fName: fName,
-          gender: gender,
-          id: id,
-          income: income,
-          language: language,
-          mName: mName,
-          occupation: occupation,
-          phoneNo: phoneNo,
-          profile: profile,
-          rollNo: rollNo,
-          session: session,
-          subject: subject,
-          username: username)
+        role: role,
+        Class: Class,
+        aadharNo: aadharNo,
+        address: address,
+        category: category,
+        department: department,
+        dob: dob,
+        email: email,
+        fName: fName,
+        gender: gender,
+        id: id,
+        income: income,
+        language: language,
+        mName: mName,
+        occupation: occupation,
+        phoneNo: phoneNo,
+        profile: profile,
+        rollNo: rollNo,
+        session: session,
+        subject: subject,
+        username: username,
+        photo: photo,
+      )
     ];
     final items = <Widget>[
       const Icon(Icons.home, size: 30),

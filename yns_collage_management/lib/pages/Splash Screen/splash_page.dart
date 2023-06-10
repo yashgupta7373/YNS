@@ -22,26 +22,6 @@ class SplashPageState extends State<SplashPage> {
   void initState() {
     super.initState();
     Timer(const Duration(milliseconds: 5500), () {
-      // StreamBuilder(
-      //   stream: FirebaseAuth.instance.authStateChanges(),
-      //   builder: ((context, snapshot) {
-      //     if (snapshot.connectionState == ConnectionState.active) {
-      //       if (snapshot.hasData) {
-      //         return const BackPage();
-      //       } else if (snapshot.hasError) {
-      //         return Center(
-      //           child: Text('${snapshot.error}'),
-      //         );
-      //       }
-      //     }
-      //     if (snapshot.connectionState == ConnectionState.waiting) {
-      //       return const Center(
-      //         child: CircularProgressIndicator(color: Colors.white),
-      //       );
-      //     }
-      //     return const BottomNavigation();
-      //   }),
-      // );
       final auth = FirebaseAuth.instance;
       final user = auth.currentUser;
       if (user != null) {
@@ -72,9 +52,8 @@ class SplashPageState extends State<SplashPage> {
                     children: [
                   SizedBox(height: mediaQuery.size.height * 0.2),
                   SizedBox(
-                      height: mediaQuery.size.height * 0.3, child: widget.image
-                      // child: Image.asset("assets/images/img1.png")
-                      ),
+                      height: mediaQuery.size.height * 0.3,
+                      child: widget.image),
                   SizedBox(
                       height: mediaQuery.size.height * 0.2,
                       width: mediaQuery.size.width * 0.9,
@@ -94,7 +73,7 @@ class SplashPageState extends State<SplashPage> {
                   SizedBox(height: mediaQuery.size.height * 0.22),
                   SizedBox(
                       height: mediaQuery.size.height * 0.02,
-                      child: Text("From",
+                      child: Text("from",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               color: Colors.teal[300], fontSize: 15))),

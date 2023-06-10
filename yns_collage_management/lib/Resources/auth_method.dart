@@ -1,6 +1,9 @@
 // ignore_for_file: non_constant_identifier_names
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:yns_college_management/Resources/stroage_method.dart';
 import 'package:yns_college_management/models/user.dart' as model;
 
 class AuthMethods {
@@ -33,6 +36,7 @@ class AuthMethods {
       required String gender,
       required String address,
       required String phoneNo,
+      required Uint8List file,
       required String email,
       required String password}) async {
     String res = "Some Error occurred";
@@ -51,11 +55,15 @@ class AuthMethods {
           gender.isNotEmpty ||
           address.isNotEmpty ||
           phoneNo.isNotEmpty ||
+          file != null ||
           email.isNotEmpty ||
           password.isNotEmpty) {
         // register the user...
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
+        //image
+        String photoUrl = await StorageMethods()
+            .uploadImageToStorage('profilePics', file, false);
         //user model...
         model.AdminAndTeachers user = model.AdminAndTeachers(
             role: role,
@@ -72,6 +80,7 @@ class AuthMethods {
             gender: gender,
             address: address,
             phoneNo: phoneNo,
+            photoUrl: photoUrl,
             email: email,
             uid: cred.user!.uid);
         // add user in database...
@@ -106,6 +115,7 @@ class AuthMethods {
       required String address,
       required String phoneNo,
       required String email,
+      required Uint8List file,
       required String password}) async {
     String res = "Some Error occurred";
     try {
@@ -126,10 +136,15 @@ class AuthMethods {
           address.isNotEmpty ||
           phoneNo.isNotEmpty ||
           email.isNotEmpty ||
+          file != null ||
           password.isNotEmpty) {
         // register the user...
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
+        //image
+        String photoUrl = await StorageMethods()
+            .uploadImageToStorage('profilePics', file, false);
+        //user
         model.Student user = model.Student(
             role: role,
             session: session,
@@ -147,6 +162,7 @@ class AuthMethods {
             gIncome: gIncome,
             address: address,
             phoneNo: phoneNo,
+            photoUrl: photoUrl,
             email: email,
             uid: cred.user!.uid);
         // add user in database...
