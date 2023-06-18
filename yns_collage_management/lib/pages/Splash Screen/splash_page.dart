@@ -28,7 +28,7 @@ class SplashPageState extends State<SplashPage> {
         Navigator.pushReplacement(
             context,
             PageTransition(
-                type: PageTransitionType.fade, child: BottomNavBar()));
+                type: PageTransitionType.fade, child: const BottomNavBar()));
       } else {
         Navigator.pushReplacement(
             context,

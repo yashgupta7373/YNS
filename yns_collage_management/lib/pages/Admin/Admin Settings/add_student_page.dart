@@ -17,6 +17,7 @@ class SRegistrationPage extends StatefulWidget {
 class _SRegistrationPageState extends State<SRegistrationPage> {
   var role = 'student';
   var gender = '';
+  var transport = '';
   var Category = '';
   // var SubCategory = '';
   // var OrdinaryResidentOf = '';
@@ -115,6 +116,7 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
         gOccupation: occupationController.text,
         department: dropdowndepartment,
         gender: gender,
+        transport: transport,
         mName: motherController.text,
         name: nameController.text,
         phoneNo: MobileController.text,
@@ -139,10 +141,10 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
 
 // for picking up image from gallery
   pickImage(ImageSource source) async {
-    final ImagePicker _imagePicker = ImagePicker();
-    XFile? _file = await _imagePicker.pickImage(source: source);
-    if (_file != null) {
-      return await _file.readAsBytes();
+    final ImagePicker imagePicker = ImagePicker();
+    XFile? file = await imagePicker.pickImage(source: source);
+    if (file != null) {
+      return await file.readAsBytes();
     }
     // print('No Image Selected');
   }
@@ -541,6 +543,47 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
                                       keyboard: TextInputType.datetime))
                             ])
                           ])))),
+
+          Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 2),
+              child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.teal[400]),
+                  child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            // College Transport...
+                            const Text("Use College Transport"),
+                            FittedBox(
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                  const Text('Yes'),
+                                  Radio(
+                                      value: 'Yes',
+                                      groupValue: transport,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          transport = value.toString();
+                                        });
+                                      }),
+                                  SizedBox(width: mediaQuery.size.width * 0.1),
+                                  const Text('No'),
+                                  Radio(
+                                      value: 'No',
+                                      groupValue: transport,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          transport = value.toString();
+                                        });
+                                      }),
+                                ])),
+                          ])))),
+
           Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, bottom: 2),
               child: Container(

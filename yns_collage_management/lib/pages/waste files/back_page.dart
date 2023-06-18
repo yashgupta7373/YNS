@@ -41,7 +41,7 @@ class _BackPageState extends State<BackPage> {
                 Navigator.pushReplacement(
                     context,
                     PageTransition(
-                        type: PageTransitionType.fade, child: BottomNavBar()));
+                        type: PageTransitionType.fade, child: const BottomNavBar()));
               },
               icon: Icons.person_add_alt_1),
           // Teacher
@@ -54,7 +54,7 @@ class _BackPageState extends State<BackPage> {
                 Navigator.pushReplacement(
                     context,
                     PageTransition(
-                        type: PageTransitionType.fade, child: BottomNavBar()));
+                        type: PageTransitionType.fade, child: const BottomNavBar()));
               },
               icon: Icons.people_alt),
           //Student
@@ -67,7 +67,7 @@ class _BackPageState extends State<BackPage> {
                 Navigator.pushReplacement(
                     context,
                     PageTransition(
-                        type: PageTransitionType.fade, child: BottomNavBar()));
+                        type: PageTransitionType.fade, child: const BottomNavBar()));
               },
               icon: Icons.person),
           const SizedBox(height: 60)

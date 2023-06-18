@@ -16,6 +16,7 @@ class AdminAndTeachers {
   final String dob;
   final String aadharNo;
   final String gender;
+  final String transport;
   final String address;
   final String phoneNo;
   final String photoUrl;
@@ -35,6 +36,7 @@ class AdminAndTeachers {
       required this.dob,
       required this.aadharNo,
       required this.gender,
+      required this.transport,
       required this.address,
       required this.phoneNo,
       required this.photoUrl,
@@ -57,6 +59,7 @@ class AdminAndTeachers {
         dob: snapshot["dob"],
         aadharNo: snapshot["aadharNo"],
         gender: snapshot["gender"],
+        transport: snapshot["transport"],
         address: snapshot["address"],
         phoneNo: snapshot[" phoneNo"],
         photoUrl: snapshot["photoUrl"],
@@ -77,6 +80,7 @@ class AdminAndTeachers {
         'dob': dob,
         'aadharNo.': aadharNo,
         'gender': gender,
+        'transport': transport,
         'address': address,
         'phoneNo': phoneNo,
         "photoUrl": photoUrl,
@@ -98,6 +102,7 @@ class Student {
   final String dob;
   final String aadharNo;
   final String gender;
+  final String transport;
   final String category;
   final String gOccupation;
   final String gIncome;
@@ -119,6 +124,7 @@ class Student {
       required this.dob,
       required this.aadharNo,
       required this.gender,
+      required this.transport,
       required this.category,
       required this.gOccupation,
       required this.gIncome,
@@ -143,6 +149,7 @@ class Student {
         dob: snapshot["dob"],
         aadharNo: snapshot["aadharNo"],
         gender: snapshot["gender"],
+        transport: snapshot["transport"],
         category: snapshot["category"],
         gOccupation: snapshot["gOccupation"],
         gIncome: snapshot["gIncome"],
@@ -165,6 +172,7 @@ class Student {
         'dob': dob,
         'aadharNo.': aadharNo,
         'gender': gender,
+        'transport': transport,
         'category': category,
         'gOccupation': gOccupation,
         'gIncome': gIncome,

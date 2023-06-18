@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
 import 'package:flutter/material.dart';
 import 'package:yns_college_management/widgets/input_field_student_registration.dart';
 
@@ -31,8 +31,6 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     final TextEditingController idController = TextEditingController();
-    final TextEditingController durationController = TextEditingController();
-    final TextEditingController departmentController = TextEditingController();
     final TextEditingController languagesController = TextEditingController();
     final TextEditingController nameController = TextEditingController();
     final TextEditingController subjectController = TextEditingController();

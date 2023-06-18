@@ -1,16 +1,16 @@
 // ignore_for_file: deprecated_member_use, non_constant_identifier_names, must_be_immutable
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:yns_college_management/pages/Admin/Admin%20Settings/add_student_page.dart';
 import 'package:yns_college_management/pages/College%20Web/my_drawer_header.dart';
+import 'package:yns_college_management/pages/search_page.dart';
 import '../../Widgets/call_class_room_and_online_class.dart';
 import '../../Widgets/home_page_widget.dart';
 import 'Admin/Admin Settings/add_courses_page.dart';
 import 'Admin/Admin Settings/add_teachers_or_admin_page.dart';
+import 'Admin/Admin Settings/edit.dart';
 
 class HomePage extends StatefulWidget {
   String role;
@@ -47,14 +47,14 @@ class _HomePageState extends State<HomePage> {
   // getData() async {
   //   try {
   //     var snap = await FirebaseFirestore.instance
-  //         .collection('users')
+  //         .collection(widget.role)
   //         .doc(FirebaseAuth.instance.currentUser!.uid)
   //         .get();
   //     userData = snap.data()!;
   //     setState(() {});
-  //   } catch (e) {
-  //     // showSnakBar(context, e.toString());
-  //   }
+  // } catch (e) {
+  //   // showSnakBar(context, e.toString());
+  // }
   // }
 
   @override
@@ -69,7 +69,13 @@ class _HomePageState extends State<HomePage> {
                   Text(widget.username),
                   Row(children: [
                     InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              PageTransition(
+                                  type: PageTransitionType.bottomToTop,
+                                  child: const SearchScreen()));
+                        },
                         child: const Icon(FontAwesomeIcons.search,
                             color: Colors.white)),
                     const SizedBox(width: 10),
@@ -297,26 +303,51 @@ class _HomePageState extends State<HomePage> {
                                                         icon: FontAwesomeIcons
                                                             .userPlus),
                                                     TextStyleWidget(
-                                                        text:
-                                                            'Edit Student Details',
-                                                        ontap: (() {}),
+                                                        text: 'Edit Student',
+                                                        ontap: (() {
+                                                          Navigator.push(
+                                                              context,
+                                                              PageTransition(
+                                                                  type:
+                                                                      PageTransitionType
+                                                                          .fade,
+                                                                  child: Edit(
+                                                                    role:
+                                                                        'student',
+                                                                  )));
+                                                        }),
                                                         icon: FontAwesomeIcons
                                                             .userPen),
                                                     TextStyleWidget(
-                                                        text:
-                                                            'Edit Teacher Or Admin Details',
-                                                        ontap: (() {}),
+                                                        text: 'Edit Teacher',
+                                                        ontap: (() {
+                                                          Navigator.push(
+                                                              context,
+                                                              PageTransition(
+                                                                  type:
+                                                                      PageTransitionType
+                                                                          .fade,
+                                                                  child: Edit(
+                                                                    role:
+                                                                        'teacher',
+                                                                  )));
+                                                        }),
                                                         icon: FontAwesomeIcons
                                                             .userPen),
                                                     TextStyleWidget(
-                                                        text: 'Delete Student',
-                                                        ontap: (() {}),
-                                                        icon: FontAwesomeIcons
-                                                            .userXmark),
-                                                    TextStyleWidget(
-                                                        text:
-                                                            'Delete Teacher Or Admin',
-                                                        ontap: (() {}),
+                                                        text: 'Edit Admin',
+                                                        ontap: (() {
+                                                          Navigator.push(
+                                                              context,
+                                                              PageTransition(
+                                                                  type:
+                                                                      PageTransitionType
+                                                                          .fade,
+                                                                  child: Edit(
+                                                                    role:
+                                                                        'admin',
+                                                                  )));
+                                                        }),
                                                         icon: FontAwesomeIcons
                                                             .userXmark),
                                                     TextStyleWidget(
@@ -334,7 +365,7 @@ class _HomePageState extends State<HomePage> {
                                                         icon: FontAwesomeIcons
                                                             .bookMedical),
                                                     TextStyleWidget(
-                                                        text: 'Delete Courses',
+                                                        text: 'Edit Courses',
                                                         ontap: (() {}),
                                                         icon: FontAwesomeIcons
                                                             .trash),

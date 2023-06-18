@@ -38,6 +38,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       email = "",
       income = "",
       photo = "",
+      transport = '',
       address = "";
   @override
   void initState() {
@@ -72,6 +73,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo'];
         email = (snap.data() as Map<String, dynamic>)['email'];
         photo = (snap.data() as Map<String, dynamic>)['photoUrl'];
+        transport = (snap.data() as Map<String, dynamic>)['transport'];
       });
     } else {
       setState(() {
@@ -94,6 +96,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo.'];
         email = (snap.data() as Map<String, dynamic>)['email'];
         photo = (snap.data() as Map<String, dynamic>)['photoUrl'];
+        transport = (snap.data() as Map<String, dynamic>)['transport'];
       });
     }
   }
@@ -136,6 +139,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         subject: subject,
         username: username,
         photo: photo,
+        transport: transport,
       )
     ];
     final items = <Widget>[

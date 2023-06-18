@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, unnecessary_null_comparison
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -34,6 +34,7 @@ class AuthMethods {
       required String dob,
       required String aadharNo,
       required String gender,
+      required String transport,
       required String address,
       required String phoneNo,
       required Uint8List file,
@@ -53,6 +54,7 @@ class AuthMethods {
           dob.isNotEmpty ||
           aadharNo.isNotEmpty ||
           gender.isNotEmpty ||
+          transport.isNotEmpty ||
           address.isNotEmpty ||
           phoneNo.isNotEmpty ||
           file != null ||
@@ -78,6 +80,7 @@ class AuthMethods {
             dob: dob,
             aadharNo: aadharNo,
             gender: gender,
+            transport: transport,
             address: address,
             phoneNo: phoneNo,
             photoUrl: photoUrl,
@@ -109,6 +112,7 @@ class AuthMethods {
       required String dob,
       required String aadharNo,
       required String gender,
+      required String transport,
       required String category,
       required String gOccupation,
       required String gIncome,
@@ -130,6 +134,7 @@ class AuthMethods {
           dob.isNotEmpty ||
           aadharNo.isNotEmpty ||
           gender.isNotEmpty ||
+          transport.isNotEmpty ||
           category.isNotEmpty ||
           gOccupation.isNotEmpty ||
           gIncome.isNotEmpty ||
@@ -157,6 +162,7 @@ class AuthMethods {
             dob: dob,
             aadharNo: aadharNo,
             gender: gender,
+            transport: transport,
             category: category,
             gOccupation: gOccupation,
             gIncome: gIncome,

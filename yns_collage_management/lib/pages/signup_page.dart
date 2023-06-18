@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, prefer_const_literals_to_create_immutables, prefer_const_constructors, prefer_typing_uninitialized_variables
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -58,7 +58,8 @@ class Controller extends State<SignUpPage> {
         profile: '',
         role: '',
         subject: '',
-        file: _image!);
+        file: _image!,
+        transport: 'No');
     // if string returned is success, user has been created
     if (res == "Success") {
       // navigate to the home screen

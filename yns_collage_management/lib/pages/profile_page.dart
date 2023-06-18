@@ -28,7 +28,8 @@ class ProfilePage extends StatefulWidget {
       email = "",
       income = "",
       photo = "",
-      address = "";
+      address = "",
+      transport = '';
   ProfilePage(
       {super.key,
       required this.role,
@@ -52,6 +53,7 @@ class ProfilePage extends StatefulWidget {
       required this.session,
       required this.subject,
       required this.photo,
+      required this.transport,
       required this.username});
 
   @override
@@ -261,6 +263,10 @@ class _ProfilePageState extends State<ProfilePage> {
                             text1: 'Guardian\'s Income:', text2: widget.income),
                       // Address
                       AdminRowWidget(text1: 'Address:', text2: widget.address),
+                      // transport
+                      AdminRowWidget(
+                          text1: 'Use College Transport:',
+                          text2: widget.transport),
                       // Phone Number
                       AdminRowWidget(
                           text1: 'Phone Number:', text2: widget.phoneNo),

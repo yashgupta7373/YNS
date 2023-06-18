@@ -17,6 +17,7 @@ class TRegistrationPage extends StatefulWidget {
 class _TRegistrationPageState extends State<TRegistrationPage> {
   var role = '';
   var gender = '';
+  var transport = '';
   bool _isLoading = false;
   final TextEditingController idController = TextEditingController();
   // final TextEditingController subjectController = TextEditingController();
@@ -179,7 +180,8 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
         profile: dropdownprofile,
         subject: dropdownsubject,
         role: role,
-        file: _image!);
+        file: _image!,
+        transport: transport);
     // if string returned is success, user has been created
     if (res == "Success") {
       // navigate to the home screen
@@ -199,10 +201,10 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
 
   // for picking up image from gallery
   pickImage(ImageSource source) async {
-    final ImagePicker _imagePicker = ImagePicker();
-    XFile? _file = await _imagePicker.pickImage(source: source);
-    if (_file != null) {
-      return await _file.readAsBytes();
+    final ImagePicker imagePicker = ImagePicker();
+    XFile? file = await imagePicker.pickImage(source: source);
+    if (file != null) {
+      return await file.readAsBytes();
     }
     // print('No Image Selected');
   }
@@ -591,6 +593,45 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
                                         });
                                       })
                                 ]))
+                          ])))),
+          Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 2),
+              child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.teal[400]),
+                  child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            // College Transport...
+                            const Text("Use College Transport"),
+                            FittedBox(
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                  const Text('Yes'),
+                                  Radio(
+                                      value: 'Yes',
+                                      groupValue: transport,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          transport = value.toString();
+                                        });
+                                      }),
+                                  SizedBox(width: mediaQuery.size.width * 0.1),
+                                  const Text('No'),
+                                  Radio(
+                                      value: 'No',
+                                      groupValue: transport,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          transport = value.toString();
+                                        });
+                                      }),
+                                ])),
                           ])))),
           //Address, Mobile No, Email Id, Password
           Padding(

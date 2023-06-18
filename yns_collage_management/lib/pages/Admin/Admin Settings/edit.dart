@@ -1,22 +1,26 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class Transport extends StatefulWidget {
-  const Transport({super.key});
+class Edit extends StatefulWidget {
+  String role;
+  Edit({super.key, required this.role});
   @override
-  State<Transport> createState() => _TransportState();
+  State<Edit> createState() => _EditState();
 }
 
-class _TransportState extends State<Transport> {
-  var collection = FirebaseFirestore.instance.collection('users').where(
-        'transport',
-        isEqualTo: 'Yes',
-      );
-  //  List<Map<String, dynamic>> items;
+class _EditState extends State<Edit> {
+  var collection;
+  void getData() {
+    collection = FirebaseFirestore.instance.collection('users').where(
+          'role',
+          isEqualTo: widget.role,
+        );
+  }
+
   var items;
   bool isLoaded = false;
+
   void incrementCounter() async {
     List<Map<String, dynamic>> tempList = [];
     var data = await collection.get();
@@ -33,25 +37,17 @@ class _TransportState extends State<Transport> {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
 
+    var r = widget.role;
+    getData();
     incrementCounter();
-
     return Scaffold(
       backgroundColor: Colors.teal[300],
-      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        // elevation: 0,
+        title: Text('Edit $r Details'),
+      ),
       body: Column(children: [
-        Center(
-            child: Text("Who Use College Transport",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    shadows: [
-                      Shadow(
-                          color: Colors.teal.shade900,
-                          blurRadius: 5,
-                          offset: const Offset(2, 2))
-                    ],
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white))),
         Expanded(
             child: SingleChildScrollView(
                 child: Column(children: [
@@ -82,10 +78,23 @@ class _TransportState extends State<Transport> {
                                         fontSize: 14)),
                                 textColor: Colors.white,
                                 subtitle: Text(items[index]['id']),
-                                trailing: InkWell(
-                                    onTap: (() {}),
-                                    child: const Icon(Icons.info,
-                                        color: Colors.white)))));
+                                trailing: SizedBox(
+                                  width: 80,
+                                  child: Row(
+                                    children: [
+                                      InkWell(
+                                          onTap: (() {}),
+                                          child: const Icon(Icons.edit,
+                                              color: Color.fromARGB(
+                                                  255, 47, 0, 255))),
+                                      const SizedBox(width: 15),
+                                      InkWell(
+                                          onTap: (() {}),
+                                          child: const Icon(Icons.delete,
+                                              color: Colors.red)),
+                                    ],
+                                  ),
+                                ))));
                   })
               : SizedBox(
                   height: mediaQuery.size.height * 0.85,
