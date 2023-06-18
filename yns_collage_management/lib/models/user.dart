@@ -95,7 +95,7 @@ class Student {
   final String session;
   final String Class;
   final String department;
-  final String rollNo;
+  final String id;
   final String name;
   final String fName;
   final String mName;
@@ -117,7 +117,7 @@ class Student {
       required this.session,
       required this.Class,
       required this.department,
-      required this.rollNo,
+      required this.id,
       required this.name,
       required this.fName,
       required this.mName,
@@ -142,7 +142,7 @@ class Student {
         session: snapshot["session"],
         Class: snapshot["Class"],
         department: snapshot["department"],
-        rollNo: snapshot["rollNo"],
+        id: snapshot["id"],
         name: snapshot["name"],
         fName: snapshot["fName"],
         mName: snapshot["mName"],
@@ -165,7 +165,7 @@ class Student {
         'session': session,
         'Class': Class,
         'department': department,
-        'rollNo.': rollNo,
+        'id': id,
         'name': name,
         'fName': fName,
         'mName': mName,
@@ -177,7 +177,7 @@ class Student {
         'gOccupation': gOccupation,
         'gIncome': gIncome,
         'address': address,
-        'phoneNo.': phoneNo,
+        'phoneNo': phoneNo,
         'email': email,
         "photoUrl": photoUrl,
         'uid': uid

@@ -105,7 +105,7 @@ class AuthMethods {
       required String session,
       required String Class,
       required String department,
-      required String rollNo,
+      required String id,
       required String name,
       required String fName,
       required String mName,
@@ -127,7 +127,7 @@ class AuthMethods {
           session.isNotEmpty ||
           Class.isNotEmpty ||
           department.isNotEmpty ||
-          rollNo.isNotEmpty ||
+          id.isNotEmpty ||
           name.isNotEmpty ||
           fName.isNotEmpty ||
           mName.isNotEmpty ||
@@ -155,7 +155,7 @@ class AuthMethods {
             session: session,
             Class: Class,
             department: department,
-            rollNo: rollNo,
+            id: id,
             name: name,
             fName: fName,
             mName: mName,

@@ -9,11 +9,11 @@ import 'package:yns_college_management/pages/College%20Web/notification.dart';
 import 'package:yns_college_management/pages/Splash%20Screen/splash_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:yns_college_management/Utils/routes.dart';
-import 'package:yns_college_management/pages/Transport/transport.dart';
 import 'package:yns_college_management/pages/waste%20files/try.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   // initialize app based on platform- web or mobile
   if (kIsWeb) {
@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
         routes: {
           "/": (context) =>
               SplashPage(image: Lottie.asset('assets/images/img75.json')),
-          // "/": (context) => Transport(),
+          // "/": (context) => Try(),
           MyRoutes.ClgWebpageRoute: (context) => const ClgWebPage(),
           MyRoutes.AboutClgpageRoute: (context) => const AboutClgPage(),
           MyRoutes.founderpageRoute: (context) => const AboutFounderPage(),

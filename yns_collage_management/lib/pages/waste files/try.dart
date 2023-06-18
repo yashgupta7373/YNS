@@ -1,116 +1,9 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:flutter/material.dart';
-// class Try extends StatefulWidget {
-//   Try({super.key});
-//   @override
-//   State<Try> createState() => _TryState();
-//   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-//   var type = "basic".obs;
-//   late CollectionReference collectionReference;
-//   List<BasicEnglModel> basicEng = List<BasicEnglModel>([]);
-//   void onInit() {
-//     super.onInit();
-//     collectionReference = firebaseFirestore.collection('users');
-//     basicEng.bindStream(getAllEnglish());
-//   }
-//   Stream<List<BasicEnglModel>> getAllEnglish() => collectionReference
-//       .where('role', isEqualTo: 'student')
-//       .snapshots()
-//       .map((query) =>
-//           query.docs.map((item) => BasicEnglModel.fromMap(item)).toList());
-// }
-// class _TryState extends State<Try> {
-//   //listTile
-//   List<String> arrRollno = [
-//     '200955106190',
-//     '200955106191',
-//     '200955106192',
-//     '200955106193',
-//     '200955106194',
-//     '200955106195',
-//     '200955106196',
-//     '200955106197',
-//     '200955106198',
-//     '200955106199',
-//     '200955106200',
-//     '200955106201'
-//   ];
-//   List<String> arrclass = [
-//     'BCA',
-//     'Bcom.',
-//     'Mcom.',
-//     'Msc',
-//     'Btech',
-//     'MCA',
-//     'BA',
-//     'Betech',
-//     'Bca',
-//     'BA',
-//     'BA',
-//     'MA'
-//   ];
-//   //
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         backgroundColor: Colors.teal[300],
-//         appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
-//         body: Column(children: [
-//           Center(
-//               child: Text("Student List Who Use College Transport",
-//                   textAlign: TextAlign.center,
-//                   style: TextStyle(
-//                       shadows: [
-//                         Shadow(
-//                             color: Colors.teal.shade900,
-//                             blurRadius: 5,
-//                             offset: const Offset(2, 2))
-//                       ],
-//                       fontSize: 40,
-//                       fontWeight: FontWeight.bold,
-//                       color: Colors.white))),
-//           Expanded(
-//               child: SingleChildScrollView(
-//                   child: Column(children: [
-//             ListView.builder(
-//                 shrinkWrap: true,
-//                 physics: const ScrollPhysics(parent: null),
-//                 itemCount: arrRollno.length,
-//                 itemBuilder: (context, index) {
-//                   return InkWell(
-//                       onTap: (() {}),
-//                       child: Card(
-//                           color: Colors.teal[700],
-//                           elevation: 5,
-//                           shadowColor: Colors.teal[500],
-//                           child: ListTile(
-//                               leading: InkWell(
-//                                   onTap: (() {}),
-//                                   child: const CircleAvatar(
-//                                       backgroundColor: Colors.white,
-//                                       radius: 50,
-//                                       backgroundImage: AssetImage(
-//                                           "assets/images/img60.png"))),
-//                               title: Text(arrRollno[index],
-//                                   style: const TextStyle(
-//                                       fontStyle: FontStyle.normal,
-//                                       fontWeight: FontWeight.bold,
-//                                       fontSize: 14)),
-//                               textColor: Colors.white,
-//                               subtitle: Text(arrclass[index]),
-//                               trailing: InkWell(
-//                                   onTap: (() {}),
-//                                   child: const Icon(Icons.info,
-//                                       color: Colors.white)))));
-//                 })
-//           ])))
-//         ]));
-//   }
-// }
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
+
+import '../Attendance/attendance_taker.dart';
 
 class Try extends StatefulWidget {
   const Try({super.key});
@@ -119,86 +12,165 @@ class Try extends StatefulWidget {
 }
 
 class _TryState extends State<Try> {
-  var collection = FirebaseFirestore.instance.collection('users').where(
-        'role',
-        isEqualTo: 'teacher',
-      );
-  late List<Map<String, dynamic>> items;
-  // bool isLoaded = false;
-  _incrementCounter() async {
-    List<Map<String, dynamic>> tempList = [];
-    var data = await collection.get();
-    data.docs.forEach((element) {
-      tempList.add(element.data());
-    });
-    setState(() {
-      items = tempList;
-      // isLoaded = true;
+  final TextEditingController dateController = TextEditingController();
+
+  // Create Date-time Variable
+  DateTime _dateTime = DateTime.now();
+  void get() {
+    dateController.text = DateFormat('dd-MM-yyyy').format(_dateTime);
+  }
+
+  // Show Date Picker Method
+  void _showDatePicker() {
+    showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2030))
+        .then((value) {
+      setState(() {
+        _dateTime = value!;
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
+    // get();
+    print('date----> $dateController');
     return Scaffold(
-      backgroundColor: Colors.teal[300],
-      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
-      body: Column(children: [
-        Center(
-            child: Text("Student List Who Use College Transport",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    shadows: [
-                      Shadow(
-                          color: Colors.teal.shade900,
-                          blurRadius: 5,
-                          offset: const Offset(2, 2))
-                    ],
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white))),
-        Expanded(
-            child: SingleChildScrollView(
-                child: Column(children: [
-          // isLoaded ?
-          ListView.builder(
-              shrinkWrap: true,
-              physics: const ScrollPhysics(parent: null),
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                    onTap: (() {}),
-                    child: Card(
-                        color: Colors.teal[700],
-                        elevation: 5,
-                        shadowColor: Colors.teal[500],
-                        child: ListTile(
-                            leading: InkWell(
-                                onTap: (() {}),
-                                child: CircleAvatar(
-                                    backgroundColor: Colors.white,
-                                    radius: 30,
-                                    backgroundImage: NetworkImage(
-                                        (items[index]['photoUrl'])))),
-                            title: Text(items[index]['name'],
-                                style: const TextStyle(
-                                    fontStyle: FontStyle.normal,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14)),
-                            textColor: Colors.white,
-                            subtitle: Text(items[index]['id']),
-                            trailing: InkWell(
-                                onTap: (() {}),
-                                child: const Icon(Icons.info,
-                                    color: Colors.white)))));
-              })
-          // : Text('No Data')
-        ])))
-      ]),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: Icon(Icons.add),
-      // ),
-    );
+        backgroundColor: Colors.teal[300],
+        appBar: AppBar(
+            elevation: 0, backgroundColor: Colors.teal[700], toolbarHeight: 32),
+        body: Column(children: [
+          Container(
+              height: 280,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Colors.teal[700],
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(40),
+                      bottomRight: Radius.circular(40)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.teal.shade500,
+                        blurRadius: 15,
+                        offset: const Offset(0, 10))
+                  ]),
+              child: Column(children: const [
+                Icon(Icons.edit_calendar, size: 180, color: Colors.white),
+                Text('Attendance',
+                    style: TextStyle(
+                        fontSize: 50,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white))
+              ])),
+          Expanded(
+              child: SizedBox(
+                  child: SingleChildScrollView(
+                      child: Column(children: [
+            // Select date
+            Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: InkWell(
+                    onTap: _showDatePicker,
+                    child: Container(
+                        width: mediaQuery.size.width * 0.7,
+                        height: 47,
+                        decoration: BoxDecoration(
+                            color: Colors.teal[500],
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(15)),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.teal.shade500,
+                                  blurRadius: 15,
+                                  offset: const Offset(0, 10))
+                            ]),
+                        child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // Display Date
+                                  Text(
+                                      '${_dateTime.day}/${_dateTime.month}/${_dateTime.year}',
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 18)),
+                                  const Icon(Icons.edit_calendar,
+                                      color: Colors.white)
+                                ]))))),
+
+            // Select date
+            Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: InkWell(
+                    onTap: _showDatePicker,
+                    child: Container(
+                        width: mediaQuery.size.width * 0.7,
+                        height: 47,
+                        decoration: BoxDecoration(
+                            color: Colors.teal[500],
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(15)),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.teal.shade500,
+                                  blurRadius: 15,
+                                  offset: const Offset(0, 10))
+                            ]),
+                        child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  // Display Date
+                                  Text(
+                                      '${_dateTime.day}/${_dateTime.month}/${_dateTime.year}',
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 18)),
+                                  const Icon(Icons.edit_calendar,
+                                      color: Colors.white)
+                                ]))))),
+
+            // student dob...
+            // Row(children: [
+            //   Expanded(
+            //       child: Padding(
+            //           padding: const EdgeInsets.all(20.0),
+            //           child: TextField(
+            //             style: TextStyle(
+            //                 fontSize: 13,
+            //                 fontStyle: FontStyle.normal,
+            //                 color: Colors.blue[900]),
+            //             controller: dateController,
+            //             decoration: const InputDecoration(
+            //                 contentPadding: EdgeInsets.all(8),
+            //                 icon: Icon(
+            //                   Icons.calendar_today_rounded,
+            //                   // color: Colors.teal[800],
+            //                 ),
+            //                 hintText: "Select"),
+            //             onTap: () async {
+            //               // _showDatePicker();
+            //               DateTime? pickedDate = await showDatePicker(
+            //                   context: context,
+            //                   initialDate: DateTime.now(),
+            //                   firstDate: DateTime(1900),
+            //                   lastDate: DateTime.now());
+            //               if (pickedDate != null) {
+            //                 setState(() {
+            //                   dateController.text =
+            //                       DateFormat('dd-MM-yyyy').format(pickedDate);
+            //                 });
+            //               }
+            //             },
+            //           )))
+            // ]),
+          ]))))
+        ]));
   }
 }

@@ -1,41 +1,130 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'attendance_taker.dart';
 
 class AttendanceForm extends StatefulWidget {
-  const AttendanceForm({super.key});
+  var name;
+  AttendanceForm({required this.name, super.key});
   @override
   State<AttendanceForm> createState() => _AttendanceFormState();
 }
 
 class _AttendanceFormState extends State<AttendanceForm> {
-  String dropdownclass = 'Class 1';
-  String dropdownteacher = 'Teacher 1';
-  String dropdownsubject = 'Subject 1';
+  final TextEditingController dateController = TextEditingController();
+
+  String dropdownclass = 'BCA';
+  var selectedTeacher = '0';
+  String dropdownsubject = 'Mathematics';
+
   var classes = [
-    'Class 1',
-    'Class 2',
-    'Class 3',
-    'Class 4',
-    'Class 5',
+    'BCA',
+    'MCA',
+    'BBA',
+    'MBA',
+    'Bcom.',
+    'MCom.',
+    'BA',
+    'MA',
+    'B.Ed',
+    'M.Ed',
+    'D.EI.Ed',
+    'B.Sc(Biotechnology)',
+    'M.Sc(Biotechnology)',
+    'B.Sc(HomeScience)',
+    'M.Sc(HomeScience)',
+    'B.Sc(Bio)-BCZ',
+    'B.Sc(Math)-PCM'
   ];
-  var teacher = [
-    'Teacher 1',
-    'Teacher 2',
-    'Teacher 3',
-    'Teacher 4',
-    'Teacher 5',
-  ];
+
   var subject = [
-    'Subject 1',
-    'Subject 2',
-    'Subject 3',
-    'Subject 4',
-    'Subject 5',
+    'Mathematics',
+    'Programming Principle and Algorithm',
+    'Fundamental of Computer MS Office',
+    'Principle of Management',
+    'Business Communication',
+    'C Programming Language',
+    'Organisation Behaviour',
+    'Digital Electronics',
+    'Financial Management and Accounting',
+    'C++',
+    'Data Structure',
+    'Computer Architecture',
+    'Business Economics',
+    'Statistics',
+    'Computer Graphics',
+    'Operating System',
+    'Optimisation Techniques',
+    'Software Engineering',
+    'DBMS',
+    'Java and Web technology',
+    'Networking',
+    'Numerical Techniques',
+    'Knowledge Management',
+    'Network Security',
+    'E -Commerce',
+    'System Analysis and Design',
+    'Foundation Course in Computers',
+    'Programming in C and data structure',
+    'Discrete Mathematical Structures',
+    'Computer Oriented Statistical Techniques',
+    'Design and analysis of Algorithms',
+    'File Structure and Database Management System',
+    'Computer Oriented Numerical Analysis',
+    'Interactive Computer Graphics',
+    'Computer Networks and Internet',
+    'Computer Oriented Optimization Methods',
+    'Object Oriented System',
+    'Fuzzy sets and Applications',
+    'Cryptology and Secure Systems',
+    'Artificial Intelligence and Neural networks',
+    'Fundamentals of Management',
+    'OrganizationalBehavior',
+    'Managerial Economics',
+    'Accounting and Financial Analysis',
+    'Business Law',
+    'BusinessOrganization and Ethics',
+    'Environmental Studies (Qualifying paper)',
+    'Quantitative Techniques for Business',
+    'Business Communication',
+    'Human Resource Management',
+    'Marketing Management',
+    'Business Environment',
+    'Fundamentals of Computer',
+    'Assessments on Soft Skill Based on Presentations/ G.D/ Personality traits',
+    'Advertising Management',
+    'Team Building & Leadership',
+    'Indian Economy',
+    'Customer Relationship Management',
+    'Management Information System',
+    'Income Tax Law & practice',
+    'ConsumerBehavior',
+    'Financial Management',
+    'Production& Operation Management',
+    'Sales& Distribution Management',
+    'Research Methodology',
+    'Entrepreneurship& Small Business Management',
+    'Computer Oriented Practical &Viva- Voce',
+    'Arithmetic Aptitude',
+    'Aptitude Reasoning',
+    'General Business Awareness',
+    'General English',
+    'Elective Paper M-1/ F-1',
+    'Elective Paper M-2 / F-2',
+    'Strategic Management & Business Policy',
+    'Operation Research',
+    'Fundamentals of E Commerce',
+    'Economic and Industrial Law',
+    'Elective Paper M-3/ F-3',
+    'Elective Paper M-4/ F-4'
   ];
 
   // Create Date-time Variable
   DateTime _dateTime = DateTime.now();
+  void get() {
+    dateController.text = DateFormat('dd-MM-yyyy').format(_dateTime);
+  }
 
   // Show Date Picker Method
   void _showDatePicker() {
@@ -53,6 +142,7 @@ class _AttendanceFormState extends State<AttendanceForm> {
 
   @override
   Widget build(BuildContext context) {
+    get();
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
         backgroundColor: Colors.teal[300],
@@ -139,25 +229,43 @@ class _AttendanceFormState extends State<AttendanceForm> {
                         ]),
                     child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: DropdownButton(
-                            dropdownColor: Colors.teal[400],
-                            hint: const Text('Select Teacher'),
-                            menuMaxHeight: 300,
-                            isExpanded: true,
-                            underline: Container(color: Colors.transparent),
-                            iconEnabledColor: Colors.white,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 18),
-                            value: dropdownteacher,
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            items: teacher.map((String items) {
-                              return DropdownMenuItem(
-                                  value: items, child: Text(items));
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownteacher = newValue!;
-                              });
+                        child: StreamBuilder<QuerySnapshot>(
+                            stream: FirebaseFirestore.instance
+                                .collection('users')
+                                .where('role', isNotEqualTo: 'student')
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              List<DropdownMenuItem> teacher = [];
+                              if (!snapshot.hasData) {
+                                const CircularProgressIndicator();
+                              } else {
+                                final teachers =
+                                    snapshot.data?.docs.reversed.toList();
+                                teacher.add(const DropdownMenuItem(
+                                    value: '0', child: Text('Select Teacher')));
+                                for (var users in teachers!) {
+                                  teacher.add(DropdownMenuItem(
+                                      value: users.id,
+                                      child: Text(users['name'])));
+                                }
+                              }
+                              return DropdownButton(
+                                dropdownColor: Colors.teal[400],
+                                menuMaxHeight: 300,
+                                underline: Container(color: Colors.transparent),
+                                iconEnabledColor: Colors.white,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                items: teacher,
+                                onChanged: (usersValue) {
+                                  setState(() {
+                                    selectedTeacher = usersValue;
+                                  });
+                                },
+                                value: selectedTeacher,
+                                isExpanded: false,
+                              );
                             })))),
             // Select Subject
             Padding(
@@ -233,11 +341,16 @@ class _AttendanceFormState extends State<AttendanceForm> {
                 padding: const EdgeInsets.all(20.0),
                 child: ElevatedButton(
                     onPressed: () {
+                      // print(selectedTeacher);
                       Navigator.push(
                           context,
                           PageTransition(
                               type: PageTransitionType.rightToLeft,
-                              child: const AttendanceTaker()));
+                              child: AttendanceTaker(
+                                  uid: selectedTeacher,
+                                  date: dateController.text,
+                                  Class: dropdownclass,
+                                  subject: dropdownsubject)));
                     },
                     style: ElevatedButton.styleFrom(
                         elevation: 10,

@@ -28,7 +28,7 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
   bool _isLoading = false;
   final TextEditingController sessionController = TextEditingController();
   // final TextEditingController classController = TextEditingController();
-  final TextEditingController rollnoController = TextEditingController();
+  final TextEditingController idController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController fatherController = TextEditingController();
   final TextEditingController motherController = TextEditingController();
@@ -79,7 +79,7 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
     super.dispose();
     sessionController.dispose();
     // classController.dispose();
-    rollnoController.dispose();
+    idController.dispose();
     nameController.dispose();
     fatherController.dispose();
     motherController.dispose();
@@ -105,7 +105,7 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
         role: role,
         email: EmailController.text,
         password: PasswordController.text,
-        rollNo: rollnoController.text,
+        id: idController.text,
         Class: dropdownclass,
         aadharNo: aadharController.text,
         address: AddressController.text,
@@ -292,7 +292,7 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
                                 const Text('University Roll No.:'),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
-                                        textEditingController: rollnoController,
+                                        textEditingController: idController,
                                         keyboard: TextInputType.text))
                               ])
                             ]))

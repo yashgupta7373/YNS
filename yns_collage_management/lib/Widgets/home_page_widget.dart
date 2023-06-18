@@ -81,7 +81,8 @@ class ContainerWidget extends StatelessWidget {
 
 // AttendanceTaker for Admin, Teachers Home Page
 class AttendanceTakerBtn extends StatelessWidget {
-  const AttendanceTakerBtn({super.key});
+  var name;
+  AttendanceTakerBtn({required this.name, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +94,7 @@ class AttendanceTakerBtn extends StatelessWidget {
               context,
               PageTransition(
                   type: PageTransitionType.fade,
-                  child: const AttendanceForm()));
+                  child: AttendanceForm(name: name)));
         });
   }
 }

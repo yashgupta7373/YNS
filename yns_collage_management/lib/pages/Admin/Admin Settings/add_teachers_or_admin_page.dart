@@ -153,7 +153,7 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
     'Fundamentals of E Commerce',
     'Economic and Industrial Law',
     'Elective Paper M-3/ F-3',
-    'Elective Paper M-4/ F-4',
+    'Elective Paper M-4/ F-4'
   ];
 
   void AddAdminOrTeacher() async {

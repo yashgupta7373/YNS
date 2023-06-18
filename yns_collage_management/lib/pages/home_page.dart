@@ -239,7 +239,7 @@ class _HomePageState extends State<HomePage> {
                       child: (widget.role == 'admin' ||
                               widget.role == 'teacher')
                           ? GridView.count(crossAxisCount: 2, children: [
-                              const AttendanceTakerBtn(),
+                              AttendanceTakerBtn(name: widget.username),
                               const CheckAttendanceBtn(),
                               LibraryBtn(role: widget.role),
                               CalendarBtn(role: widget.role),

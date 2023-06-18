@@ -32,9 +32,7 @@ class _TransportState extends State<Transport> {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-
     incrementCounter();
-
     return Scaffold(
       backgroundColor: Colors.teal[300],
       appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
