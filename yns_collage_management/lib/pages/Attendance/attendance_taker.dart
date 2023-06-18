@@ -1,9 +1,6 @@
-// ignore_for_file: non_constant_identifier_names, must_be_immutable
-import 'dart:math';
-
+// ignore_for_file: non_constant_identifier_names, must_be_immutable, prefer_typing_uninitialized_variables
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:yns_college_management/pages/College%20Web/developer_page.dart';
 
 class AttendanceTaker extends StatefulWidget {
   var uid, date, Class, subject;
@@ -61,6 +58,7 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
 
   var name = '', photoUrl = '';
 
+  @override
   void initState() {
     super.initState();
     getUsername();
@@ -127,16 +125,16 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text('Date: $date',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 15, color: Colors.white)),
                                   Text('Class: $Class',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 15, color: Colors.white)),
                                   Text('Subject: $subject',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 15, color: Colors.white)),
                                   Text('Teacher: $name',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 15, color: Colors.white))
                                 ])
                           ]),

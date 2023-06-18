@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -45,7 +47,7 @@ class _AttendanceFormState extends State<AttendanceForm> {
     'Principle of Management',
     'Business Communication',
     'C Programming Language',
-    'Organisation Behaviour',
+    'Organization Behavior',
     'Digital Electronics',
     'Financial Management and Accounting',
     'C++',
@@ -55,7 +57,7 @@ class _AttendanceFormState extends State<AttendanceForm> {
     'Statistics',
     'Computer Graphics',
     'Operating System',
-    'Optimisation Techniques',
+    'Optimization Techniques',
     'Software Engineering',
     'DBMS',
     'Java and Web technology',
