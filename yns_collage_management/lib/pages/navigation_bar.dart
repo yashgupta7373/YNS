@@ -17,29 +17,8 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int index = 0;
   final navigationKey = GlobalKey<CurvedNavigationBarState>();
-  var role = "",
-      username = "",
-      session = "",
-      id = "",
-      rollNo = "",
-      profile = "",
-      Class = "",
-      department = "",
-      phoneNo = "",
-      fName = "",
-      mName = "",
-      dob = "",
-      subject = "",
-      language = "",
-      aadharNo = "",
-      gender = "",
-      category = "",
-      occupation = "",
-      email = "",
-      income = "",
-      photo = "",
-      transport = '',
-      address = "";
+  var uid;
+
   @override
   void initState() {
     super.initState();
@@ -54,93 +33,18 @@ class _BottomNavBarState extends State<BottomNavBar> {
     // print(snap.data());
     // print(snap);
     setState(() {
-      role = (snap.data() as Map<String, dynamic>)['role'];
+      uid = (snap.data() as Map<String, dynamic>)['uid'];
     });
-    if (role == 'admin' || role == 'teacher') {
-      setState(() {
-        id = (snap.data() as Map<String, dynamic>)['id'];
-        username = (snap.data() as Map<String, dynamic>)['name'];
-        profile = (snap.data() as Map<String, dynamic>)['profile'];
-        department = (snap.data() as Map<String, dynamic>)['department'];
-        subject = (snap.data() as Map<String, dynamic>)['subject'];
-        language = (snap.data() as Map<String, dynamic>)['language'];
-        fName = (snap.data() as Map<String, dynamic>)['fName'];
-        mName = (snap.data() as Map<String, dynamic>)['mName'];
-        dob = (snap.data() as Map<String, dynamic>)['dob'];
-        aadharNo = (snap.data() as Map<String, dynamic>)['aadharNo.'];
-        gender = (snap.data() as Map<String, dynamic>)['gender'];
-        address = (snap.data() as Map<String, dynamic>)['address'];
-        phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo'];
-        email = (snap.data() as Map<String, dynamic>)['email'];
-        photo = (snap.data() as Map<String, dynamic>)['photoUrl'];
-        transport = (snap.data() as Map<String, dynamic>)['transport'];
-      });
-    } else {
-      setState(() {
-        rollNo = (snap.data() as Map<String, dynamic>)['id'];
-        Class = (snap.data() as Map<String, dynamic>)['Class'];
-        department = (snap.data() as Map<String, dynamic>)['department'];
-        // present = (snap.data() as Map<String, dynamic>)['present'];
-        // absent =  (snap.data() as Map<String, dynamic>)['absent'];
-        session = (snap.data() as Map<String, dynamic>)['session'];
-        username = (snap.data() as Map<String, dynamic>)['name'];
-        fName = (snap.data() as Map<String, dynamic>)['fName'];
-        mName = (snap.data() as Map<String, dynamic>)['mName'];
-        dob = (snap.data() as Map<String, dynamic>)['dob'];
-        aadharNo = (snap.data() as Map<String, dynamic>)['aadharNo.'];
-        gender = (snap.data() as Map<String, dynamic>)['gender'];
-        category = (snap.data() as Map<String, dynamic>)['category'];
-        occupation = (snap.data() as Map<String, dynamic>)['gOccupation'];
-        income = (snap.data() as Map<String, dynamic>)['gIncome'];
-        address = (snap.data() as Map<String, dynamic>)['address'];
-        phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo'];
-        email = (snap.data() as Map<String, dynamic>)['email'];
-        photo = (snap.data() as Map<String, dynamic>)['photoUrl'];
-        transport = (snap.data() as Map<String, dynamic>)['transport'];
-      });
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     final Screens = [
-      HomePage(
-        role: role,
-        Class: Class,
-        rollNo: rollNo,
-        department: department,
-        id: id,
-        profile: profile,
-        username: username,
-        photo: photo,
-      ),
+      HomePage(uid: uid),
       const ClgWebPage(),
       const NotificationPage(),
-      ProfilePage(
-        role: role,
-        Class: Class,
-        aadharNo: aadharNo,
-        address: address,
-        category: category,
-        department: department,
-        dob: dob,
-        email: email,
-        fName: fName,
-        gender: gender,
-        id: id,
-        income: income,
-        language: language,
-        mName: mName,
-        occupation: occupation,
-        phoneNo: phoneNo,
-        profile: profile,
-        rollNo: rollNo,
-        session: session,
-        subject: subject,
-        username: username,
-        photo: photo,
-        transport: transport,
-      )
+      ProfilePage(uid: uid)
+      // Try(uid: uid)
     ];
     final items = <Widget>[
       const Icon(Icons.home, size: 30),

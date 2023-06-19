@@ -170,7 +170,7 @@ class Student {
         'fName': fName,
         'mName': mName,
         'dob': dob,
-        'aadharNo.': aadharNo,
+        'aadharNo': aadharNo,
         'gender': gender,
         'transport': transport,
         'category': category,

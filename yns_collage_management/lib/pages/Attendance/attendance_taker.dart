@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:yns_college_management/pages/Attendance/attendance_overviwe.dart';
+import 'package:yns_college_management/pages/College%20Web/developer_page.dart';
 import 'package:yns_college_management/pages/profile_page.dart';
 
 class AttendanceTaker extends StatefulWidget {
@@ -106,62 +107,6 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
     });
   }
 
-  //fetch user Data..
-  var uid = '';
-  var role = "",
-      username = "",
-      session = "",
-      id = "",
-      rollNo = "",
-      profile = "",
-      Class = "",
-      department = "",
-      phoneNo = "",
-      fName = "",
-      mName = "",
-      dob = "",
-      subject = "",
-      language = "",
-      aadharNo = "",
-      gender = "",
-      category = "",
-      occupation = "",
-      email = "",
-      income = "",
-      photo = "",
-      transport = '',
-      address = "";
-  void getUserData() async {
-    DocumentSnapshot snap =
-        await FirebaseFirestore.instance.collection('users').doc(uid).get();
-    setState(() {
-      role = (snap.data() as Map<String, dynamic>)['role'];
-      rollNo = (snap.data() as Map<String, dynamic>)['id'];
-      Class = (snap.data() as Map<String, dynamic>)['Class'];
-      department = (snap.data() as Map<String, dynamic>)['department'];
-      // present = (snap.data() as Map<String, dynamic>)['present'];
-      // absent =  (snap.data() as Map<String, dynamic>)['absent'];
-      session = (snap.data() as Map<String, dynamic>)['session'];
-      username = (snap.data() as Map<String, dynamic>)['name'];
-      fName = (snap.data() as Map<String, dynamic>)['fName'];
-      mName = (snap.data() as Map<String, dynamic>)['mName'];
-      dob = (snap.data() as Map<String, dynamic>)['dob'];
-      aadharNo = (snap.data() as Map<String, dynamic>)['aadharNo.'];
-      gender = (snap.data() as Map<String, dynamic>)['gender'];
-      category = (snap.data() as Map<String, dynamic>)['category'];
-      occupation = (snap.data() as Map<String, dynamic>)['gOccupation'];
-      income = (snap.data() as Map<String, dynamic>)['gIncome'];
-      address = (snap.data() as Map<String, dynamic>)['address'];
-      transport = (snap.data() as Map<String, dynamic>)['transport'];
-      phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo'];
-      email = (snap.data() as Map<String, dynamic>)['email'];
-      photo = (snap.data() as Map<String, dynamic>)['photoUrl'];
-    });
-    setState(() {
-      Loaded = true;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -210,10 +155,22 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            CircleAvatar(
-                                backgroundColor: Colors.white,
-                                radius: 40,
-                                backgroundImage: NetworkImage(photoUrl)),
+                            InkWell(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (ctx) => AlertDialog(
+                                        backgroundColor: Colors.transparent,
+                                        content: InkWell(
+                                          onTap: () => Navigator.of(ctx).pop(),
+                                          child: Image.network(photoUrl),
+                                        )));
+                              },
+                              child: CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  radius: 40,
+                                  backgroundImage: NetworkImage(photoUrl)),
+                            ),
                             const SizedBox(width: 10),
                             Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -290,6 +247,7 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
               ),
             ),
           ),
+          //Student List...
           Expanded(
               child: SingleChildScrollView(
                   child: Column(children: [
@@ -301,58 +259,12 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
                     itemBuilder: (context, index) {
                       return InkWell(
                           onTap: (() {
-                            uid = items[index]['uid'];
-                            getUserData();
-                            Loaded
-                                ? Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        type: PageTransitionType.rightToLeft,
-                                        child: ProfilePage(
-                                            role: role,
-                                            Class: Class,
-                                            aadharNo: aadharNo,
-                                            address: address,
-                                            category: category,
-                                            department: department,
-                                            dob: dob,
-                                            email: email,
-                                            fName: fName,
-                                            gender: gender,
-                                            id: id,
-                                            income: income,
-                                            language: language,
-                                            mName: mName,
-                                            occupation: occupation,
-                                            phoneNo: phoneNo,
-                                            profile: profile,
-                                            rollNo: rollNo,
-                                            session: session,
-                                            subject: subject,
-                                            photo: photo,
-                                            transport: transport,
-                                            username: username)))
-                                : showDialog(
-                                    context: context,
-                                    builder: (ctx) => AlertDialog(
-                                        elevation: 0,
-                                        backgroundColor: Colors.transparent,
-                                        content: SizedBox(
-                                          height: 55,
-                                          child: Column(
-                                            children: const [
-                                              CircularProgressIndicator(
-                                                  color: Color.fromARGB(
-                                                      255, 253, 253, 253)),
-                                              Text(
-                                                'Wait 2 seconds and click Again...',
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.white),
-                                              ),
-                                            ],
-                                          ),
-                                        )));
+                            var uid = items[index]['uid'];
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                    type: PageTransitionType.rightToLeft,
+                                    child: ProfilePage(uid: uid)));
 
                             setState(() {
                               if (presentArray
@@ -375,7 +287,17 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
                               child: ListTile(
                                   leading: InkWell(
                                       onTap: (() {
-                                        // go to student Profile...
+                                        showDialog(
+                                            context: context,
+                                            builder: (ctx) => AlertDialog(
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                content: InkWell(
+                                                  onTap: () =>
+                                                      Navigator.of(ctx).pop(),
+                                                  child: Image.network(
+                                                      items[index]['photoUrl']),
+                                                )));
                                       }),
                                       child: CircleAvatar(
                                           backgroundColor: Colors.white,
