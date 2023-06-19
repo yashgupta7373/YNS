@@ -9,6 +9,7 @@ import 'package:yns_college_management/pages/College%20Web/my_drawer_header.dart
 import 'package:yns_college_management/pages/search_page.dart';
 import '../../Widgets/call_class_room_and_online_class.dart';
 import '../../Widgets/home_page_widget.dart';
+import '../Utils/utils.dart';
 import 'Admin/Admin Settings/add_courses_page.dart';
 import 'Admin/Admin Settings/add_teachers_or_admin_page.dart';
 import 'Admin/Admin Settings/edit.dart';
@@ -43,10 +44,10 @@ class _HomePageState extends State<HomePage> {
       userData = userSnap.data()!;
       setState(() {});
     } catch (e) {
-      // showSnackBar(
-      //   context,
-      //   e.toString(),
-      // );
+      showSnackBar(
+        context,
+        e.toString(),
+      );
     }
     setState(() {
       isLoading = false;

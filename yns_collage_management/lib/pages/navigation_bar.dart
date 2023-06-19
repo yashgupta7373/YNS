@@ -44,7 +44,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
       const ClgWebPage(),
       const NotificationPage(),
       ProfilePage(uid: uid)
-      // Try(uid: uid)
     ];
     final items = <Widget>[
       const Icon(Icons.home, size: 30),

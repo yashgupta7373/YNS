@@ -78,7 +78,7 @@ class AdminAndTeachers {
         'fName': fName,
         'mName': mName,
         'dob': dob,
-        'aadharNo.': aadharNo,
+        'aadharNo': aadharNo,
         'gender': gender,
         'transport': transport,
         'address': address,
