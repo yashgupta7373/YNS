@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, prefer_typing_uninitialized_variables
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -143,6 +142,7 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
   pickImage(ImageSource source) async {
     final ImagePicker imagePicker = ImagePicker();
     XFile? file = await imagePicker.pickImage(source: source);
+
     if (file != null) {
       return await file.readAsBytes();
     }
@@ -152,6 +152,7 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
   //select image
   selectImage() async {
     Uint8List im = await pickImage(ImageSource.gallery);
+
     // set state because we need to display the image we selected on the circle avatar
     setState(() {
       _image = im;
