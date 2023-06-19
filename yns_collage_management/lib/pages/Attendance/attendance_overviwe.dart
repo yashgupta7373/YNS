@@ -1,17 +1,24 @@
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class AttendanceOverViwe extends StatefulWidget {
-  const AttendanceOverViwe({super.key});
+  var totalStudent, totalPresent, totalAbsent;
+  AttendanceOverViwe(
+      {required this.totalStudent,
+      required this.totalPresent,
+      required this.totalAbsent,
+      super.key});
   @override
   State<AttendanceOverViwe> createState() => _AttendanceOverViweState();
 }
 
 class _AttendanceOverViweState extends State<AttendanceOverViwe> {
-  Map<String, double> dataMap = {
-    "Present": 9,
-    "Absent": 3,
-  };
+  // Map<String, double> dataMap = {
+  //   "Present": 100,
+  //   "Absent": 3,
+  // };
   final colorList = <Color>[
     const Color.fromARGB(255, 47, 255, 0),
     const Color.fromARGB(255, 255, 0, 0)
@@ -19,6 +26,10 @@ class _AttendanceOverViweState extends State<AttendanceOverViwe> {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, double> dataMap = {
+      "Present": 10,
+      "Absent": 3,
+    };
     return Scaffold(
         backgroundColor: Colors.teal[300],
         appBar: AppBar(elevation: 0, backgroundColor: Colors.transparent),
@@ -32,7 +43,7 @@ class _AttendanceOverViweState extends State<AttendanceOverViwe> {
                       fontSize: 22,
                       fontWeight: FontWeight.bold))),
           Center(
-              child: Text('12',
+              child: Text(widget.totalStudent,
                   style: TextStyle(color: Colors.teal[900], fontSize: 22))),
           const SizedBox(height: 20),
           Row(
@@ -49,14 +60,13 @@ class _AttendanceOverViweState extends State<AttendanceOverViwe> {
                         fontSize: 20,
                         fontWeight: FontWeight.bold))
               ]),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
-                Text('9',
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 21, 255, 0), fontSize: 20)),
-                Text('3', style: TextStyle(color: Colors.red, fontSize: 20))
-              ]),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+            Text(widget.totalPresent,
+                style: const TextStyle(
+                    color: Color.fromARGB(255, 21, 255, 0), fontSize: 20)),
+            Text(widget.totalAbsent,
+                style: const TextStyle(color: Colors.red, fontSize: 20))
+          ]),
           const SizedBox(height: 50),
           Center(
               child: PieChart(

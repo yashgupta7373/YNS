@@ -1,6 +1,9 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable
+// ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable, non_constant_identifier_names
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+
+import '../../profile_page.dart';
 
 class Edit extends StatefulWidget {
   String role;
@@ -33,6 +36,86 @@ class _EditState extends State<Edit> {
     });
   }
 
+  //fetch user Data..
+  var uid = '';
+  bool Loaded = false;
+  var role = "",
+      username = "",
+      session = "",
+      id = "",
+      rollNo = "",
+      profile = "",
+      Class = "",
+      department = "",
+      phoneNo = "",
+      fName = "",
+      mName = "",
+      dob = "",
+      subject = "",
+      language = "",
+      aadharNo = "",
+      gender = "",
+      category = "",
+      occupation = "",
+      email = "",
+      income = "",
+      photo = "",
+      transport = '',
+      address = "";
+  void getUserData() async {
+    DocumentSnapshot snap =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    setState(() {
+      role = (snap.data() as Map<String, dynamic>)['role'];
+    });
+    if (role == 'admin' || role == 'teacher') {
+      setState(() {
+        id = (snap.data() as Map<String, dynamic>)['id'];
+        username = (snap.data() as Map<String, dynamic>)['name'];
+        profile = (snap.data() as Map<String, dynamic>)['profile'];
+        department = (snap.data() as Map<String, dynamic>)['department'];
+        subject = (snap.data() as Map<String, dynamic>)['subject'];
+        language = (snap.data() as Map<String, dynamic>)['language'];
+        fName = (snap.data() as Map<String, dynamic>)['fName'];
+        mName = (snap.data() as Map<String, dynamic>)['mName'];
+        dob = (snap.data() as Map<String, dynamic>)['dob'];
+        aadharNo = (snap.data() as Map<String, dynamic>)['aadharNo.'];
+        gender = (snap.data() as Map<String, dynamic>)['gender'];
+        address = (snap.data() as Map<String, dynamic>)['address'];
+        phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo'];
+        email = (snap.data() as Map<String, dynamic>)['email'];
+        photo = (snap.data() as Map<String, dynamic>)['photoUrl'];
+        transport = (snap.data() as Map<String, dynamic>)['transport'];
+      });
+    } else {
+      setState(() {
+        rollNo = (snap.data() as Map<String, dynamic>)['id'];
+        Class = (snap.data() as Map<String, dynamic>)['Class'];
+        department = (snap.data() as Map<String, dynamic>)['department'];
+        // present = (snap.data() as Map<String, dynamic>)['present'];
+        // absent =  (snap.data() as Map<String, dynamic>)['absent'];
+        session = (snap.data() as Map<String, dynamic>)['session'];
+        username = (snap.data() as Map<String, dynamic>)['name'];
+        fName = (snap.data() as Map<String, dynamic>)['fName'];
+        mName = (snap.data() as Map<String, dynamic>)['mName'];
+        dob = (snap.data() as Map<String, dynamic>)['dob'];
+        aadharNo = (snap.data() as Map<String, dynamic>)['aadharNo.'];
+        gender = (snap.data() as Map<String, dynamic>)['gender'];
+        category = (snap.data() as Map<String, dynamic>)['category'];
+        occupation = (snap.data() as Map<String, dynamic>)['gOccupation'];
+        income = (snap.data() as Map<String, dynamic>)['gIncome'];
+        address = (snap.data() as Map<String, dynamic>)['address'];
+        phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo'];
+        email = (snap.data() as Map<String, dynamic>)['email'];
+        photo = (snap.data() as Map<String, dynamic>)['photoUrl'];
+        transport = (snap.data() as Map<String, dynamic>)['transport'];
+      });
+    }
+    setState(() {
+      Loaded = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
@@ -58,7 +141,60 @@ class _EditState extends State<Edit> {
                   itemCount: items.length,
                   itemBuilder: (context, index) {
                     return InkWell(
-                        onTap: (() {}),
+                        onTap: (() {
+                          uid = items[index]['uid'];
+                          getUserData();
+                          Loaded
+                              ? Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: ProfilePage(
+                                          role: role,
+                                          Class: Class,
+                                          aadharNo: aadharNo,
+                                          address: address,
+                                          category: category,
+                                          department: department,
+                                          dob: dob,
+                                          email: email,
+                                          fName: fName,
+                                          gender: gender,
+                                          id: id,
+                                          income: income,
+                                          language: language,
+                                          mName: mName,
+                                          occupation: occupation,
+                                          phoneNo: phoneNo,
+                                          profile: profile,
+                                          rollNo: rollNo,
+                                          session: session,
+                                          subject: subject,
+                                          photo: photo,
+                                          transport: transport,
+                                          username: username)))
+                              : showDialog(
+                                  context: context,
+                                  builder: (ctx) => AlertDialog(
+                                      elevation: 0,
+                                      backgroundColor: Colors.transparent,
+                                      content: SizedBox(
+                                        height: 55,
+                                        child: Column(
+                                          children: const [
+                                            CircularProgressIndicator(
+                                                color: Color.fromARGB(
+                                                    255, 253, 253, 253)),
+                                            Text(
+                                              'Wait 2 seconds and click Again...',
+                                              style: TextStyle(
+                                                  fontSize: 13,
+                                                  color: Colors.white),
+                                            ),
+                                          ],
+                                        ),
+                                      )));
+                        }),
                         child: Card(
                             color: Colors.teal[700],
                             elevation: 5,

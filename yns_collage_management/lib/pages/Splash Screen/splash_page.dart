@@ -76,7 +76,9 @@ class SplashPageState extends State<SplashPage> {
                       child: Text("from",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: Colors.teal[300], fontSize: 15))),
+                              fontStyle: FontStyle.italic,
+                              color: Colors.teal[300],
+                              fontSize: 15))),
                   SizedBox(
                       height: mediaQuery.size.height * 0.04,
                       child: Text("YNS Group",

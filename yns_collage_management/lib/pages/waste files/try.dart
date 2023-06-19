@@ -1,176 +1,307 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:page_transition/page_transition.dart';
+// ignore_for_file: non_constant_identifier_names
 
-import '../Attendance/attendance_taker.dart';
+import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:yns_college_management/pages/Attendance/attendance_overviwe.dart';
 
 class Try extends StatefulWidget {
   const Try({super.key});
+
   @override
   State<Try> createState() => _TryState();
 }
 
 class _TryState extends State<Try> {
-  final TextEditingController dateController = TextEditingController();
+  var date = '7/1/2022';
+  var Class = 'BCA';
+  var subject = 'Java';
+  var teacher = 'Sanjay Kumar';
+  //listTile
+  List<String> arrRollno = [
+    '200955106190',
+    '200955106191',
+    '200955106192',
+    '200955106193',
+    '200955106194',
+    '200955106195',
+    '200955106196',
+    '200955106197',
+    '200955106198',
+    '200955106199',
+    '200955106200',
+    '200955106201'
+  ];
+  List<String> arrName = [
+    'Raman',
+    'Ramnaujan',
+    'Rajesh',
+    'James',
+    'Rahim',
+    'Ram',
+    'Raman',
+    'Ramnaujan',
+    'Rajesh',
+    'James',
+    'Rahim',
+    'Ram'
+  ];
+  List<String> presentArray = [];
 
-  // Create Date-time Variable
-  DateTime _dateTime = DateTime.now();
-  void get() {
-    dateController.text = DateFormat('dd-MM-yyyy').format(_dateTime);
-  }
-
-  // Show Date Picker Method
-  void _showDatePicker() {
-    showDatePicker(
-            context: context,
-            initialDate: DateTime.now(),
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2030))
-        .then((value) {
-      setState(() {
-        _dateTime = value!;
-      });
+  int _totalPresen = 0;
+  void countPresentStudent() {
+    setState(() {
+      _totalPresen = presentArray.length;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-    // get();
-    print('date----> $dateController');
+    int totalStudent = arrRollno.length;
+
     return Scaffold(
-        backgroundColor: Colors.teal[300],
-        appBar: AppBar(
-            elevation: 0, backgroundColor: Colors.teal[700], toolbarHeight: 32),
-        body: Column(children: [
-          Container(
-              height: 280,
-              width: double.infinity,
+      backgroundColor: Colors.teal[300],
+      appBar: AppBar(
+        title: const Text('Attendance Taker'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+      ),
+      body: Column(
+        children: [
+          Center(
+            child: Container(
+              // height: 180,
+              width: mediaQuery.size.width * 0.8,
               decoration: BoxDecoration(
                   color: Colors.teal[700],
                   borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(40),
-                      bottomRight: Radius.circular(40)),
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(80),
+                      topLeft: Radius.circular(80),
+                      topRight: Radius.circular(20)),
                   boxShadow: [
                     BoxShadow(
                         color: Colors.teal.shade500,
                         blurRadius: 15,
                         offset: const Offset(0, 10))
                   ]),
-              child: Column(children: const [
-                Icon(Icons.edit_calendar, size: 180, color: Colors.white),
-                Text('Attendance',
-                    style: TextStyle(
-                        fontSize: 50,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white))
-              ])),
+              child: FittedBox(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 40,
+                                backgroundImage: NetworkImage('photoUrl')),
+                            const SizedBox(width: 10),
+                            Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Date: $date',
+                                      style: const TextStyle(
+                                          fontSize: 15, color: Colors.white)),
+                                  Text('Class: $Class',
+                                      style: const TextStyle(
+                                          fontSize: 15, color: Colors.white)),
+                                  Text('Subject: $subject',
+                                      style: const TextStyle(
+                                          fontSize: 15, color: Colors.white)),
+                                  Text('Teacher: name',
+                                      style: const TextStyle(
+                                          fontSize: 15, color: Colors.white))
+                                ])
+                          ]),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                        width: mediaQuery.size.width * 0.8,
+                        height: 1,
+                        color: Colors.teal[300]),
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: SizedBox(
+                        width: mediaQuery.size.width * 0.8,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                Text('Total Student',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.teal[300])),
+                                Text(
+                                  '$totalStudent',
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      color:
+                                          Color.fromARGB(255, 255, 255, 255)),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text('Total Present',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.teal[300])),
+                                    Text(
+                                      '$_totalPresen',
+                                      style: const TextStyle(
+                                          fontSize: 20,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255)),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            ),
+          ),
           Expanded(
-              child: SizedBox(
-                  child: SingleChildScrollView(
-                      child: Column(children: [
-            // Select date
-            Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: InkWell(
-                    onTap: _showDatePicker,
-                    child: Container(
-                        width: mediaQuery.size.width * 0.7,
-                        height: 47,
-                        decoration: BoxDecoration(
-                            color: Colors.teal[500],
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(15)),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.teal.shade500,
-                                  blurRadius: 15,
-                                  offset: const Offset(0, 10))
-                            ]),
-                        child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  // Display Date
-                                  Text(
-                                      '${_dateTime.day}/${_dateTime.month}/${_dateTime.year}',
-                                      style: const TextStyle(
-                                          color: Colors.white, fontSize: 18)),
-                                  const Icon(Icons.edit_calendar,
-                                      color: Colors.white)
-                                ]))))),
-
-            // Select date
-            Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: InkWell(
-                    onTap: _showDatePicker,
-                    child: Container(
-                        width: mediaQuery.size.width * 0.7,
-                        height: 47,
-                        decoration: BoxDecoration(
-                            color: Colors.teal[500],
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(15)),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.teal.shade500,
-                                  blurRadius: 15,
-                                  offset: const Offset(0, 10))
-                            ]),
-                        child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  // Display Date
-                                  Text(
-                                      '${_dateTime.day}/${_dateTime.month}/${_dateTime.year}',
-                                      style: const TextStyle(
-                                          color: Colors.white, fontSize: 18)),
-                                  const Icon(Icons.edit_calendar,
-                                      color: Colors.white)
-                                ]))))),
-
-            // student dob...
-            // Row(children: [
-            //   Expanded(
-            //       child: Padding(
-            //           padding: const EdgeInsets.all(20.0),
-            //           child: TextField(
-            //             style: TextStyle(
-            //                 fontSize: 13,
-            //                 fontStyle: FontStyle.normal,
-            //                 color: Colors.blue[900]),
-            //             controller: dateController,
-            //             decoration: const InputDecoration(
-            //                 contentPadding: EdgeInsets.all(8),
-            //                 icon: Icon(
-            //                   Icons.calendar_today_rounded,
-            //                   // color: Colors.teal[800],
-            //                 ),
-            //                 hintText: "Select"),
-            //             onTap: () async {
-            //               // _showDatePicker();
-            //               DateTime? pickedDate = await showDatePicker(
-            //                   context: context,
-            //                   initialDate: DateTime.now(),
-            //                   firstDate: DateTime(1900),
-            //                   lastDate: DateTime.now());
-            //               if (pickedDate != null) {
-            //                 setState(() {
-            //                   dateController.text =
-            //                       DateFormat('dd-MM-yyyy').format(pickedDate);
-            //                 });
-            //               }
-            //             },
-            //           )))
-            // ]),
-          ]))))
-        ]));
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ScrollPhysics(parent: null),
+                    itemCount: arrRollno.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: (() {
+                          setState(() {
+                            if (presentArray
+                                .contains(arrRollno[index].toString())) {
+                              presentArray.remove(arrRollno[index].toString());
+                            } else {
+                              presentArray.add(arrRollno[index].toString());
+                            }
+                          });
+                          countPresentStudent();
+                        }),
+                        child: Card(
+                          color: Colors.teal[700],
+                          elevation: 5,
+                          shadowColor:
+                              presentArray.contains(arrRollno[index].toString())
+                                  ? Colors.green
+                                  : Colors.red,
+                          child: ListTile(
+                            leading: InkWell(
+                              onTap: (() {
+                                // go to student Profile...
+                              }),
+                              child: const CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 50,
+                                backgroundImage:
+                                    AssetImage("assets/images/img60.png"),
+                              ),
+                            ),
+                            title: Text(
+                              arrRollno[index],
+                              style: const TextStyle(
+                                  fontStyle: FontStyle.normal,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            ),
+                            textColor: Colors.white,
+                            subtitle: Text(arrName[index]),
+                            trailing: Container(
+                              height: 40,
+                              width: 90,
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10)),
+                                  color: presentArray
+                                          .contains(arrRollno[index].toString())
+                                      ? Colors.red
+                                      : Colors.green),
+                              child: Center(
+                                child: Text(presentArray
+                                        .contains(arrRollno[index].toString())
+                                    ? 'Absent'
+                                    : 'Present'),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Reset button
+                        ElevatedButton(
+                          onPressed: () {
+                            // Reset all Attendance...
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.teal[700],
+                            elevation: 20,
+                            shadowColor: Colors.teal[900],
+                            side: BorderSide(
+                                color: Colors.teal.shade700,
+                                width: 2,
+                                style: BorderStyle.solid),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
+                            minimumSize: const Size(150, 60),
+                          ),
+                          child: const Text('Reset'),
+                        ),
+                        //Done button
+                        ElevatedButton(
+                          onPressed: () {
+                            // Navigator.push(
+                            //     context,
+                            //     PageTransition(
+                            //         type: PageTransitionType.rightToLeft,
+                            //         child: const AttendanceOverViwe()));
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.teal[700],
+                            elevation: 20,
+                            shadowColor: Colors.teal[900],
+                            side: BorderSide(
+                                color: Colors.teal.shade700,
+                                width: 2,
+                                style: BorderStyle.solid),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0)),
+                            minimumSize: const Size(150, 60),
+                          ),
+                          child: const Text('Done'),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

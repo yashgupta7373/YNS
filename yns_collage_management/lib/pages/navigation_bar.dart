@@ -77,7 +77,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       });
     } else {
       setState(() {
-        rollNo = (snap.data() as Map<String, dynamic>)['rollNo.'];
+        rollNo = (snap.data() as Map<String, dynamic>)['id'];
         Class = (snap.data() as Map<String, dynamic>)['Class'];
         department = (snap.data() as Map<String, dynamic>)['department'];
         // present = (snap.data() as Map<String, dynamic>)['present'];
@@ -93,7 +93,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         occupation = (snap.data() as Map<String, dynamic>)['gOccupation'];
         income = (snap.data() as Map<String, dynamic>)['gIncome'];
         address = (snap.data() as Map<String, dynamic>)['address'];
-        phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo.'];
+        phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo'];
         email = (snap.data() as Map<String, dynamic>)['email'];
         photo = (snap.data() as Map<String, dynamic>)['photoUrl'];
         transport = (snap.data() as Map<String, dynamic>)['transport'];

@@ -1,6 +1,10 @@
-// ignore_for_file: non_constant_identifier_names, must_be_immutable, prefer_typing_uninitialized_variables
+// ignore_for_file: non_constant_identifier_names, must_be_immutable, prefer_typing_uninitialized_variables, iterable_contains_unrelated_type, list_remove_unrelated_type
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:yns_college_management/pages/Attendance/attendance_overviwe.dart';
+import 'package:yns_college_management/pages/profile_page.dart';
 
 class AttendanceTaker extends StatefulWidget {
   var uid, date, Class, subject;
@@ -47,17 +51,17 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
     'Ram'
   ];
   List<bool> presentArray = [];
-
-  int _totalPresent = 0;
+  int totalStudent = 0;
+  int totalPresent = 0;
 
   void countPresentStudent() {
     setState(() {
-      _totalPresent = presentArray.where((present) => present).length;
+      totalPresent = presentArray.where((present) => present).length;
     });
   }
 
+// fetch teacher name and photo form firebase
   var name = '', photoUrl = '';
-
   @override
   void initState() {
     super.initState();
@@ -75,13 +79,104 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
     });
   }
 
+  //fetch student list from firebase
+  var collection;
+  void getData() {
+    collection = FirebaseFirestore.instance.collection('users').where(
+          'Class',
+          isEqualTo: widget.Class,
+          // 'transport',
+          // isEqualTo: 'Yes',
+        );
+  }
+
+  var items;
+  bool isLoaded = false;
+  bool Loaded = false;
+
+  void incrementCounter() async {
+    List<Map<String, dynamic>> tempList = [];
+    var data = await collection.get();
+    for (var element in data.docs) {
+      tempList.add(element.data());
+    }
+    setState(() {
+      items = tempList;
+      isLoaded = true;
+    });
+  }
+
+  //fetch user Data..
+  var uid = '';
+  var role = "",
+      username = "",
+      session = "",
+      id = "",
+      rollNo = "",
+      profile = "",
+      Class = "",
+      department = "",
+      phoneNo = "",
+      fName = "",
+      mName = "",
+      dob = "",
+      subject = "",
+      language = "",
+      aadharNo = "",
+      gender = "",
+      category = "",
+      occupation = "",
+      email = "",
+      income = "",
+      photo = "",
+      transport = '',
+      address = "";
+  void getUserData() async {
+    DocumentSnapshot snap =
+        await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    setState(() {
+      role = (snap.data() as Map<String, dynamic>)['role'];
+      rollNo = (snap.data() as Map<String, dynamic>)['id'];
+      Class = (snap.data() as Map<String, dynamic>)['Class'];
+      department = (snap.data() as Map<String, dynamic>)['department'];
+      // present = (snap.data() as Map<String, dynamic>)['present'];
+      // absent =  (snap.data() as Map<String, dynamic>)['absent'];
+      session = (snap.data() as Map<String, dynamic>)['session'];
+      username = (snap.data() as Map<String, dynamic>)['name'];
+      fName = (snap.data() as Map<String, dynamic>)['fName'];
+      mName = (snap.data() as Map<String, dynamic>)['mName'];
+      dob = (snap.data() as Map<String, dynamic>)['dob'];
+      aadharNo = (snap.data() as Map<String, dynamic>)['aadharNo.'];
+      gender = (snap.data() as Map<String, dynamic>)['gender'];
+      category = (snap.data() as Map<String, dynamic>)['category'];
+      occupation = (snap.data() as Map<String, dynamic>)['gOccupation'];
+      income = (snap.data() as Map<String, dynamic>)['gIncome'];
+      address = (snap.data() as Map<String, dynamic>)['address'];
+      transport = (snap.data() as Map<String, dynamic>)['transport'];
+      phoneNo = (snap.data() as Map<String, dynamic>)['phoneNo'];
+      email = (snap.data() as Map<String, dynamic>)['email'];
+      photo = (snap.data() as Map<String, dynamic>)['photoUrl'];
+    });
+    setState(() {
+      Loaded = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
+    // create and assign value to the variable
     var date = widget.date;
     var Class = widget.Class;
     var subject = widget.subject;
-    int totalStudent = arrRollno.length;
+    totalStudent = arrRollno.length;
+    int totalAbsent = totalStudent - totalPresent;
+    var a = '0', b = '1', c = '2';
+
+    //call functions..
+    getData();
+    incrementCounter();
+
     return Scaffold(
         backgroundColor: Colors.teal[300],
         appBar: AppBar(
@@ -91,7 +186,6 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
         body: Column(children: [
           Center(
             child: Container(
-              // height: 180,
               width: mediaQuery.size.width * 0.8,
               decoration: BoxDecoration(
                   color: Colors.teal[700],
@@ -176,7 +270,7 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
                                             fontSize: 20,
                                             color: Colors.teal[300])),
                                     Text(
-                                      '$_totalPresent',
+                                      '$totalPresent',
                                       style: const TextStyle(
                                           fontSize: 20,
                                           color: Color.fromARGB(
@@ -196,105 +290,185 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
               ),
             ),
           ),
-          // Expanded(
-          //     child: SingleChildScrollView(
-          //         child: Column(children: [
-          //   ListView.builder(
-          //       shrinkWrap: true,
-          //       physics: const ScrollPhysics(parent: null),
-          //       itemCount: arrRollno.length,
-          //       itemBuilder: (context, index) {
-          //         return InkWell(
-          //             onTap: () {
-          //               setState(() {
-          //                 presentArray[index] = !presentArray[index];
-          //               });
-          //               countPresentStudent();
-          //             },
-          //             child: Card(
-          //                 color: Colors.teal[700],
-          //                 elevation: 5,
-          //                 shadowColor:
-          //                     presentArray[index] ? Colors.green : Colors.red,
-          //                 child: ListTile(
-          //                     leading: InkWell(
-          //                         onTap: (() {
-          //                           // go to student Profile...
-          //                         }),
-          //                         child: const CircleAvatar(
-          //                             backgroundColor: Colors.white,
-          //                             radius: 50,
-          //                             backgroundImage: AssetImage(
-          //                                 "assets/images/img60.png"))),
-          //                     title: Text(arrRollno[index],
-          //                         style: const TextStyle(
-          //                             fontStyle: FontStyle.normal,
-          //                             fontWeight: FontWeight.bold,
-          //                             fontSize: 14)),
-          //                     textColor: Colors.white,
-          //                     subtitle: Text(arrName[index]),
-          //                     trailing: Container(
-          //                         height: 40,
-          //                         width: 90,
-          //                         decoration: BoxDecoration(
-          //                           borderRadius: const BorderRadius.all(
-          //                               Radius.circular(10)),
-          //                           color: presentArray[index]
-          //                               ? Colors.red
-          //                               : Colors.green,
-          //                         ),
-          //                         child: Center(
-          //                             child: Text(
-          //                           presentArray[index] ? 'Absent' : 'Present',
-          //                         ))))));
-          //       }),
-          //   Padding(
-          //       padding: const EdgeInsets.all(20),
-          //       child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           children: [
-          //             // Reset button
-          //             ElevatedButton(
-          //               onPressed: () {
-          //                 // Reset all Attendance...
-          //               },
-          //               style: ElevatedButton.styleFrom(
-          //                 backgroundColor: Colors.teal[700],
-          //                 elevation: 20,
-          //                 shadowColor: Colors.teal[900],
-          //                 side: BorderSide(
-          //                     color: Colors.teal.shade700,
-          //                     width: 2,
-          //                     style: BorderStyle.solid),
-          //                 shape: RoundedRectangleBorder(
-          //                     borderRadius: BorderRadius.circular(15.0)),
-          //                 minimumSize: const Size(150, 60),
-          //               ),
-          //               child: const Text('Reset'),
-          //             ),
-          //             //Done button
-          //             ElevatedButton(
-          //                 onPressed: () {
-          //                   Navigator.push(
-          //                       context,
-          //                       PageTransition(
-          //                           type: PageTransitionType.rightToLeft,
-          //                           child: const AttendanceOverViwe()));
-          //                 },
-          //                 style: ElevatedButton.styleFrom(
-          //                     backgroundColor: Colors.teal[700],
-          //                     elevation: 20,
-          //                     shadowColor: Colors.teal[900],
-          //                     side: BorderSide(
-          //                         color: Colors.teal.shade700,
-          //                         width: 2,
-          //                         style: BorderStyle.solid),
-          //                     shape: RoundedRectangleBorder(
-          //                         borderRadius: BorderRadius.circular(15.0)),
-          //                     minimumSize: const Size(150, 60)),
-          //                 child: const Text('Done'))
-          //           ]))
-          // ])))
+          Expanded(
+              child: SingleChildScrollView(
+                  child: Column(children: [
+            isLoaded
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ScrollPhysics(parent: null),
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                          onTap: (() {
+                            uid = items[index]['uid'];
+                            getUserData();
+                            Loaded
+                                ? Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.rightToLeft,
+                                        child: ProfilePage(
+                                            role: role,
+                                            Class: Class,
+                                            aadharNo: aadharNo,
+                                            address: address,
+                                            category: category,
+                                            department: department,
+                                            dob: dob,
+                                            email: email,
+                                            fName: fName,
+                                            gender: gender,
+                                            id: id,
+                                            income: income,
+                                            language: language,
+                                            mName: mName,
+                                            occupation: occupation,
+                                            phoneNo: phoneNo,
+                                            profile: profile,
+                                            rollNo: rollNo,
+                                            session: session,
+                                            subject: subject,
+                                            photo: photo,
+                                            transport: transport,
+                                            username: username)))
+                                : showDialog(
+                                    context: context,
+                                    builder: (ctx) => AlertDialog(
+                                        elevation: 0,
+                                        backgroundColor: Colors.transparent,
+                                        content: SizedBox(
+                                          height: 55,
+                                          child: Column(
+                                            children: const [
+                                              CircularProgressIndicator(
+                                                  color: Color.fromARGB(
+                                                      255, 253, 253, 253)),
+                                              Text(
+                                                'Wait 2 seconds and click Again...',
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    color: Colors.white),
+                                              ),
+                                            ],
+                                          ),
+                                        )));
+
+                            setState(() {
+                              if (presentArray
+                                  .contains(arrRollno[index].toString())) {
+                                presentArray
+                                    .remove(arrRollno[index].toString());
+                              } else {
+                                // presentArray.add(arrRollno[index].toString());
+                              }
+                            });
+                            countPresentStudent();
+                          }),
+                          child: Card(
+                              color: Colors.teal[700],
+                              elevation: 5,
+                              shadowColor:
+                                  presentArray.contains(arrRollno[index].toString())
+                                      ? Colors.green
+                                      : Colors.red,
+                              child: ListTile(
+                                  leading: InkWell(
+                                      onTap: (() {
+                                        // go to student Profile...
+                                      }),
+                                      child: CircleAvatar(
+                                          backgroundColor: Colors.white,
+                                          radius: 30,
+                                          backgroundImage: NetworkImage(
+                                              (items[index]['photoUrl'])))),
+                                  title: Text(items[index]['name'],
+                                      style: const TextStyle(
+                                          fontStyle: FontStyle.normal,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14)),
+                                  textColor: Colors.white,
+                                  subtitle: Text(items[index]['id']),
+                                  trailing: Container(
+                                      height: 40,
+                                      width: 90,
+                                      decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10)),
+                                          color: presentArray.contains(
+                                                  arrRollno[index].toString())
+                                              ? Colors.red
+                                              : Colors.green),
+                                      child: Center(
+                                          child: Text(presentArray.contains(arrRollno[index].toString()) ? 'Absent' : 'Present'))))));
+                    })
+                : SizedBox(
+                    height: mediaQuery.size.height * 0.5,
+                    width: mediaQuery.size.width * 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [
+                        CircularProgressIndicator(
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                      ],
+                    ),
+                  ),
+            //Buttons
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Reset button
+                  ElevatedButton(
+                    onPressed: () {
+                      // Reset all Attendance...
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.teal[700],
+                      elevation: 20,
+                      shadowColor: Colors.teal[900],
+                      side: BorderSide(
+                          color: Colors.teal.shade700,
+                          width: 2,
+                          style: BorderStyle.solid),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0)),
+                      minimumSize: const Size(150, 60),
+                    ),
+                    child: const Text('Reset'),
+                  ),
+                  //Done button
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: AttendanceOverViwe(
+                                  totalStudent: a,
+                                  totalPresent: b,
+                                  totalAbsent: c)));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.teal[700],
+                      elevation: 20,
+                      shadowColor: Colors.teal[900],
+                      side: BorderSide(
+                          color: Colors.teal.shade700,
+                          width: 2,
+                          style: BorderStyle.solid),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0)),
+                      minimumSize: const Size(150, 60),
+                    ),
+                    child: const Text('Done'),
+                  ),
+                ],
+              ),
+            )
+          ])))
         ]));
   }
 }
