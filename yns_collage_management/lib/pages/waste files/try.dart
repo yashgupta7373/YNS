@@ -1,323 +1,231 @@
-// ignore_for_file: must_be_immutable, non_constant_identifier_names, deprecated_member_use, camel_case_types, prefer_typing_uninitialized_variables
+// ignore_for_file: non_constant_identifier_names, must_be_immutable, prefer_typing_uninitialized_variables, iterable_contains_unrelated_type, list_remove_unrelated_type
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:yns_college_management/Widgets/log_out.dart';
-import '../../Widgets/call_class_room_and_online_class.dart';
-import '../../Widgets/profile_widget.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:yns_college_management/pages/Attendance/attendance_overviwe.dart';
+import 'package:yns_college_management/pages/College%20Web/developer_page.dart';
+import 'package:yns_college_management/pages/profile_page.dart';
 
 class Try extends StatefulWidget {
-  final String uid;
-  Try({super.key, required this.uid});
+  var uid, date, Class, subject;
+  // DateTime date;
+  Try({super.key});
 
   @override
   State<Try> createState() => _TryState();
 }
 
 class _TryState extends State<Try> {
-  var present = "86", absent = "14";
-
-  var userData = {};
-  bool isLoading = false;
-
-  //fetch Data
-  @override
-  void initState() {
-    super.initState();
-    getUserData();
-  }
-
-  void getUserData() async {
-    setState(() {
-      isLoading = true;
-    });
-    try {
-      var userSnap = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(widget.uid)
-          .get();
-      userData = userSnap.data()!;
-      setState(() {});
-    } catch (e) {
-      // showSnackBar(
-      //   context,
-      //   e.toString(),
-      // );
-    }
-    setState(() {
-      isLoading = false;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return isLoading
-        ? const Center(
-            child: CircularProgressIndicator(),
-          )
-        : Scaffold(
-            backgroundColor: Colors.teal[300],
-            //aap bar
-            appBar: AppBar(
-                backgroundColor: Colors.teal[400],
-                title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Id...
-                      // (role == 'admin' || role == 'teacher')
-                      //     ? Text(widget.id)
-                      //     : (Text(widget.rollNo)),
-                      Text(userData['id']),
-                      Row(children: const [
-                        // google classroom, zoom, and logout...
-                        CallClasses(),
-                        SizedBox(width: 20),
-                        LogOut()
-                      ])
-                    ]),
-                elevation: 0),
-            body:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Container(
-                  decoration: BoxDecoration(
-                      color: Colors.teal[400],
-                      borderRadius: const BorderRadius.only(
-                          bottomRight: Radius.elliptical(120, 90))),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                            padding: const EdgeInsets.only(top: 8, left: 15),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+    var mediaQuery = MediaQuery.of(context);
+
+    return Scaffold(
+        backgroundColor: Colors.teal[300],
+        appBar: AppBar(
+            title: const Text('Attendance Taker'),
+            backgroundColor: Colors.transparent,
+            elevation: 0),
+        body: Column(children: [
+          Center(
+            child: Container(
+              width: mediaQuery.size.width * 0.8,
+              decoration: BoxDecoration(
+                  color: Colors.teal[700],
+                  borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(80),
+                      topLeft: Radius.circular(80),
+                      topRight: Radius.circular(20)),
+                  boxShadow: [
+                    BoxShadow(
+                        color: Colors.teal.shade500,
+                        blurRadius: 15,
+                        offset: const Offset(0, 10))
+                  ]),
+              child: FittedBox(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 40,
+                                backgroundImage: NetworkImage(
+                                    'https://pluspng.com/img-png/user-png-icon-young-user-icon-2400.png')),
+                            const SizedBox(width: 10),
+                            Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text('Date: 10-12-2022',
+                                      style: TextStyle(
+                                          fontSize: 15, color: Colors.white)),
+                                  Text('Class: BCA',
+                                      style: TextStyle(
+                                          fontSize: 15, color: Colors.white)),
+                                  Text(
+                                      'Subject: Programming Principle And Algorithm',
+                                      style: TextStyle(
+                                          fontSize: 15, color: Colors.white)),
+                                  Text('Teacher: Yash Gupta',
+                                      style: TextStyle(
+                                          fontSize: 15, color: Colors.white))
+                                ])
+                          ]),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                        width: mediaQuery.size.width * 0.8,
+                        height: 1,
+                        color: Colors.teal[300]),
+                    const SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: SizedBox(
+                        width: mediaQuery.size.width * 0.8,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              children: [
+                                Text('Total Student',
+                                    style: TextStyle(
+                                        fontSize: 20, color: Colors.teal[300])),
+                                const Text(
+                                  '20',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      color:
+                                          Color.fromARGB(255, 255, 255, 255)),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Column(
+                                  children: [
+                                    Text('Total Present',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.teal[300])),
+                                    const Text(
+                                      '12',
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255)),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          //new..
+          const SizedBox(height: 50),
+          Container(
+            width: mediaQuery.size.width * 0.9,
+            decoration: BoxDecoration(
+                color: Colors.teal[700],
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(80),
+                    topLeft: Radius.circular(80),
+                    topRight: Radius.circular(20)),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.teal.shade500,
+                      blurRadius: 15,
+                      offset: const Offset(0, 10))
+                ]),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 40,
+                      backgroundImage: NetworkImage(
+                          'https://pluspng.com/img-png/user-png-icon-young-user-icon-2400.png')),
+                  const SizedBox(width: 10),
+                  Text('Date: 10-12-2022',
+                      style: TextStyle(fontSize: 15, color: Colors.white)),
+                  Text('Class: BCA',
+                      style: TextStyle(fontSize: 15, color: Colors.white)),
+                  Text('Subject: Programming Principle And Algorithm',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 15, color: Colors.white)),
+                  Text('Teacher: Yash Gupta',
+                      style: TextStyle(fontSize: 15, color: Colors.white)),
+                  const SizedBox(height: 10),
+                  Container(
+                      width: mediaQuery.size.width * 0.8,
+                      height: 1,
+                      color: Colors.teal[300]),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: SizedBox(
+                      width: mediaQuery.size.width * 0.8,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            children: [
+                              Text('Total Student',
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.teal[300])),
+                              const Text(
+                                '20',
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Color.fromARGB(255, 255, 255, 255)),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
                                 children: [
-                                  CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      radius: 50,
-                                      backgroundImage: NetworkImage(
-                                        userData['photoUrl'],
-                                      )),
-                                  Expanded(
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                        Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 0, bottom: 15),
-                                            child: SizedBox(
-                                                width: 180,
-                                                child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(userData['name'],
-                                                          style: TextStyle(
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: Colors
-                                                                  .teal[900])),
-                                                      Text(
-                                                          (userData['role'] ==
-                                                                      'admin' ||
-                                                                  userData[
-                                                                          'role'] ==
-                                                                      'teacher')
-                                                              ? userData[
-                                                                  'profile']
-                                                              : userData[
-                                                                  'Class'],
-                                                          style: TextStyle(
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: Colors
-                                                                  .teal[900])),
-                                                      Text(
-                                                          userData[
-                                                              'department'],
-                                                          style: TextStyle(
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: Colors
-                                                                  .teal[900])),
-                                                      const SizedBox(height: 8),
-                                                      if (userData['role'] ==
-                                                          'student')
-                                                        Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              profileWidget(
-                                                                  percent:
-                                                                      '$present%',
-                                                                  name:
-                                                                      'PRESENTS'),
-                                                              profileWidget(
-                                                                  percent:
-                                                                      '$absent%',
-                                                                  name:
-                                                                      'ABSENTS')
-                                                            ])
-                                                    ])))
-                                      ]))
-                                ])),
-                        Padding(
-                            padding: const EdgeInsets.only(
-                                left: 60, right: 60, top: 20),
-                            child: Container(
-                                width: double.infinity,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                          offset: const Offset(5, 10),
-                                          blurRadius: 20,
-                                          color: Colors.teal.shade900
-                                              .withOpacity(0.6))
-                                    ],
-                                    color: Colors.teal[600],
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10),
-                                        bottomLeft: Radius.circular(10),
-                                        bottomRight:
-                                            Radius.elliptical(120, 90))),
-                                child: InkWell(
-                                    onTap: (() {
-                                      var number = userData['phoneNo'];
-                                      launch('http://wa.me/+91$number');
-                                    }),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: const [
-                                          Icon(
-                                              FontAwesomeIcons
-                                                  .facebookMessenger,
-                                              color: Colors.white),
-                                          SizedBox(width: 8),
-                                          Text('Message',
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white))
-                                        ])))),
-                        const SizedBox(height: 20)
-                      ])),
-              Expanded(
-                  child: SingleChildScrollView(
-                      child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Column(children: [
-                            // academic session
-                            if (userData['role'] == 'student')
-                              AdminRowWidget(
-                                  text1: 'Academic Session:',
-                                  text2: userData['session']),
-                            // Id or RollNo
-                            (userData['role'] == 'admin' ||
-                                    userData['role'] == 'teacher')
-                                ? AdminRowWidget(
-                                    text1: '${userData['role']} Id:',
-                                    text2: userData['id'])
-                                : AdminRowWidget(
-                                    text1: 'Roll-No.:', text2: userData['id']),
-                            // profile or class
-                            (userData['role'] == 'admin' ||
-                                    userData['role'] == 'teacher')
-                                ? AdminRowWidget(
-                                    text1: 'Job Profile:',
-                                    text2: userData['profile'])
-                                : AdminRowWidget(
-                                    text1: 'Class:', text2: userData['Class']),
-                            // Department
-                            AdminRowWidget(
-                                text1: 'Department',
-                                text2: userData['department']),
-                            // Subjects for teachers
-                            if (userData['role'] != 'student')
-                              AdminRowWidget(
-                                  text1: 'Subjects:',
-                                  text2: userData[
-                                      'subject']), // display all subjects...
-                            // language for teachers
-                            if (userData['role'] != 'student')
-                              AdminRowWidget(
-                                  text1: 'Language:',
-                                  text2: userData[
-                                      'language']), // display all language...
-                            // Name
-                            (userData['role'] == 'admin' ||
-                                    userData['role'] == 'teacher')
-                                ? AdminRowWidget(
-                                    text1: '${userData['role']} Name:',
-                                    text2: userData['name'])
-                                : AdminRowWidget(
-                                    text1: 'Student Name:',
-                                    text2: userData['name']),
-                            // Father Name
-                            AdminRowWidget(
-                                text1: 'Father\'s Name:',
-                                text2: userData['fName']),
-                            // Mother Name
-                            AdminRowWidget(
-                                text1: 'Mother\'s Name:',
-                                text2: userData['mName']),
-                            // Date fo Birth
-                            AdminRowWidget(
-                                text1: 'Date Of Birth:',
-                                text2: userData['dob']),
-                            // Aadhar card number
-                            AdminRowWidget(
-                                text1: 'Aadhar Card No.:',
-                                text2: userData['aadharNo.']),
-                            // Gender
-                            AdminRowWidget(
-                                text1: 'Gender:', text2: userData['gender']),
-                            // Category
-                            if (userData['role'] == 'student')
-                              AdminRowWidget(
-                                  text1: 'Category:',
-                                  text2: userData['category']),
-                            // Guardian's Occupation
-                            if (userData['role'] == 'student')
-                              AdminRowWidget(
-                                  text1: 'Guardian\'s Occupation:',
-                                  text2: userData['occupation']),
-                            // Guardian's Income
-                            if (userData['role'] == 'student')
-                              AdminRowWidget(
-                                  text1: 'Guardian\'s Income:',
-                                  text2: userData['imcome']),
-                            // Address
-                            AdminRowWidget(
-                                text1: 'Address:', text2: userData['address']),
-                            // transport
-                            AdminRowWidget(
-                                text1: 'Use College Transport:',
-                                text2: userData['transport']),
-                            // Phone Number
-                            AdminRowWidget(
-                                text1: 'Phone Number:',
-                                text2: userData['phoneNo']),
-                            // Email Id
-                            AdminRowWidget(
-                                text1: 'Email Id:', text2: userData['email']),
-                            const SizedBox(height: 60)
-                          ]))))
-            ]),
-          );
+                                  Text('Total Present',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.teal[300])),
+                                  const Text(
+                                    '12',
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255)),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ]));
   }
 }

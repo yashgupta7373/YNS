@@ -2,9 +2,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:lottie/lottie.dart';
 import 'package:yns_college_management/pages/College%20Web/aboutclg_page.dart';
 import 'package:yns_college_management/pages/College%20Web/clgweb_page.dart';
+import 'package:yns_college_management/pages/College%20Web/developer_page.dart';
 import 'package:yns_college_management/pages/College%20Web/notification.dart';
 import 'package:yns_college_management/pages/Splash%20Screen/splash_page.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,6 +14,13 @@ import 'package:yns_college_management/Utils/routes.dart';
 import 'package:yns_college_management/pages/waste%20files/try.dart';
 
 void main() async {
+  //Custom Error Box...
+  ErrorWidget.builder = ((details) => const Scaffold(
+      backgroundColor: Color.fromARGB(255, 77, 182, 172),
+      body: Center(
+          child: CircularProgressIndicator(
+              color: Color.fromARGB(255, 231, 9, 9)))));
+
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 

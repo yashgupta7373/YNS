@@ -129,121 +129,115 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
             backgroundColor: Colors.transparent,
             elevation: 0),
         body: Column(children: [
-          Center(
-            child: Container(
-              width: mediaQuery.size.width * 0.8,
-              decoration: BoxDecoration(
-                  color: Colors.teal[700],
-                  borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(80),
-                      topLeft: Radius.circular(80),
-                      topRight: Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.teal.shade500,
-                        blurRadius: 15,
-                        offset: const Offset(0, 10))
-                  ]),
-              child: FittedBox(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (ctx) => AlertDialog(
-                                        backgroundColor: Colors.transparent,
-                                        content: InkWell(
-                                          onTap: () => Navigator.of(ctx).pop(),
-                                          child: Image.network(photoUrl),
-                                        )));
-                              },
-                              child: CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 40,
-                                  backgroundImage: NetworkImage(photoUrl)),
-                            ),
-                            const SizedBox(width: 10),
-                            Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('Date: $date',
-                                      style: const TextStyle(
-                                          fontSize: 15, color: Colors.white)),
-                                  Text('Class: $Class',
-                                      style: const TextStyle(
-                                          fontSize: 15, color: Colors.white)),
-                                  Text('Subject: $subject',
-                                      style: const TextStyle(
-                                          fontSize: 15, color: Colors.white)),
-                                  Text('Teacher: $name',
-                                      style: const TextStyle(
-                                          fontSize: 15, color: Colors.white))
-                                ])
-                          ]),
-                    ),
-                    const SizedBox(height: 10),
-                    Container(
-                        width: mediaQuery.size.width * 0.8,
-                        height: 1,
-                        color: Colors.teal[300]),
-                    const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: SizedBox(
-                        width: mediaQuery.size.width * 0.8,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Column(
-                              children: [
-                                Text('Total Student',
-                                    style: TextStyle(
-                                        fontSize: 20, color: Colors.teal[300])),
-                                Text(
-                                  '$totalStudent',
-                                  style: const TextStyle(
-                                      fontSize: 20,
-                                      color:
-                                          Color.fromARGB(255, 255, 255, 255)),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Column(
-                                  children: [
-                                    Text('Total Present',
-                                        style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.teal[300])),
-                                    Text(
-                                      '$totalPresent',
-                                      style: const TextStyle(
-                                          fontSize: 20,
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255)),
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ],
+          Container(
+            width: mediaQuery.size.width * 0.9,
+            decoration: BoxDecoration(
+                color: Colors.teal[700],
+                borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(80),
+                    topLeft: Radius.circular(80),
+                    topRight: Radius.circular(20)),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.teal.shade500,
+                      blurRadius: 15,
+                      offset: const Offset(0, 10))
+                ]),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (ctx) => AlertDialog(
+                                    backgroundColor: Colors.transparent,
+                                    content: InkWell(
+                                      onTap: () => Navigator.of(ctx).pop(),
+                                      child: Image.network(photoUrl),
+                                    )));
+                          },
+                          child: CircleAvatar(
+                              backgroundColor: Colors.white,
+                              radius: 40,
+                              backgroundImage: NetworkImage(photoUrl)),
                         ),
+                        Column(children: [
+                          Text('Date: $date',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white)),
+                          Text('Teacher: $name',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white)),
+                          Text('Class: $Class',
+                              textAlign: TextAlign.center,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white)),
+                        ]),
+                      ]),
+                  Text('Subject: $subject',
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style:
+                          const TextStyle(fontSize: 15, color: Colors.white)),
+                  const SizedBox(height: 10),
+                  Divider(
+                    color: Colors.teal[300],
+                    height: 0,
+                    thickness: 0,
+                    indent: 5,
+                    endIndent: 5,
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        children: [
+                          Text('Total Student',
+                              style: TextStyle(
+                                  fontSize: 15, color: Colors.teal[300])),
+                          Text(
+                            '$totalStudent',
+                            style: const TextStyle(
+                                fontSize: 15,
+                                color: Color.fromARGB(255, 255, 255, 255)),
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Column(
+                            children: [
+                              Text('Total Present',
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.teal[300])),
+                              Text(
+                                '$totalPresent',
+                                style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Color.fromARGB(255, 255, 255, 255)),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
