@@ -279,8 +279,7 @@ class _HomePageState extends State<HomePage> {
                                           const TimeTableBtn(),
                                           const ResultBtn(),
                                           const TransportBtn(),
-                                          NoticeBoardBtn(
-                                              role: userData['role']),
+                                          NoticeBoardBtn(uid: userData['uid']),
                                           const IdCardBtn(),
                                           HomeWorkBtn(role: userData['role']),
                                           const ApplyLeaveBtn(),
@@ -430,8 +429,7 @@ class _HomePageState extends State<HomePage> {
                                           const TimeTableBtn(),
                                           const ResultBtn(),
                                           const TransportBtn(),
-                                          NoticeBoardBtn(
-                                              role: userData['role']),
+                                          NoticeBoardBtn(uid: userData['uid']),
                                           const IdCardBtn(),
                                           HomeWorkBtn(role: userData['role']),
                                           const ApplyLeaveBtn()

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 // for displaying snackbar
 showSnackBar(BuildContext context, String text) {
@@ -8,4 +9,13 @@ showSnackBar(BuildContext context, String text) {
       elevation: 5,
       behavior: SnackBarBehavior.floating,
       margin: const EdgeInsets.all(5)));
+}
+
+// for picking up image from gallery
+pickImage(ImageSource source) async {
+  final ImagePicker imagePicker = ImagePicker();
+  XFile? file = await imagePicker.pickImage(source: source);
+  if (file != null) {
+    return await file.readAsBytes();
+  }
 }

@@ -20,9 +20,6 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
   var transport = '';
   bool _isLoading = false;
   final TextEditingController idController = TextEditingController();
-  // final TextEditingController subjectController = TextEditingController();
-  // final TextEditingController profileController = TextEditingController();
-  // final TextEditingController departmentController = TextEditingController();
   final TextEditingController languagesController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController fatherController = TextEditingController();
@@ -40,9 +37,6 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
   void dispose() {
     super.dispose();
     idController.dispose();
-    // subjectController.dispose();
-    // profileController.dispose();
-    // departmentController.dispose();
     languagesController.dispose();
     nameController.dispose();
     fatherController.dispose();

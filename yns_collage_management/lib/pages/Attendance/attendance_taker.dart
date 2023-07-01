@@ -86,8 +86,8 @@ class _AttendanceTakerState extends State<AttendanceTaker> {
     collection = FirebaseFirestore.instance.collection('users').where(
           'Class',
           isEqualTo: widget.Class,
-          // 'transport',
-          // isEqualTo: 'Yes',
+          //   // 'transport',
+          //   // isEqualTo: 'Yes',
         );
   }
 

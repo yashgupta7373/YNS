@@ -45,12 +45,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
       const NotificationPage(),
       ProfilePage(uid: uid)
     ];
+
     final items = <Widget>[
       const Icon(Icons.home, size: 30),
       const Icon(Icons.school, size: 30),
       const Icon(Icons.notifications, size: 30),
       const Icon(Icons.person, size: 30)
     ];
+
     return Container(
         color: Colors.teal.shade800,
         child: SafeArea(

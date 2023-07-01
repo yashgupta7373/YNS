@@ -10,15 +10,15 @@ class AuthMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // // get user details..
-  // Future<model.AdminAndTeachers> getUserDetails() async {
-  //   User currentUser = _auth.currentUser!;
+  // get user details..
+  Future<model.AdminAndTeachers> getUserDetails() async {
+    User currentUser = _auth.currentUser!;
 
-  //   DocumentSnapshot documentSnapshot =
-  //       await _firestore.collection('users').doc(currentUser.uid).get();
+    DocumentSnapshot documentSnapshot =
+        await _firestore.collection('users').doc(currentUser.uid).get();
 
-  //   return model.AdminAndTeachers.fromSnap(documentSnapshot);
-  // }
+    return model.AdminAndTeachers.fromSnap(documentSnapshot);
+  }
 
 // Teachers or Admin Registration
   Future<String> AddAdminOrTeacher(

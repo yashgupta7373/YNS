@@ -243,8 +243,8 @@ class TransportBtn extends StatelessWidget {
 
 // NoticeBoard for Admin, Teachers and student Home Page
 class NoticeBoardBtn extends StatelessWidget {
-  String role;
-  NoticeBoardBtn({required this.role, super.key});
+  String uid;
+  NoticeBoardBtn({required this.uid, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -256,7 +256,9 @@ class NoticeBoardBtn extends StatelessWidget {
               context,
               PageTransition(
                   type: PageTransitionType.fade,
-                  child: NoticeBoard(role: role)));
+                  child: NoticeBoard(
+                    uid: uid,
+                  )));
         });
   }
 }

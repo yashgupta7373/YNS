@@ -1,12 +1,16 @@
 // ignore_for_file: must_be_immutable
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:lottie/lottie.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:yns_college_management/Utils/utils.dart';
+import 'package:yns_college_management/pages/Notice%20Board/add_notice.dart';
 
 class NoticeBoard extends StatefulWidget {
-  String role;
-  NoticeBoard({required this.role, super.key});
+  String uid;
+  NoticeBoard({required this.uid, super.key});
   @override
   State<NoticeBoard> createState() => _NoticeBoardState();
 }
@@ -22,6 +26,37 @@ class _NoticeBoardState extends State<NoticeBoard> {
     final imageTemorary = File(image.path);
     setState(() {
       _image = imageTemorary;
+    });
+  }
+
+  //fetch Data
+  var userData = {};
+  bool isLoading = false;
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
+  void getUserData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.uid)
+          .get();
+      userData = userSnap.data()!;
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -52,85 +87,92 @@ class _NoticeBoardState extends State<NoticeBoard> {
         ])),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
-              if (widget.role != 'Students') {
-                showDialog(
-                    context: context,
-                    builder: (ctx) => AlertDialog(
-                        scrollable: true,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)),
-                        backgroundColor:
-                            const Color.fromRGBO(100, 232, 222, 0.7),
-                        title: const Center(
-                            child: Text('Upload New Notice',
-                                style: TextStyle(fontSize: 18))),
-                        content: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text('Title:',
-                                  style: TextStyle(fontSize: 15)),
-                              const SizedBox(
-                                  width: double.infinity,
-                                  child: TextField(
-                                      style: TextStyle(fontSize: 15))),
-                              const SizedBox(height: 20),
-                              const Text('Upload Notice:',
-                                  style: TextStyle(fontSize: 15)),
-                              Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 5),
-                                      child: InkWell(
-                                          onTap: (() {
-                                            getImage();
-                                          }),
-                                          child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.transparent,
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                  border: Border.all(
-                                                      width: 1,
-                                                      color: Colors
-                                                          .teal.shade600)),
-                                              child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    _image != null
-                                                        ? Image.file(_image!,
-                                                            height: 50,
-                                                            width: 50)
-                                                        : const Icon(
-                                                            Icons
-                                                                .cloud_upload_sharp,
-                                                            size: 35),
-                                                    const SizedBox(width: 5),
-                                                    const Text('Upload Notice')
-                                                  ]))))),
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.of(ctx).pop();
-                                        },
-                                        child: const Text('CANCEL',
-                                            style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 0, 77, 64)))),
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.of(ctx).pop();
-                                        },
-                                        child: const Text('Upload',
-                                            style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 0, 77, 64))))
-                                  ])
-                            ])));
+              if (userData['role'] != 'student') {
+                Navigator.pushReplacement(
+                    context,
+                    PageTransition(
+                        type: PageTransitionType.fade,
+                        child: AddNoticeScreen(uid: userData['uid'])));
+
+                // showDialog(
+                //     context: context,
+                //     builder: (ctx) => AlertDialog(
+                //         scrollable: true,
+                //         shape: RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.circular(30.0)),
+                //         backgroundColor:
+                //             const Color.fromRGBO(100, 232, 222, 0.7),
+                //         title: const Center(
+                //             child: Text('Upload New Notice',
+                //                 style: TextStyle(fontSize: 18))),
+                //         content: Column(
+                //             crossAxisAlignment: CrossAxisAlignment.start,
+                //             children: [
+                //               const Text('Title:',
+                //                   style: TextStyle(fontSize: 15)),
+                //               const SizedBox(
+                //                   width: double.infinity,
+                //                   child: TextField(
+                //                       style: TextStyle(fontSize: 15))),
+                //               const SizedBox(height: 20),
+                //               const Text('Upload Notice:',
+                //                   style: TextStyle(fontSize: 15)),
+                //               Padding(
+                //                   padding:
+                //                       const EdgeInsets.symmetric(vertical: 5),
+                //                   child: Padding(
+                //                       padding: const EdgeInsets.symmetric(
+                //                           vertical: 5),
+                //                       child: InkWell(
+                //                           onTap: (() {
+                //                             getImage();
+                //                           }),
+                //                           child: Container(
+                //                               decoration: BoxDecoration(
+                //                                   color: Colors.transparent,
+                //                                   borderRadius:
+                //                                       BorderRadius.circular(15),
+                //                                   border: Border.all(
+                //                                       width: 1,
+                //                                       color: Colors
+                //                                           .teal.shade600)),
+                //                               child: Row(
+                //                                   mainAxisAlignment:
+                //                                       MainAxisAlignment.center,
+                //                                   children: [
+                //                                     _image != null
+                //                                         ? Image.file(_image!,
+                //                                             height: 50,
+                //                                             width: 50)
+                //                                         : const Icon(
+                //                                             Icons
+                //                                                 .cloud_upload_sharp,
+                //                                             size: 35),
+                //                                     const SizedBox(width: 5),
+                //                                     const Text('Upload Notice')
+                //                                   ]))))),
+                //               Row(
+                //                   mainAxisAlignment: MainAxisAlignment.end,
+                //                   children: [
+                //                     TextButton(
+                //                         onPressed: () {
+                //                           Navigator.of(ctx).pop();
+                //                         },
+                //                         child: const Text('CANCEL',
+                //                             style: TextStyle(
+                //                                 color: Color.fromARGB(
+                //                                     255, 0, 77, 64)))),
+                //                     TextButton(
+                //                         onPressed: () {
+                //                           Navigator.of(ctx).pop();
+                //                         },
+                //                         child: const Text('Upload',
+                //                             style: TextStyle(
+                //                                 color: Color.fromARGB(
+                //                                     255, 0, 77, 64))))
+                //                   ])
+                //             ])));
+
               }
             },
             label: const Text('Upload')));
