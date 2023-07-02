@@ -1,16 +1,14 @@
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
+
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yns_college_management/Resources/firestore_method.dart';
-import 'package:yns_college_management/Utils/provider.dart';
+import 'package:yns_college_management/Resources/firestore_method_for_notice.dart';
 import 'package:yns_college_management/Utils/utils.dart';
-import 'package:yns_college_management/models/user.dart';
 import 'package:yns_college_management/pages/Notice%20Board/notice_board.dart';
-import 'package:provider/provider.dart';
 
 class AddNoticeScreen extends StatefulWidget {
   String uid;
@@ -22,7 +20,37 @@ class AddNoticeScreen extends StatefulWidget {
 
 class _AddNoticeScreenState extends State<AddNoticeScreen> {
   Uint8List? _file;
+  final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  var dropdownclass;
+  var dropdowndepartment;
+  var department = [
+    'Computer Science Dep.',
+    'Commerce & Business Dep.',
+    'Teacher Education Dep.',
+    'Biotechnology Dep.',
+    'B.Sc(Home Science) Dep.',
+    'B.Sc Department'
+  ];
+  var classes = [
+    'BCA',
+    'MCA',
+    'BBA',
+    'MBA',
+    'Bcom.',
+    'MCom.',
+    'BA',
+    'MA',
+    'B.Ed',
+    'M.Ed',
+    'D.EI.Ed',
+    'B.Sc(Biotechnology)',
+    'M.Sc(Biotechnology)',
+    'B.Sc(HomeScience)',
+    'M.Sc(HomeScience)',
+    'B.Sc(Bio)-BCZ',
+    'B.Sc(Math)-PCM'
+  ];
   //fetch Data
   var userData = {};
   bool isLoading = false;
@@ -54,13 +82,14 @@ class _AddNoticeScreenState extends State<AddNoticeScreen> {
     });
   }
 
-// select Image...
+// showDialog & select Image...
   _selectImage(BuildContext parentContext) async {
     return showDialog(
       context: parentContext,
       builder: (BuildContext context) {
         return SimpleDialog(
-          title: const Text('Create a Post'),
+          backgroundColor: Colors.teal[300],
+          title: const Text('Upload a Notice'),
           children: <Widget>[
             SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
@@ -96,19 +125,22 @@ class _AddNoticeScreenState extends State<AddNoticeScreen> {
   }
 
   //upload notice..
-  void postImage(String uid, String name, String photoUrl) async {
+  void noticeImage(String uid, String name, String photoUrl) async {
     setState(() {
       isLoading = true;
     });
     // start the loading
     try {
       // upload to storage and db
-      String res = await FireStoreMethods().uploadPost(
+      String res = await FireStoreMethods().uploadNotice(
         _descriptionController.text,
         _file!,
         uid,
         name,
         photoUrl,
+        dropdownclass,
+        dropdowndepartment,
+        _titleController.text,
       );
       if (res == "success") {
         setState(() {
@@ -151,7 +183,7 @@ class _AddNoticeScreenState extends State<AddNoticeScreen> {
     // final UserProvider userProvider = Provider.of<UserProvider>(context);
     return _file == null
         ? Container(
-            color: Color.fromARGB(155, 0, 0, 0),
+            color: const Color.fromARGB(155, 0, 0, 0),
             child: Center(
               child: TextButton(
                 child: const Icon(Icons.upload, size: 40, color: Colors.white),
@@ -176,11 +208,11 @@ class _AddNoticeScreenState extends State<AddNoticeScreen> {
               ),
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: const Text('Notice to'),
+              title: const Text('Upload Notice'),
               actions: [
                 TextButton(
                     onPressed: () {
-                      postImage(userData['uid'], userData['name'],
+                      noticeImage(userData['uid'], userData['name'],
                           userData['photoUrl']);
                     },
                     child: Row(
@@ -200,50 +232,188 @@ class _AddNoticeScreenState extends State<AddNoticeScreen> {
                     ))
               ],
             ),
-            body: Column(
-              children: <Widget>[
-                isLoading
-                    ? const LinearProgressIndicator(
-                        color: Colors.white,
-                      )
-                    : const Padding(padding: EdgeInsets.only(top: 0.0)),
-                const Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(userData['photoUrl']),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.45,
-                      child: TextField(
-                        controller: _descriptionController,
-                        decoration: const InputDecoration(
-                            hintText: "Write a caption...",
-                            border: InputBorder.none),
-                        maxLines: 10,
+            body: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  isLoading
+                      ? const LinearProgressIndicator(
+                          color: Colors.white,
+                        )
+                      : const Padding(padding: EdgeInsets.only(top: 0.0)),
+                  const Divider(),
+                  //Dp. Title, Image..
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //Profile Image
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundImage: NetworkImage(userData['photoUrl']),
                       ),
-                    ),
-                    SizedBox(
-                      height: 100.0,
-                      width: 100.0,
-                      child: AspectRatio(
-                        aspectRatio: 487 / 451,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                            image: MemoryImage(_file!),
-                            fit: BoxFit.fill,
-                            alignment: FractionalOffset.topCenter,
-                          )),
+                      //Title
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        child: TextField(
+                          controller: _titleController,
+                          cursorColor: const Color.fromARGB(171, 255, 255, 255),
+                          style: const TextStyle(
+                              fontSize: 12,
+                              fontStyle: FontStyle.normal,
+                              color: Colors.white),
+                          decoration: InputDecoration(
+                              hintStyle: const TextStyle(
+                                fontStyle: FontStyle.normal,
+                                color: Color.fromARGB(117, 255, 255, 255),
+                              ),
+                              hintText: "Title...",
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      width: 2)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  borderSide: const BorderSide(
+                                      color: Color.fromARGB(117, 255, 255, 255),
+                                      width: 1.5)),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20))),
+                          maxLines: 2,
                         ),
                       ),
+                      //Image
+                      SizedBox(
+                        height: 100.0,
+                        width: 100.0,
+                        child: AspectRatio(
+                          aspectRatio: 487 / 451,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(20)),
+                                border: Border.all(
+                                    width: 1, color: Colors.teal.shade700),
+                                image: DecorationImage(
+                                  image: MemoryImage(_file!),
+                                  fit: BoxFit.fill,
+                                  alignment: FractionalOffset.topCenter,
+                                )),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 7),
+                  //Description
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.85,
+                    child: TextField(
+                      controller: _descriptionController,
+                      cursorColor: Color.fromARGB(171, 255, 255, 255),
+                      style: const TextStyle(
+                          fontSize: 12,
+                          fontStyle: FontStyle.normal,
+                          color: Colors.white),
+                      decoration: InputDecoration(
+                          hintStyle: const TextStyle(
+                            fontStyle: FontStyle.normal,
+                            color: Color.fromARGB(117, 255, 255, 255),
+                          ),
+                          hintText: "Description...",
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  width: 2)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: const BorderSide(
+                                  color: Color.fromARGB(117, 255, 255, 255),
+                                  width: 1.5)),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20))),
+                      maxLines: 10,
                     ),
-                  ],
-                ),
-                const Divider(),
-              ],
+                  ),
+                  const SizedBox(height: 5),
+                  // Department
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Row(children: [
+                      const Text('Department:',
+                          style: TextStyle(color: Colors.white)),
+                      Expanded(
+                          child: Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: DropdownButton(
+                                  dropdownColor: Colors.teal[300],
+                                  hint: const Text('Select Department',
+                                      style: TextStyle(
+                                          color: Color.fromARGB(
+                                              153, 255, 255, 255))),
+                                  menuMaxHeight: 300,
+                                  isExpanded: true,
+                                  underline: Container(
+                                    color: Colors.white,
+                                    height: 1,
+                                  ),
+                                  iconEnabledColor: Colors.white,
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 13),
+                                  value: dropdowndepartment,
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  items: department.map((String items) {
+                                    return DropdownMenuItem(
+                                        value: items, child: Text(items));
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      dropdowndepartment = newValue!;
+                                    });
+                                  })))
+                    ]),
+                  ),
+                  // class...
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Row(children: [
+                      const Text('Class:',
+                          style: TextStyle(color: Colors.white)),
+                      Expanded(
+                          child: Padding(
+                              padding: const EdgeInsets.only(left: 20),
+                              child: DropdownButton(
+                                  dropdownColor: Colors.teal[300],
+                                  hint: const Text('Select Class',
+                                      style: TextStyle(
+                                          color: Color.fromARGB(
+                                              153, 255, 255, 255))),
+                                  menuMaxHeight: 300,
+                                  isExpanded: true,
+                                  underline: Container(
+                                    color: Colors.white,
+                                    height: 1,
+                                  ),
+                                  iconEnabledColor: Colors.white,
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 13),
+                                  value: dropdownclass,
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  items: classes.map((String items) {
+                                    return DropdownMenuItem(
+                                        value: items, child: Text(items));
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      dropdownclass = newValue!;
+                                    });
+                                  })))
+                    ]),
+                  ),
+                  const Divider(),
+                ],
+              ),
             ),
           );
   }

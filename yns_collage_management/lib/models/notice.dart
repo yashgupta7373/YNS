@@ -1,48 +1,60 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Post {
+class Notice {
   final String description;
+  final String title;
+  final String Class;
+  final String department;
   final String uid;
   final String name;
-  final likes;
-  final String postId;
+  // final likes;
+  final String noticeId;
   final DateTime datePublished;
-  final String postUrl;
+  final String noticeUrl;
   final String photoUrl;
 
-  const Post({
+  const Notice({
     required this.description,
+    required this.title,
+    required this.Class,
+    required this.department,
     required this.uid,
     required this.name,
-    required this.likes,
-    required this.postId,
+    // required this.likes,
+    required this.noticeId,
     required this.datePublished,
-    required this.postUrl,
+    required this.noticeUrl,
     required this.photoUrl,
   });
 
-  static Post fromSnap(DocumentSnapshot snap) {
+  static Notice fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 
-    return Post(
+    return Notice(
         description: snapshot["description"],
+        title: snapshot["title"],
+        Class: snapshot["Class"],
+        department: snapshot["department"],
         uid: snapshot["uid"],
-        likes: snapshot["likes"],
-        postId: snapshot["postId"],
+        // likes: snapshot["likes"],
+        noticeId: snapshot["noticeId"],
         datePublished: snapshot["datePublished"],
         name: snapshot["name"],
-        postUrl: snapshot['postUrl'],
+        noticeUrl: snapshot['noticeUrl'],
         photoUrl: snapshot['photoUrl']);
   }
 
   Map<String, dynamic> toJson() => {
         "description": description,
+        "title": title,
+        "Class": Class,
+        "department": department,
         "uid": uid,
-        "likes": likes,
+        // "likes": likes,
         "name": name,
-        "postId": postId,
+        "noticeId": noticeId,
         "datePublished": datePublished,
-        'postUrl': postUrl,
+        'noticeUrl': noticeUrl,
         'photoUrl': photoUrl
       };
 }
