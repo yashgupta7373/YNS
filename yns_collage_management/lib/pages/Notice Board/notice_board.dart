@@ -1,11 +1,13 @@
 // ignore_for_file: must_be_immutable
+// import 'dart:html';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:yns_college_management/Utils/utils.dart';
+import 'package:yns_college_management/Widgets/notice_card.dart';
 import 'package:yns_college_management/pages/Notice%20Board/add_notice.dart';
 
 class NoticeBoard extends StatefulWidget {
@@ -29,7 +31,7 @@ class _NoticeBoardState extends State<NoticeBoard> {
     });
   }
 
-  //fetch Data
+  //fetch user Data
   var userData = {};
   bool isLoading = false;
   @override
@@ -65,26 +67,85 @@ class _NoticeBoardState extends State<NoticeBoard> {
     return Scaffold(
         backgroundColor: Colors.teal[300],
         appBar: AppBar(
-            title: const Text('Notice'),
+            title: const Text('Notice Board'),
             elevation: 0,
             backgroundColor: Colors.transparent),
-        body: SingleChildScrollView(
-            child: Column(children: [
-          Center(
-              child: Text("Notice Board",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      shadows: [
-                        Shadow(
-                            color: Colors.teal.shade900,
-                            blurRadius: 5,
-                            offset: const Offset(2, 2))
-                      ],
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white))),
-          Lottie.asset('assets/images/img72.json')
-        ])),
+        body: (userData['role'] != 'student')
+            ? StreamBuilder(
+                stream:
+                    FirebaseFirestore.instance.collection('notice').snapshots(),
+                builder: (context,
+                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                        snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.teal,
+                      ),
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (ctx, index) => Container(
+                      margin: EdgeInsets.symmetric(
+                          // horizontal: width > webScreenSize ? width * 0.3 : 0,
+                          // vertical: width > webScreenSize ? 15 : 0,
+                          ),
+                      child: NoticeCard(
+                        snap: snapshot.data!.docs[index].data(),
+                      ),
+                    ),
+                  );
+                },
+              )
+            : StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('notice')
+                    .where('Class', isEqualTo: userData['Class'])
+                    .snapshots(),
+                builder: (context,
+                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                        snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.teal,
+                      ),
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (ctx, index) => Container(
+                      margin: EdgeInsets.symmetric(
+                          // horizontal: width > webScreenSize ? width * 0.3 : 0,
+                          // vertical: width > webScreenSize ? 15 : 0,
+                          ),
+                      child: NoticeCard(
+                        snap: snapshot.data!.docs[index].data(),
+                      ),
+                    ),
+                  );
+                },
+              ),
+
+        // body: SingleChildScrollView(
+        //     child: Column(children: [
+        //   Center(
+        //       child: Text("Notice Board",
+        //           textAlign: TextAlign.center,
+        //           style: TextStyle(
+        //               shadows: [
+        //                 Shadow(
+        //                     color: Colors.teal.shade900,
+        //                     blurRadius: 5,
+        //                     offset: const Offset(2, 2))
+        //               ],
+        //               fontSize: 50,
+        //               fontWeight: FontWeight.bold,
+        //               color: Colors.white))),
+        //   Lottie.asset('assets/images/img72.json')
+        // ])),
+
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
               if (userData['role'] != 'student') {
@@ -93,86 +154,6 @@ class _NoticeBoardState extends State<NoticeBoard> {
                     PageTransition(
                         type: PageTransitionType.fade,
                         child: AddNoticeScreen(uid: userData['uid'])));
-
-                // showDialog(
-                //     context: context,
-                //     builder: (ctx) => AlertDialog(
-                //         scrollable: true,
-                //         shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(30.0)),
-                //         backgroundColor:
-                //             const Color.fromRGBO(100, 232, 222, 0.7),
-                //         title: const Center(
-                //             child: Text('Upload New Notice',
-                //                 style: TextStyle(fontSize: 18))),
-                //         content: Column(
-                //             crossAxisAlignment: CrossAxisAlignment.start,
-                //             children: [
-                //               const Text('Title:',
-                //                   style: TextStyle(fontSize: 15)),
-                //               const SizedBox(
-                //                   width: double.infinity,
-                //                   child: TextField(
-                //                       style: TextStyle(fontSize: 15))),
-                //               const SizedBox(height: 20),
-                //               const Text('Upload Notice:',
-                //                   style: TextStyle(fontSize: 15)),
-                //               Padding(
-                //                   padding:
-                //                       const EdgeInsets.symmetric(vertical: 5),
-                //                   child: Padding(
-                //                       padding: const EdgeInsets.symmetric(
-                //                           vertical: 5),
-                //                       child: InkWell(
-                //                           onTap: (() {
-                //                             getImage();
-                //                           }),
-                //                           child: Container(
-                //                               decoration: BoxDecoration(
-                //                                   color: Colors.transparent,
-                //                                   borderRadius:
-                //                                       BorderRadius.circular(15),
-                //                                   border: Border.all(
-                //                                       width: 1,
-                //                                       color: Colors
-                //                                           .teal.shade600)),
-                //                               child: Row(
-                //                                   mainAxisAlignment:
-                //                                       MainAxisAlignment.center,
-                //                                   children: [
-                //                                     _image != null
-                //                                         ? Image.file(_image!,
-                //                                             height: 50,
-                //                                             width: 50)
-                //                                         : const Icon(
-                //                                             Icons
-                //                                                 .cloud_upload_sharp,
-                //                                             size: 35),
-                //                                     const SizedBox(width: 5),
-                //                                     const Text('Upload Notice')
-                //                                   ]))))),
-                //               Row(
-                //                   mainAxisAlignment: MainAxisAlignment.end,
-                //                   children: [
-                //                     TextButton(
-                //                         onPressed: () {
-                //                           Navigator.of(ctx).pop();
-                //                         },
-                //                         child: const Text('CANCEL',
-                //                             style: TextStyle(
-                //                                 color: Color.fromARGB(
-                //                                     255, 0, 77, 64)))),
-                //                     TextButton(
-                //                         onPressed: () {
-                //                           Navigator.of(ctx).pop();
-                //                         },
-                //                         child: const Text('Upload',
-                //                             style: TextStyle(
-                //                                 color: Color.fromARGB(
-                //                                     255, 0, 77, 64))))
-                //                   ])
-                //             ])));
-
               }
             },
             label: const Text('Upload')));
