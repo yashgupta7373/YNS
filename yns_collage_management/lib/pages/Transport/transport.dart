@@ -2,7 +2,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:yns_college_management/Utils/utils.dart';
 import 'package:yns_college_management/pages/profile_page.dart';
 
 class Transport extends StatefulWidget {
@@ -13,10 +15,63 @@ class Transport extends StatefulWidget {
 }
 
 class _TransportState extends State<Transport> {
-  var collection = FirebaseFirestore.instance.collection('users').where(
-        'transport',
-        isEqualTo: 'Yes',
+  //fetch user Data
+  var userData = {};
+  var collection;
+
+  bool isLoading = false;
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
+  void getUserData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.uid)
+          .get();
+      userData = userSnap.data()!;
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
       );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  //
+
+  void transport() {
+    if (userData['role'] == 'student') {
+      collection = FirebaseFirestore.instance
+          .collection('users')
+          .where('id', isEqualTo: userData['id'])
+          .where(
+            'transport',
+            isEqualTo: 'Yes',
+          );
+    } else if (userData['role'] == 'teacher') {
+      collection = FirebaseFirestore.instance
+          .collection('users')
+          .where('department', isEqualTo: userData['department'])
+          .where('transport', isEqualTo: 'Yes');
+    } else if (userData['role'] == 'admin') {
+      collection = FirebaseFirestore.instance.collection('users').where(
+            'transport',
+            isEqualTo: 'Yes',
+          );
+    }
+  }
+
   //  List<Map<String, dynamic>> items;
   var items;
   bool isLoaded = false;
@@ -26,6 +81,7 @@ class _TransportState extends State<Transport> {
     for (var element in data.docs) {
       tempList.add(element.data());
     }
+
     setState(() {
       items = tempList;
       isLoaded = true;
@@ -35,6 +91,7 @@ class _TransportState extends State<Transport> {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
+    transport();
     incrementCounter();
     return Scaffold(
       backgroundColor: Colors.teal[300],
@@ -55,71 +112,84 @@ class _TransportState extends State<Transport> {
                     color: Colors.white))),
         Expanded(
             child: SingleChildScrollView(
-                child: Column(children: [
-          isLoaded
-              ? ListView.builder(
-                  shrinkWrap: true,
-                  physics: const ScrollPhysics(parent: null),
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                        onTap: (() {
-                          var uid = items[index]['uid'];
-                          Navigator.push(
-                              context,
-                              PageTransition(
-                                  type: PageTransitionType.rightToLeft,
-                                  child: ProfilePage(uid: uid)));
-                        }),
-                        child: Card(
-                            color: Colors.teal[700],
-                            elevation: 5,
-                            shadowColor: Colors.teal[500],
-                            child: ListTile(
-                                leading: InkWell(
-                                    onTap: (() {
-                                      showDialog(
-                                          context: context,
-                                          builder: (ctx) => AlertDialog(
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              content: InkWell(
-                                                onTap: () =>
-                                                    Navigator.of(ctx).pop(),
-                                                child: Image.network(
-                                                    items[index]['photoUrl']),
-                                              )));
-                                    }),
-                                    child: CircleAvatar(
-                                        backgroundColor: Colors.white,
-                                        radius: 30,
-                                        backgroundImage: NetworkImage(
-                                            (items[index]['photoUrl'])))),
-                                title: Text(items[index]['name'],
-                                    style: const TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14)),
-                                textColor: Colors.white,
-                                subtitle: Text(items[index]['id']),
-                                trailing: InkWell(
-                                    onTap: (() {}),
-                                    child: const Icon(Icons.info,
-                                        color: Colors.white)))));
-                  })
-              : SizedBox(
-                  height: mediaQuery.size.height * 0.85,
-                  width: mediaQuery.size.width * 1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(
-                          color: Color.fromARGB(255, 255, 255, 255)),
-                    ],
+          child: Column(children: [
+            isLoaded
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ScrollPhysics(parent: null),
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                          color: Colors.teal[700],
+                          elevation: 5,
+                          shadowColor: Colors.teal[500],
+                          child: ListTile(
+                              leading: InkWell(
+                                  onTap: (() {
+                                    showDialog(
+                                        context: context,
+                                        builder: (ctx) => AlertDialog(
+                                            backgroundColor: Colors.transparent,
+                                            content: InkWell(
+                                              onTap: () =>
+                                                  Navigator.of(ctx).pop(),
+                                              child: Image.network(
+                                                  items[index]['photoUrl']),
+                                            )));
+                                  }),
+                                  child: CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      radius: 30,
+                                      backgroundImage: NetworkImage(
+                                          (items[index]['photoUrl'])))),
+                              title: Text(items[index]['name'],
+                                  style: const TextStyle(
+                                      fontStyle: FontStyle.normal,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14)),
+                              textColor: Colors.white,
+                              subtitle: Text(items[index]['id']),
+                              trailing: InkWell(
+                                  onTap: (() {
+                                    var uid = items[index]['uid'];
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type:
+                                                PageTransitionType.rightToLeft,
+                                            child: ProfilePage(uid: uid)));
+                                  }),
+                                  child: const Icon(Icons.info,
+                                      color: Colors.white))));
+                    })
+                : SizedBox(
+                    height: mediaQuery.size.height * 0.85,
+                    width: mediaQuery.size.width * 1,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: const [
+                        CircularProgressIndicator(
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                      ],
+                    ),
                   ),
-                )
-        ])))
+            if (items.length == 0)
+              Column(
+                children: [
+                  SizedBox(
+                    child: Lottie.asset('assets/images/img79.json'),
+                  ),
+                  const Text(
+                    "YOU ARE NOT USING BUS FACILITY*",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 122, 17, 13),
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
+              )
+          ]),
+        ))
       ]),
     );
   }

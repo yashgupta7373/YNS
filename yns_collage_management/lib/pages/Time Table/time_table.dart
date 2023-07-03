@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:yns_college_management/Utils/utils.dart';
 import 'package:yns_college_management/Widgets/time_table_card.dart';
 
@@ -50,61 +51,52 @@ class _TimeTablePageState extends State<TimeTablePage> {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      backgroundColor: Colors.teal[300],
-      appBar: AppBar(
-          title: const Text('Time Table'),
-          elevation: 0,
-          backgroundColor: Colors.transparent),
-      body: (userData['role'] != 'student')
-          ? StreamBuilder(
-              stream: FirebaseFirestore.instance
-                  .collection('timeTable')
-                  .snapshots(),
-              builder: (context,
-                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.teal,
-                    ),
-                  );
-                }
-                return ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (ctx, index) => Container(
-                    margin: EdgeInsets.symmetric(),
-                    child: TimeTableCard(
-                      snap: snapshot.data!.docs[index].data(),
-                    ),
-                  ),
-                );
-              },
-            )
-          : StreamBuilder(
-              stream: FirebaseFirestore.instance
+        backgroundColor: Colors.teal[300],
+        appBar: AppBar(
+            title: const Text('Time Table'),
+            elevation: 0,
+            backgroundColor: Colors.transparent),
+        body: StreamBuilder(
+          stream: (userData['role'] != 'student')
+              ? FirebaseFirestore.instance.collection('timeTable').snapshots()
+              : FirebaseFirestore.instance
                   .collection('timeTable')
                   .where('Class', isEqualTo: userData['Class'])
                   .snapshots(),
-              builder: (context,
-                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.teal,
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.teal,
+                ),
+              );
+            }
+            return (snapshot.data!.docs.length != 0)
+                ? ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (ctx, index) => Container(
+                      margin: EdgeInsets.symmetric(),
+                      child: TimeTableCard(
+                        snap: snapshot.data!.docs[index].data(),
+                      ),
                     ),
+                  )
+                : Column(
+                    children: [
+                      SizedBox(
+                        child: Lottie.asset('assets/images/img59.json'),
+                      ),
+                      SizedBox(height: 50),
+                      const Text(
+                        "TIME TABLE NOT AVAILABLE*",
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 7, 226, 62),
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
                   );
-                }
-                return ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (ctx, index) => Container(
-                    margin: EdgeInsets.symmetric(),
-                    child: TimeTableCard(
-                      snap: snapshot.data!.docs[index].data(),
-                    ),
-                  ),
-                );
-              },
-            ),
-    );
+          },
+        ));
   }
 }

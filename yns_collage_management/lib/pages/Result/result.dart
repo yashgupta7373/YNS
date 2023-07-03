@@ -50,60 +50,52 @@ class _ResultPageState extends State<ResultPage> {
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
-      backgroundColor: Colors.teal[300],
-      appBar: AppBar(
-          title: const Text('Result'),
-          elevation: 0,
-          backgroundColor: Colors.transparent),
-      body: (userData['role'] != 'student')
-          ? StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection('result').snapshots(),
-              builder: (context,
-                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.teal,
-                    ),
-                  );
-                }
-                return ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (ctx, index) => Container(
-                    margin: EdgeInsets.symmetric(),
-                    child: ResultCard(
-                      snap: snapshot.data!.docs[index].data(),
-                    ),
-                  ),
-                );
-              },
-            )
-          : StreamBuilder(
-              stream: FirebaseFirestore.instance
+        backgroundColor: Colors.teal[300],
+        appBar: AppBar(
+            title: const Text('Result'),
+            elevation: 0,
+            backgroundColor: Colors.transparent),
+        body: StreamBuilder(
+          stream: (userData['role'] != 'student')
+              ? FirebaseFirestore.instance.collection('result').snapshots()
+              : FirebaseFirestore.instance
                   .collection('result')
                   .where('id', isEqualTo: userData['id'])
                   .snapshots(),
-              builder: (context,
-                  AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.teal,
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.teal,
+                ),
+              );
+            }
+            return (snapshot.data!.docs.length != 0)
+                ? ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (ctx, index) => Container(
+                      margin: EdgeInsets.symmetric(),
+                      child: ResultCard(
+                        snap: snapshot.data!.docs[index].data(),
+                      ),
                     ),
+                  )
+                : Column(
+                    children: [
+                      SizedBox(
+                        child: Lottie.asset('assets/images/img71.json'),
+                      ),
+                      SizedBox(height: 50),
+                      const Text(
+                        "RESULT NOT AVAILABLE*",
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 4, 103, 121),
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
                   );
-                }
-                return ListView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  itemBuilder: (ctx, index) => Container(
-                    margin: EdgeInsets.symmetric(),
-                    child: ResultCard(
-                      snap: snapshot.data!.docs[index].data(),
-                    ),
-                  ),
-                );
-              },
-            ),
-    );
+          },
+        ));
   }
 }

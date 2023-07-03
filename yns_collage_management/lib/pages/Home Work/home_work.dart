@@ -1,7 +1,10 @@
 // ignore_for_file: must_be_immutable
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'dart:io';
 import 'package:page_transition/page_transition.dart';
 import 'package:yns_college_management/Utils/utils.dart';
@@ -61,6 +64,7 @@ class _HomeWorkPageState extends State<HomeWorkPage> {
 
   @override
   Widget build(BuildContext context) {
+    var role = userData['role'];
     return Scaffold(
         backgroundColor: Colors.teal[300],
         appBar: AppBar(
@@ -75,58 +79,48 @@ class _HomeWorkPageState extends State<HomeWorkPage> {
             ],
             elevation: 0,
             backgroundColor: Colors.transparent),
-        body: (userData['role'] != 'student')
-            ? StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('homeWork')
-                    .snapshots(),
-                builder: (context,
-                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                        snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.teal,
-                      ),
-                    );
-                  }
-                  return ListView.builder(
+        body: StreamBuilder(
+          stream: (role != 'student')
+              ? FirebaseFirestore.instance.collection('homeWork').snapshots()
+              : FirebaseFirestore.instance
+                  .collection('homeWork')
+                  .where('Class', isEqualTo: userData['Class'])
+                  .snapshots(),
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.teal,
+                ),
+              );
+            }
+
+            return (snapshot.data!.docs.length != 0)
+                ? ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (ctx, index) => Container(
-                      margin: EdgeInsets.symmetric(),
-                      child: HomeWorkCard(
-                        snap: snapshot.data!.docs[index].data(),
+                        margin: EdgeInsets.symmetric(),
+                        child: HomeWorkCard(
+                          snap: snapshot.data!.docs[index].data(),
+                        )),
+                  )
+                : Column(
+                    children: [
+                      SizedBox(
+                        child: Lottie.asset('assets/images/img74.json'),
                       ),
-                    ),
+                      SizedBox(height: 50),
+                      const Text(
+                        "HOME WORK NOT AVAILABLE*",
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 5, 89, 145),
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
                   );
-                },
-              )
-            : StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('homeWork')
-                    .where('Class', isEqualTo: userData['Class'])
-                    .snapshots(),
-                builder: (context,
-                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                        snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.teal,
-                      ),
-                    );
-                  }
-                  return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (ctx, index) => Container(
-                      margin: EdgeInsets.symmetric(),
-                      child: HomeWorkCard(
-                        snap: snapshot.data!.docs[index].data(),
-                      ),
-                    ),
-                  );
-                },
-              ),
+          },
+        ),
         floatingActionButton: FloatingActionButton.extended(
             elevation: (userData['role'] != 'student') ? 5 : 0,
             backgroundColor: (userData['role'] != 'student')

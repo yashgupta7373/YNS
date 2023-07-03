@@ -4,6 +4,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'dart:io';
 import 'package:page_transition/page_transition.dart';
 import 'package:yns_college_management/Utils/utils.dart';
@@ -70,63 +71,48 @@ class _NoticeBoardState extends State<NoticeBoard> {
             title: const Text('Notice Board'),
             elevation: 0,
             backgroundColor: Colors.transparent),
-        body: (userData['role'] != 'student')
-            ? StreamBuilder(
-                stream:
-                    FirebaseFirestore.instance.collection('notice').snapshots(),
-                builder: (context,
-                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                        snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.teal,
-                      ),
-                    );
-                  }
-                  return ListView.builder(
+        body: StreamBuilder(
+          stream: (userData['role'] != 'student')
+              ? FirebaseFirestore.instance.collection('notice').snapshots()
+              : FirebaseFirestore.instance
+                  .collection('notice')
+                  .where('department', isEqualTo: userData['department'])
+                  .snapshots(),
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.teal,
+                ),
+              );
+            }
+            return (snapshot.data!.docs.length != 0)
+                ? ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (ctx, index) => Container(
-                      margin: EdgeInsets.symmetric(
-                          // horizontal: width > webScreenSize ? width * 0.3 : 0,
-                          // vertical: width > webScreenSize ? 15 : 0,
-                          ),
+                      margin: EdgeInsets.symmetric(),
                       child: NoticeCard(
                         snap: snapshot.data!.docs[index].data(),
                       ),
                     ),
-                  );
-                },
-              )
-            : StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('notice')
-                    .where('Class', isEqualTo: userData['Class'])
-                    .snapshots(),
-                builder: (context,
-                    AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                        snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: Colors.teal,
+                  )
+                : Column(
+                    children: [
+                      SizedBox(
+                        child: Lottie.asset('assets/images/img72.json'),
                       ),
-                    );
-                  }
-                  return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (ctx, index) => Container(
-                      margin: EdgeInsets.symmetric(
-                          // horizontal: width > webScreenSize ? width * 0.3 : 0,
-                          // vertical: width > webScreenSize ? 15 : 0,
-                          ),
-                      child: NoticeCard(
-                        snap: snapshot.data!.docs[index].data(),
-                      ),
-                    ),
+                      SizedBox(height: 50),
+                      const Text(
+                        "NOTICE NOT AVAILABLE*",
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 179, 209, 42),
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
                   );
-                },
-              ),
+          },
+        ),
         floatingActionButton: FloatingActionButton.extended(
             elevation: (userData['role'] != 'student') ? 5 : 0,
             backgroundColor: (userData['role'] != 'student')
