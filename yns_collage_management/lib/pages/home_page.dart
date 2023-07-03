@@ -4,14 +4,15 @@ import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yns_college_management/Widgets/input_field_student_registration.dart';
 import 'package:yns_college_management/pages/Admin/Admin%20Settings/add_student_page.dart';
+import 'package:yns_college_management/pages/Admin/Admin%20Settings/add_time_table.dart';
 import 'package:yns_college_management/pages/College%20Web/my_drawer_header.dart';
 import 'package:yns_college_management/pages/search_page.dart';
 import '../../Widgets/call_class_room_and_online_class.dart';
 import '../../Widgets/home_page_widget.dart';
 import '../Utils/utils.dart';
 import 'Admin/Admin Settings/add_courses_page.dart';
+import 'Admin/Admin Settings/add_result.dart';
 import 'Admin/Admin Settings/add_teachers_or_admin_page.dart';
 import 'Admin/Admin Settings/edit.dart';
 
@@ -278,12 +279,12 @@ class _HomePageState extends State<HomePage> {
                                           const CheckAttendanceBtn(),
                                           LibraryBtn(role: userData['role']),
                                           CalendarBtn(role: userData['role']),
-                                          const TimeTableBtn(),
-                                          const ResultBtn(),
-                                          const TransportBtn(),
+                                          TimeTableBtn(uid: userData['uid']),
+                                          ResultBtn(uid: userData['uid']),
+                                          TransportBtn(uid: userData['uid']),
                                           NoticeBoardBtn(uid: userData['uid']),
-                                          const IdCardBtn(),
-                                          HomeWorkBtn(role: userData['role']),
+                                          IdCardBtn(uid: userData['uid']),
+                                          HomeWorkBtn(uid: userData['uid']),
                                           const ApplyLeaveBtn(),
                                           if (userData['role'] == 'admin')
                                             // Admin Settings
@@ -401,23 +402,24 @@ class _HomePageState extends State<HomePage> {
                                                                         text:
                                                                             'Add Time Table',
                                                                         ontap:
-                                                                            (() {}),
+                                                                            (() {
+                                                                          Navigator.push(
+                                                                              context,
+                                                                              PageTransition(type: PageTransitionType.fade, child: AddTimeTableScreen(uid: userData['uid'])));
+                                                                        }),
                                                                         icon: FontAwesomeIcons
                                                                             .calendarPlus),
                                                                     TextStyleWidget(
                                                                         text:
                                                                             'Add Marks',
                                                                         ontap:
-                                                                            (() {}),
+                                                                            (() {
+                                                                          Navigator.push(
+                                                                              context,
+                                                                              PageTransition(type: PageTransitionType.fade, child: AddResultScreen(uid: userData['uid'])));
+                                                                        }),
                                                                         icon: FontAwesomeIcons
                                                                             .marker),
-                                                                    TextStyleWidget(
-                                                                        text:
-                                                                            'Generate Reports',
-                                                                        ontap:
-                                                                            (() {}),
-                                                                        icon: FontAwesomeIcons
-                                                                            .file)
                                                                   ])))));
                                                 })
                                         ])
@@ -428,12 +430,12 @@ class _HomePageState extends State<HomePage> {
                                           const CheckAttendanceBtn(),
                                           LibraryBtn(role: userData['role']),
                                           CalendarBtn(role: userData['role']),
-                                          const TimeTableBtn(),
-                                          const ResultBtn(),
-                                          const TransportBtn(),
+                                          TimeTableBtn(uid: userData['uid']),
+                                          ResultBtn(uid: userData['uid']),
+                                          TransportBtn(uid: userData['uid']),
                                           NoticeBoardBtn(uid: userData['uid']),
-                                          const IdCardBtn(),
-                                          HomeWorkBtn(role: userData['role']),
+                                          IdCardBtn(uid: userData['uid']),
+                                          HomeWorkBtn(uid: userData['uid']),
                                           const ApplyLeaveBtn()
                                         ])))
                 ])),

@@ -1,36 +1,814 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+import 'package:yns_college_management/Utils/utils.dart';
 
-class IdCard extends StatelessWidget {
-  const IdCard({super.key});
+class IdCard extends StatefulWidget {
+  String uid;
+  IdCard({required this.uid, super.key});
+
+  @override
+  State<IdCard> createState() => _IdCardState();
+}
+
+class _IdCardState extends State<IdCard> {
+  //fetch Data
+  var userData = {};
+
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
+  void getUserData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.uid)
+          .get();
+      userData = userSnap.data()!;
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    var role = userData['role'];
+    var id = userData['id'];
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
         backgroundColor: Colors.teal[300],
-        appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
+        appBar: AppBar(
+            title: const Text('ID Card'),
+            elevation: 0,
+            backgroundColor: Colors.transparent),
         body: SingleChildScrollView(
-            child: Column(children: [
-          SizedBox(
-              height: mediaQuery.size.height * 0.5,
-              child: Lottie.asset('assets/images/img73.json')),
-          const Center(
-              child: Text("Sorry !!!",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
-                      fontSize: 35))),
-          const Padding(
-              padding: EdgeInsets.only(top: 8, bottom: 40),
-              child: Center(
-                  child: Text("Your ID Card Will Be Available Soon*",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          color: Colors.white,
-                          fontSize: 15))))
-        ])));
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Column(
+                children: [
+                  //ID Card...
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 30.0, horizontal: 5),
+                    child: InkWell(
+                      child: Container(
+                        // width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 243, 218, 218),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(25)),
+                            border: Border.all(
+                                width: 1, color: Colors.teal.shade600),
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 10,
+                                  color: Colors.teal.shade900,
+                                  spreadRadius: 1)
+                            ]),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                "I.P.(P.G.) College, Campus-2, Bulandshahr",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.teal[900]),
+                              ),
+                              Text(
+                                "N.H.-91, Bulandshahr-Delhi Road, \nBulandshahr(U.P.)  \n(College Code - 955)",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.teal[900]),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                    height: 170,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              'assets/images/img30.png'),
+                                          fit: BoxFit.fill),
+                                    )),
+                              ),
+                              Text(
+                                'IDENTITY CARD',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.teal[900]),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(30.0)),
+                                  backgroundColor:
+                                      const Color.fromRGBO(100, 232, 222, 0.7),
+                                  content: Container(
+                                    height: 450,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(25)),
+                                        border: Border.all(
+                                            width: 1,
+                                            color: Colors.teal.shade600),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              blurRadius: 10,
+                                              color: Colors.teal.shade900,
+                                              spreadRadius: 1)
+                                        ]),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "I.P.(P.G.) College, Campus-2, Bulandshahr",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.teal[900]),
+                                        ),
+                                        Text(
+                                          "N.H.-91, Bulandshahr-Delhi Road, \nBulandshahr(U.P.)  \n(College Code - 955)",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.normal,
+                                              color: Colors.teal[900]),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            height: 120,
+                                            width: 120,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(20)),
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color:
+                                                        Colors.teal.shade700),
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      userData['photoUrl']),
+                                                  fit: BoxFit.fill,
+                                                )),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0),
+                                          child: Column(
+                                            children: [
+                                              //session
+                                              if (role == 'student')
+                                                Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                          child: Text(
+                                                        'Session:',
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .teal[900],
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      )),
+                                                      Expanded(
+                                                          child: Text(
+                                                        '2022-2023',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    88,
+                                                                    177,
+                                                                    162),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ))
+                                                    ]),
+                                              // rollNo, id
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      (role == 'student')
+                                                          ? '$role Roll-No:'
+                                                          : '$role ID',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                    Expanded(
+                                                      child: Text(
+                                                        userData['id'],
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    88,
+                                                                    177,
+                                                                    162),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    )
+                                                  ]),
+                                              //Name
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      '$role Name:',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                    Expanded(
+                                                        child: Text(
+                                                      userData['name'],
+                                                      style: TextStyle(
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              88,
+                                                              177,
+                                                              162),
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ))
+                                                  ]),
+                                              // class, Profile
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      (role == 'student')
+                                                          ? 'Class:'
+                                                          : 'Profile:',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                    Expanded(
+                                                        child: Text(
+                                                      (role == 'student')
+                                                          ? userData['Class']
+                                                          : userData['profile'],
+                                                      style: TextStyle(
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              88,
+                                                              177,
+                                                              162),
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ))
+                                                  ]),
+                                              // year
+                                              if (role == 'student')
+                                                Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Expanded(
+                                                          child: Text(
+                                                        'Year:',
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .teal[900],
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      )),
+                                                      Expanded(
+                                                          child: Text(
+                                                        '',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    88,
+                                                                    177,
+                                                                    162),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ))
+                                                    ]),
+                                              // Father Name
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      'Father\'s Name:',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                    Expanded(
+                                                      child: Text(
+                                                        userData['fName'],
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    88,
+                                                                    177,
+                                                                    162),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    )
+                                                  ]),
+                                              // Mother Name
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      'Mother\'s Name:',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                    Expanded(
+                                                      child: Text(
+                                                        userData['mName'],
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    88,
+                                                                    177,
+                                                                    162),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    )
+                                                  ]),
+                                              //Phone NO
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      'Phone No.:',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                    Expanded(
+                                                      child: Text(
+                                                        userData['phoneNo'],
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    88,
+                                                                    177,
+                                                                    162),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    )
+                                                  ]),
+                                              // DOB
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      'Date Of Birth:',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                    Expanded(
+                                                      child: Text(
+                                                        userData['dob'],
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    88,
+                                                                    177,
+                                                                    162),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    )
+                                                  ]),
+                                              // Address
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      'Address:',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                    Expanded(
+                                                      child: Text(
+                                                        userData['address'],
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    88,
+                                                                    177,
+                                                                    162),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    )
+                                                  ]),
+                                              // Bus Facility
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      'Bus Facility:',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                    Expanded(
+                                                      child: Text(
+                                                        userData['transport'],
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    88,
+                                                                    177,
+                                                                    162),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    )
+                                                  ]),
+                                              SizedBox(height: 8)
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ));
+                      },
+                    ),
+                  ),
+                  // QR Code..
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 30.0, horizontal: 5),
+                    child: InkWell(
+                      child: Container(
+                        // width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 243, 218, 218),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(25)),
+                            border: Border.all(
+                                width: 1, color: Colors.teal.shade600),
+                            boxShadow: [
+                              BoxShadow(
+                                  blurRadius: 10,
+                                  color: Colors.teal.shade900,
+                                  spreadRadius: 1)
+                            ]),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            children: [
+                              Text(
+                                "I.P.(P.G.) College, Campus-2, Bulandshahr",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.teal[900]),
+                              ),
+                              Text(
+                                "N.H.-91, Bulandshahr-Delhi Road, \nBulandshahr(U.P.)  \n(College Code - 955)",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.teal[900]),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                    height: 170,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              'assets/images/img30.png'),
+                                          fit: BoxFit.fill),
+                                    )),
+                              ),
+                              Text(
+                                'QR CODE',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.teal[900]),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      onTap: () {
+                        showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(30.0)),
+                                  backgroundColor:
+                                      const Color.fromRGBO(100, 232, 222, 0.7),
+                                  content: Container(
+                                    height: 350,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(25)),
+                                        border: Border.all(
+                                            width: 1,
+                                            color: Colors.teal.shade600),
+                                        boxShadow: [
+                                          BoxShadow(
+                                              blurRadius: 10,
+                                              color: Colors.teal.shade900,
+                                              spreadRadius: 1)
+                                        ]),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "I.P.(P.G.) College, Campus-2, Bulandshahr",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.teal[900]),
+                                        ),
+                                        Text(
+                                          "N.H.-91, Bulandshahr-Delhi Road, \nBulandshahr(U.P.)  \n(College Code - 955)",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.normal,
+                                              color: Colors.teal[900]),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Stack(
+                                            children: [
+                                              Container(
+                                                  height: 150,
+                                                  width: 150,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        const BorderRadius.all(
+                                                            Radius.circular(
+                                                                20)),
+                                                    border: Border.all(
+                                                        width: 1,
+                                                        color: Colors
+                                                            .teal.shade700),
+                                                    image: DecorationImage(
+                                                      image: const AssetImage(
+                                                          'assets/images/img78.png'),
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  )),
+                                              Positioned(
+                                                top: 50,
+                                                left: 50,
+                                                child: Container(
+                                                  height: 50,
+                                                  width: 50,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                                  .all(
+                                                              Radius.circular(
+                                                                  25)),
+                                                      image: DecorationImage(
+                                                        image: NetworkImage(
+                                                            userData[
+                                                                'photoUrl']),
+                                                        fit: BoxFit.fill,
+                                                      )),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0),
+                                          child: Column(
+                                            children: [
+                                              // rollNo, id
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      (role == 'student')
+                                                          ? '$role Roll-No:'
+                                                          : '$role ID',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                    Expanded(
+                                                      child: Text(
+                                                        userData['id'],
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    88,
+                                                                    177,
+                                                                    162),
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    )
+                                                  ]),
+                                              //Name
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      '$role Name:',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                    Expanded(
+                                                        child: Text(
+                                                      userData['name'],
+                                                      style: TextStyle(
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              88,
+                                                              177,
+                                                              162),
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ))
+                                                  ]),
+                                              // class, Profile
+                                              Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Expanded(
+                                                        child: Text(
+                                                      (role == 'student')
+                                                          ? 'Class:'
+                                                          : 'Profile:',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Colors.teal[900],
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )),
+                                                    Expanded(
+                                                        child: Text(
+                                                      (role == 'student')
+                                                          ? userData['Class']
+                                                          : userData['profile'],
+                                                      style: TextStyle(
+                                                          color: Color.fromARGB(
+                                                              255,
+                                                              88,
+                                                              177,
+                                                              162),
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ))
+                                                  ]),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ));
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ));
   }
 }

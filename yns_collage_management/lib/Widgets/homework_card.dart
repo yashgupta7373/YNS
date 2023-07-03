@@ -1,15 +1,14 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
-import 'package:full_screen_image/full_screen_image.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:readmore/readmore.dart';
 import 'package:yns_college_management/pages/photo_view_page.dart';
 
-class NoticeCard extends StatelessWidget {
+class HomeWorkCard extends StatelessWidget {
   final snap;
-  NoticeCard({required this.snap, Key? key}) : super(key: key);
+  HomeWorkCard({required this.snap, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +76,7 @@ class NoticeCard extends StatelessWidget {
                           },
                         );
                       },
-                      icon: Icon(Icons.more_vert, color: Colors.white)),
+                      icon: const Icon(Icons.more_vert, color: Colors.white)),
                 ],
               ),
             ),
@@ -90,9 +89,38 @@ class NoticeCard extends StatelessWidget {
                   trimLines: 1,
                   textAlign: TextAlign.justify,
                   trimMode: TrimMode.Line,
-                  lessStyle: TextStyle(
+                  lessStyle: const TextStyle(
                       color: Colors.red, fontWeight: FontWeight.normal),
-                  moreStyle: TextStyle(
+                  moreStyle: const TextStyle(
+                      color: Colors.red, fontWeight: FontWeight.normal),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
+                )),
+            // subject
+            const SizedBox(
+                width: double.infinity,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 8.0, left: 8),
+                  child: Text(
+                    'Subject',
+                    style: TextStyle(
+                      color: Color.fromARGB(153, 255, 255, 255),
+                    ),
+                  ),
+                )),
+            Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(8),
+                child: ReadMoreText(
+                  snap['subject'],
+                  trimLines: 1,
+                  textAlign: TextAlign.justify,
+                  trimMode: TrimMode.Line,
+                  lessStyle: const TextStyle(
+                      color: Colors.red, fontWeight: FontWeight.normal),
+                  moreStyle: const TextStyle(
                       color: Colors.red, fontWeight: FontWeight.normal),
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
@@ -111,9 +139,11 @@ class NoticeCard extends StatelessWidget {
                           context,
                           PageTransition(
                               type: PageTransitionType.fade,
-                              child: PhotoViewPage(image: snap['noticeUrl'])));
+                              child:
+                                  PhotoViewPage(image: snap['homeWorkUrl'])));
                     },
-                    child: Image.network(snap['noticeUrl'], fit: BoxFit.cover)),
+                    child:
+                        Image.network(snap['homeWorkUrl'], fit: BoxFit.cover)),
               ),
             ),
             // Description
@@ -128,8 +158,8 @@ class NoticeCard extends StatelessWidget {
                   trimLines: 3,
                   textAlign: TextAlign.justify,
                   trimMode: TrimMode.Line,
-                  lessStyle: TextStyle(color: Colors.red),
-                  moreStyle: TextStyle(color: Colors.red),
+                  lessStyle: const TextStyle(color: Colors.red),
+                  moreStyle: const TextStyle(color: Colors.red),
                 )),
             // comment, share, save section
             Row(

@@ -15,13 +15,13 @@ import 'package:provider/provider.dart';
 
 void main() async {
   //Custom Error Box...
-  /*
-  ErrorWidget.builder = ((details) => const Scaffold(
-      backgroundColor: Color.fromARGB(255, 77, 182, 172),
-      body: Center(
-          child: CircularProgressIndicator(
-              color: Color.fromARGB(255, 231, 9, 9)))));
-  */
+  // /*
+  // ErrorWidget.builder = ((details) => const Scaffold(
+  //     backgroundColor: Color.fromARGB(255, 77, 182, 172),
+  //     body: Center(
+  //         child: CircularProgressIndicator(
+  //             color: Color.fromARGB(255, 231, 9, 9)))));
+  // */
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

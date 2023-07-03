@@ -127,35 +127,30 @@ class _NoticeBoardState extends State<NoticeBoard> {
                   );
                 },
               ),
-
-        // body: SingleChildScrollView(
-        //     child: Column(children: [
-        //   Center(
-        //       child: Text("Notice Board",
-        //           textAlign: TextAlign.center,
-        //           style: TextStyle(
-        //               shadows: [
-        //                 Shadow(
-        //                     color: Colors.teal.shade900,
-        //                     blurRadius: 5,
-        //                     offset: const Offset(2, 2))
-        //               ],
-        //               fontSize: 50,
-        //               fontWeight: FontWeight.bold,
-        //               color: Colors.white))),
-        //   Lottie.asset('assets/images/img72.json')
-        // ])),
-
         floatingActionButton: FloatingActionButton.extended(
+            elevation: (userData['role'] != 'student') ? 5 : 0,
+            backgroundColor: (userData['role'] != 'student')
+                ? const Color.fromARGB(132, 91, 146, 141)
+                : const Color.fromARGB(0, 255, 255, 255),
             onPressed: () {
               if (userData['role'] != 'student') {
-                Navigator.pushReplacement(
+                Navigator.push(
                     context,
                     PageTransition(
                         type: PageTransitionType.fade,
                         child: AddNoticeScreen(uid: userData['uid'])));
               }
             },
-            label: const Text('Upload')));
+            label: (userData['role'] != 'student')
+                ? Row(
+                    children: const [
+                      Text('Upload'),
+                      Icon(
+                        Icons.upload,
+                        color: Colors.white,
+                      )
+                    ],
+                  )
+                : Text('')));
   }
 }

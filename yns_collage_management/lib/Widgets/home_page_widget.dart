@@ -189,7 +189,8 @@ class CalendarBtn extends StatelessWidget {
 
 // TimeTable for Admin, Teachers and student Home Page
 class TimeTableBtn extends StatelessWidget {
-  const TimeTableBtn({super.key});
+  String uid;
+  TimeTableBtn({required this.uid, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -200,14 +201,16 @@ class TimeTableBtn extends StatelessWidget {
           Navigator.push(
               context,
               PageTransition(
-                  type: PageTransitionType.fade, child: const TimeTable()));
+                  type: PageTransitionType.fade,
+                  child: TimeTablePage(uid: uid)));
         });
   }
 }
 
 // Result for Admin, Teachers and student Home Page
 class ResultBtn extends StatelessWidget {
-  const ResultBtn({super.key});
+  String uid;
+  ResultBtn({required this.uid, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -218,14 +221,15 @@ class ResultBtn extends StatelessWidget {
           Navigator.push(
               context,
               PageTransition(
-                  type: PageTransitionType.fade, child: const Result()));
+                  type: PageTransitionType.fade, child: ResultPage(uid: uid)));
         });
   }
 }
 
 // Transport for Admin, Teachers and student Home Page
 class TransportBtn extends StatelessWidget {
-  const TransportBtn({super.key});
+  String uid;
+  TransportBtn({required this.uid, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -236,7 +240,7 @@ class TransportBtn extends StatelessWidget {
           Navigator.push(
               context,
               PageTransition(
-                  type: PageTransitionType.fade, child: const Transport()));
+                  type: PageTransitionType.fade, child: Transport(uid: uid)));
         });
   }
 }
@@ -265,7 +269,8 @@ class NoticeBoardBtn extends StatelessWidget {
 
 // IdCard for Admin, Teachers and student Home Page
 class IdCardBtn extends StatelessWidget {
-  const IdCardBtn({super.key});
+  String uid;
+  IdCardBtn({required this.uid, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -276,15 +281,15 @@ class IdCardBtn extends StatelessWidget {
           Navigator.push(
               context,
               PageTransition(
-                  type: PageTransitionType.fade, child: const IdCard()));
+                  type: PageTransitionType.fade, child: IdCard(uid: uid)));
         });
   }
 }
 
 // HomeWork for Admin, Teachers and student Home Page
 class HomeWorkBtn extends StatelessWidget {
-  String role;
-  HomeWorkBtn({required this.role, super.key});
+  String uid;
+  HomeWorkBtn({required this.uid, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -295,7 +300,8 @@ class HomeWorkBtn extends StatelessWidget {
           Navigator.push(
               context,
               PageTransition(
-                  type: PageTransitionType.fade, child: HomeWork(role: role)));
+                  type: PageTransitionType.fade,
+                  child: HomeWorkPage(uid: uid)));
         });
   }
 }

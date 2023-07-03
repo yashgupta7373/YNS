@@ -6,7 +6,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:yns_college_management/pages/profile_page.dart';
 
 class Transport extends StatefulWidget {
-  const Transport({super.key});
+  String uid;
+  Transport({required this.uid, super.key});
   @override
   State<Transport> createState() => _TransportState();
 }
@@ -40,7 +41,7 @@ class _TransportState extends State<Transport> {
       appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
       body: Column(children: [
         Center(
-            child: Text("Who Use College Transport",
+            child: Text("Bus Facility",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     shadows: [
