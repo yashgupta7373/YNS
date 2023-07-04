@@ -2,6 +2,7 @@
 import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
@@ -9,6 +10,7 @@ import 'dart:io';
 import 'package:page_transition/page_transition.dart';
 import 'package:yns_college_management/Utils/utils.dart';
 import 'package:yns_college_management/Widgets/homework_card.dart';
+import 'package:yns_college_management/pages/College%20Web/bottomNav.dart';
 import 'package:yns_college_management/pages/Home%20Work/add_home_work.dart';
 
 class HomeWorkPage extends StatefulWidget {
@@ -71,11 +73,12 @@ class _HomeWorkPageState extends State<HomeWorkPage> {
             title: const Text('Home Work'),
             actions: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Icon(
-                  Icons.rule,
-                ),
-              )
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.filter_alt,
+                      ),
+                      onPressed: () {}))
             ],
             elevation: 0,
             backgroundColor: Colors.transparent),

@@ -44,6 +44,16 @@ class _IdCardState extends State<IdCard> {
     });
   }
 
+  //
+  TextStyle style1 = TextStyle(
+      fontStyle: FontStyle.normal,
+      color: Colors.teal[900],
+      fontWeight: FontWeight.bold);
+  TextStyle style2 = TextStyle(
+      fontStyle: FontStyle.normal,
+      color: Color.fromARGB(255, 88, 177, 162),
+      fontWeight: FontWeight.bold);
+
   @override
   Widget build(BuildContext context) {
     var role = userData['role'];
@@ -58,8 +68,12 @@ class _IdCardState extends State<IdCard> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Center(
+            child: SizedBox(
+              width: double.infinity,
+              height: mediaQuery.size.height * 0.75,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   //ID Card...
                   Padding(
@@ -133,7 +147,7 @@ class _IdCardState extends State<IdCard> {
                                   backgroundColor:
                                       const Color.fromRGBO(100, 232, 222, 0.7),
                                   content: Container(
-                                    height: 450,
+                                    height: 530,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                         color:
@@ -156,6 +170,7 @@ class _IdCardState extends State<IdCard> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 16,
+                                              fontStyle: FontStyle.normal,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.teal[900]),
                                         ),
@@ -164,6 +179,7 @@ class _IdCardState extends State<IdCard> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 15,
+                                              fontStyle: FontStyle.normal,
                                               fontWeight: FontWeight.normal,
                                               color: Colors.teal[900]),
                                         ),
@@ -192,6 +208,22 @@ class _IdCardState extends State<IdCard> {
                                               horizontal: 10.0),
                                           child: Column(
                                             children: [
+                                              // name
+                                              Text(
+                                                userData['name'],
+                                                style: TextStyle(
+                                                    fontStyle: FontStyle.normal,
+                                                    fontSize: 15,
+                                                    color: Colors.teal[900],
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              // class or profile
+                                              Text(
+                                                  (role == 'student')
+                                                      ? userData['Class']
+                                                      : userData['profile'],
+                                                  style: style2),
                                               //session
                                               if (role == 'student')
                                                 Row(
@@ -201,28 +233,13 @@ class _IdCardState extends State<IdCard> {
                                                     children: [
                                                       Expanded(
                                                           child: Text(
-                                                        'Session:',
-                                                        style: TextStyle(
-                                                            color: Colors
-                                                                .teal[900],
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      )),
+                                                              'Session:',
+                                                              style: style1)),
                                                       Expanded(
                                                           child: Text(
-                                                        '2022-2023',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    88,
-                                                                    177,
-                                                                    162),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ))
+                                                              userData[
+                                                                  'session'],
+                                                              style: style2))
                                                     ]),
                                               // rollNo, id
                                               Row(
@@ -232,92 +249,17 @@ class _IdCardState extends State<IdCard> {
                                                   children: [
                                                     Expanded(
                                                         child: Text(
-                                                      (role == 'student')
-                                                          ? '$role Roll-No:'
-                                                          : '$role ID',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.teal[900],
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
+                                                            (role == 'student')
+                                                                ? '$role Roll-No:'
+                                                                : '$role ID',
+                                                            style: style1)),
                                                     Expanded(
                                                       child: Text(
-                                                        userData['id'],
-                                                        style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    88,
-                                                                    177,
-                                                                    162),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
+                                                          userData['id'],
+                                                          style: style2),
                                                     )
                                                   ]),
-                                              //Name
-                                              Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Expanded(
-                                                        child: Text(
-                                                      '$role Name:',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.teal[900],
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
-                                                    Expanded(
-                                                        child: Text(
-                                                      userData['name'],
-                                                      style: TextStyle(
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              88,
-                                                              177,
-                                                              162),
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ))
-                                                  ]),
-                                              // class, Profile
-                                              Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Expanded(
-                                                        child: Text(
-                                                      (role == 'student')
-                                                          ? 'Class:'
-                                                          : 'Profile:',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.teal[900],
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
-                                                    Expanded(
-                                                        child: Text(
-                                                      (role == 'student')
-                                                          ? userData['Class']
-                                                          : userData['profile'],
-                                                      style: TextStyle(
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              88,
-                                                              177,
-                                                              162),
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ))
-                                                  ]),
-                                              // year
+                                              //year
                                               if (role == 'student')
                                                 Row(
                                                     mainAxisAlignment:
@@ -325,29 +267,11 @@ class _IdCardState extends State<IdCard> {
                                                             .spaceBetween,
                                                     children: [
                                                       Expanded(
-                                                          child: Text(
-                                                        'Year:',
-                                                        style: TextStyle(
-                                                            color: Colors
-                                                                .teal[900],
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      )),
+                                                          child: Text('Year:',
+                                                              style: style1)),
                                                       Expanded(
-                                                          child: Text(
-                                                        '',
-                                                        style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    88,
-                                                                    177,
-                                                                    162),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ))
+                                                          child: Text('',
+                                                              style: style2))
                                                     ]),
                                               // Father Name
                                               Row(
@@ -357,27 +281,12 @@ class _IdCardState extends State<IdCard> {
                                                   children: [
                                                     Expanded(
                                                         child: Text(
-                                                      'Father\'s Name:',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.teal[900],
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
+                                                            'Father\'s Name:',
+                                                            style: style1)),
                                                     Expanded(
                                                       child: Text(
-                                                        userData['fName'],
-                                                        style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    88,
-                                                                    177,
-                                                                    162),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
+                                                          userData['fName'],
+                                                          style: style2),
                                                     )
                                                   ]),
                                               // Mother Name
@@ -388,26 +297,12 @@ class _IdCardState extends State<IdCard> {
                                                   children: [
                                                     Expanded(
                                                         child: Text(
-                                                      'Mother\'s Name:',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.teal[900],
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
+                                                            'Mother\'s Name:',
+                                                            style: style1)),
                                                     Expanded(
                                                       child: Text(
                                                         userData['mName'],
-                                                        style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    88,
-                                                                    177,
-                                                                    162),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
+                                                        style: style2,
                                                       ),
                                                     )
                                                   ]),
@@ -419,27 +314,12 @@ class _IdCardState extends State<IdCard> {
                                                   children: [
                                                     Expanded(
                                                         child: Text(
-                                                      'Phone No.:',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.teal[900],
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
+                                                            'Phone No.:',
+                                                            style: style1)),
                                                     Expanded(
                                                       child: Text(
-                                                        userData['phoneNo'],
-                                                        style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    88,
-                                                                    177,
-                                                                    162),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
+                                                          userData['phoneNo'],
+                                                          style: style2),
                                                     )
                                                   ]),
                                               // DOB
@@ -450,27 +330,12 @@ class _IdCardState extends State<IdCard> {
                                                   children: [
                                                     Expanded(
                                                         child: Text(
-                                                      'Date Of Birth:',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.teal[900],
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
+                                                            'Date Of Birth:',
+                                                            style: style1)),
                                                     Expanded(
                                                       child: Text(
-                                                        userData['dob'],
-                                                        style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    88,
-                                                                    177,
-                                                                    162),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
+                                                          userData['dob'],
+                                                          style: style2),
                                                     )
                                                   ]),
                                               // Address
@@ -480,28 +345,12 @@ class _IdCardState extends State<IdCard> {
                                                           .spaceBetween,
                                                   children: [
                                                     Expanded(
-                                                        child: Text(
-                                                      'Address:',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.teal[900],
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
+                                                        child: Text('Address:',
+                                                            style: style1)),
                                                     Expanded(
                                                       child: Text(
-                                                        userData['address'],
-                                                        style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    88,
-                                                                    177,
-                                                                    162),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
+                                                          userData['address'],
+                                                          style: style2),
                                                     )
                                                   ]),
                                               // Bus Facility
@@ -512,289 +361,62 @@ class _IdCardState extends State<IdCard> {
                                                   children: [
                                                     Expanded(
                                                         child: Text(
-                                                      'Bus Facility:',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.teal[900],
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
+                                                            'Bus Facility:',
+                                                            style: style1)),
                                                     Expanded(
                                                       child: Text(
-                                                        userData['transport'],
-                                                        style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    88,
-                                                                    177,
-                                                                    162),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
+                                                          userData['transport'],
+                                                          style: style2),
                                                     )
                                                   ]),
-                                              SizedBox(height: 8)
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ));
-                      },
-                    ),
-                  ),
-                  // QR Code..
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 30.0, horizontal: 5),
-                    child: InkWell(
-                      child: Container(
-                        // width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 243, 218, 218),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(25)),
-                            border: Border.all(
-                                width: 1, color: Colors.teal.shade600),
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 10,
-                                  color: Colors.teal.shade900,
-                                  spreadRadius: 1)
-                            ]),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Column(
-                            children: [
-                              Text(
-                                "I.P.(P.G.) College, Campus-2, Bulandshahr",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.teal[900]),
-                              ),
-                              Text(
-                                "N.H.-91, Bulandshahr-Delhi Road, \nBulandshahr(U.P.)  \n(College Code - 955)",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.teal[900]),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                    height: 170,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              'assets/images/img30.png'),
-                                          fit: BoxFit.fill),
-                                    )),
-                              ),
-                              Text(
-                                'QR CODE',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.teal[900]),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (ctx) => AlertDialog(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(30.0)),
-                                  backgroundColor:
-                                      const Color.fromRGBO(100, 232, 222, 0.7),
-                                  content: Container(
-                                    height: 350,
-                                    width: double.infinity,
-                                    decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(25)),
-                                        border: Border.all(
-                                            width: 1,
-                                            color: Colors.teal.shade600),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              blurRadius: 10,
-                                              color: Colors.teal.shade900,
-                                              spreadRadius: 1)
-                                        ]),
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          "I.P.(P.G.) College, Campus-2, Bulandshahr",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.teal[900]),
-                                        ),
-                                        Text(
-                                          "N.H.-91, Bulandshahr-Delhi Road, \nBulandshahr(U.P.)  \n(College Code - 955)",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.teal[900]),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Stack(
-                                            children: [
-                                              Container(
-                                                  height: 150,
-                                                  width: 150,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                            Radius.circular(
-                                                                20)),
-                                                    border: Border.all(
-                                                        width: 1,
-                                                        color: Colors
-                                                            .teal.shade700),
-                                                    image: DecorationImage(
-                                                      image: const AssetImage(
-                                                          'assets/images/img78.png'),
-                                                      fit: BoxFit.fill,
-                                                    ),
-                                                  )),
-                                              Positioned(
-                                                top: 50,
-                                                left: 50,
-                                                child: Container(
-                                                  height: 50,
-                                                  width: 50,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                                  .all(
-                                                              Radius.circular(
-                                                                  25)),
-                                                      image: DecorationImage(
-                                                        image: NetworkImage(
-                                                            userData[
-                                                                'photoUrl']),
-                                                        fit: BoxFit.fill,
+                                              SizedBox(height: 8),
+
+                                              Stack(
+                                                children: [
+                                                  Container(
+                                                      height: 80,
+                                                      width: 80,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                    .all(
+                                                                Radius.circular(
+                                                                    20)),
+                                                        border: Border.all(
+                                                            width: 1,
+                                                            color: Colors
+                                                                .teal.shade700),
+                                                        image: DecorationImage(
+                                                          image: const AssetImage(
+                                                              'assets/images/img78.png'),
+                                                          fit: BoxFit.fill,
+                                                        ),
                                                       )),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10.0),
-                                          child: Column(
-                                            children: [
-                                              // rollNo, id
-                                              Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Expanded(
-                                                        child: Text(
-                                                      (role == 'student')
-                                                          ? '$role Roll-No:'
-                                                          : '$role ID',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.teal[900],
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
-                                                    Expanded(
-                                                      child: Text(
-                                                        userData['id'],
-                                                        style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    88,
-                                                                    177,
-                                                                    162),
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                    )
-                                                  ]),
-                                              //Name
-                                              Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Expanded(
-                                                        child: Text(
-                                                      '$role Name:',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.teal[900],
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
-                                                    Expanded(
-                                                        child: Text(
-                                                      userData['name'],
-                                                      style: TextStyle(
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              88,
-                                                              177,
-                                                              162),
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ))
-                                                  ]),
-                                              // class, Profile
-                                              Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Expanded(
-                                                        child: Text(
-                                                      (role == 'student')
-                                                          ? 'Class:'
-                                                          : 'Profile:',
-                                                      style: TextStyle(
-                                                          color:
-                                                              Colors.teal[900],
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    )),
-                                                    Expanded(
-                                                        child: Text(
-                                                      (role == 'student')
-                                                          ? userData['Class']
-                                                          : userData['profile'],
-                                                      style: TextStyle(
-                                                          color: Color.fromARGB(
-                                                              255,
-                                                              88,
-                                                              177,
-                                                              162),
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ))
-                                                  ]),
+                                                  Positioned(
+                                                    top: 30,
+                                                    left: 30,
+                                                    child: Container(
+                                                      height: 20,
+                                                      width: 20,
+                                                      decoration: BoxDecoration(
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                      .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          10)),
+                                                          image:
+                                                              DecorationImage(
+                                                            image: NetworkImage(
+                                                                userData[
+                                                                    'photoUrl']),
+                                                            fit: BoxFit.fill,
+                                                          )),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              SizedBox(height: 8),
                                             ],
                                           ),
                                         ),

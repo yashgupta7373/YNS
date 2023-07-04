@@ -55,6 +55,15 @@ class _TimeTablePageState extends State<TimeTablePage> {
         appBar: AppBar(
             title: const Text('Time Table'),
             elevation: 0,
+            actions: [
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.filter_alt,
+                      ),
+                      onPressed: () {}))
+            ],
             backgroundColor: Colors.transparent),
         body: StreamBuilder(
           stream: (userData['role'] != 'student')

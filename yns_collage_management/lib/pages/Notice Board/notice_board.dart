@@ -70,6 +70,15 @@ class _NoticeBoardState extends State<NoticeBoard> {
         appBar: AppBar(
             title: const Text('Notice Board'),
             elevation: 0,
+            actions: [
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.filter_alt,
+                      ),
+                      onPressed: () {}))
+            ],
             backgroundColor: Colors.transparent),
         body: StreamBuilder(
           stream: (userData['role'] != 'student')

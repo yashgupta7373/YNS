@@ -95,7 +95,21 @@ class _TransportState extends State<Transport> {
     incrementCounter();
     return Scaffold(
       backgroundColor: Colors.teal[300],
-      appBar: AppBar(backgroundColor: Colors.transparent, elevation: 0),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          (userData['role'] != 'student')
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.filter_alt,
+                      ),
+                      onPressed: () {}))
+              : Text('')
+        ],
+      ),
       body: Column(children: [
         Center(
             child: Text("Bus Facility",

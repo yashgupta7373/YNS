@@ -15,6 +15,7 @@ import 'Admin/Admin Settings/add_courses_page.dart';
 import 'Admin/Admin Settings/add_result.dart';
 import 'Admin/Admin Settings/add_teachers_or_admin_page.dart';
 import 'Admin/Admin Settings/edit.dart';
+import 'Admin/Admin Settings/edit_courses.dart';
 
 class HomePage extends StatefulWidget {
   final String uid;
@@ -395,7 +396,11 @@ class _HomePageState extends State<HomePage> {
                                                                         text:
                                                                             'Edit Courses',
                                                                         ontap:
-                                                                            (() {}),
+                                                                            (() {
+                                                                          Navigator.push(
+                                                                              context,
+                                                                              PageTransition(type: PageTransitionType.fade, child: EditCourse()));
+                                                                        }),
                                                                         icon: FontAwesomeIcons
                                                                             .trash),
                                                                     TextStyleWidget(

@@ -1,6 +1,11 @@
 // ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:yns_college_management/Utils/utils.dart';
 import 'package:yns_college_management/widgets/input_field_student_registration.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../../../Resources/firestore_method_for_courses.dart';
 
 class AddCoursesPage extends StatefulWidget {
   const AddCoursesPage({super.key});
@@ -9,6 +14,11 @@ class AddCoursesPage extends StatefulWidget {
 }
 
 class _AddCoursesPageState extends State<AddCoursesPage> {
+  final TextEditingController idController = TextEditingController();
+  final TextEditingController feesController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  // final TextEditingController subjectController = TextEditingController();
+  List<TextEditingController> listController = [TextEditingController()];
   var dropdowndepartment;
   var dropdownduration;
   var department = [
@@ -20,20 +30,62 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
     'B.Sc Department'
   ];
   var duration = [
-    '6 Months',
-    '1 Year',
-    '2 Years',
-    '3 Years',
-    '4 Years',
-    '5 Years'
+    '1 Semester',
+    '2 Semester',
+    '3 Semester',
+    '4 Semester',
+    '5 Semester',
+    '6 Semester'
   ];
+
+  //upload notice..
+  bool isLoading = false;
+  void noticeImage(String uid, String name, String photoUrl) async {
+    setState(() {
+      isLoading = true;
+    });
+    // start the loading
+    try {
+      // upload to storage and db
+      var res = await FireStoreMethods().uploadCourse(
+        uid,
+        name,
+        photoUrl,
+        dropdowndepartment,
+        idController.text,
+        nameController.text,
+        dropdownduration,
+        feesController.text,
+        // listController.text,
+      );
+      if (res == "success") {
+        setState(() {
+          isLoading = false;
+        });
+        showSnackBar(
+          context,
+          'Uploded',
+        );
+
+        Navigator.pop(context);
+        Navigator.pop(context);
+      } else {
+        showSnackBar(context, res);
+      }
+    } catch (err) {
+      setState(() {
+        isLoading = false;
+      });
+      showSnackBar(
+        context,
+        err.toString(),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-    final TextEditingController idController = TextEditingController();
-    final TextEditingController languagesController = TextEditingController();
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController subjectController = TextEditingController();
     return Scaffold(
         backgroundColor: Colors.teal[300],
         appBar: AppBar(
@@ -75,58 +127,6 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // ID...
-                              Row(children: [
-                                const Text('Course ID:'),
-                                Expanded(
-                                    child: InputFieldStudentRegistration(
-                                        textEditingController: idController,
-                                        keyboard: TextInputType.name))
-                              ]),
-                              // course...
-                              Row(children: [
-                                const Text('Course Name:'),
-                                Expanded(
-                                    child: InputFieldStudentRegistration(
-                                        textEditingController: nameController,
-                                        keyboard: TextInputType.name))
-                              ]),
-                              // Duration
-                              Row(children: [
-                                const Text('Course Duration:'),
-                                Expanded(
-                                    child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20),
-                                        child: DropdownButton(
-                                            dropdownColor: Colors.teal[400],
-                                            hint: const Text(
-                                                'Select Course Duration'),
-                                            menuMaxHeight: 300,
-                                            isExpanded: true,
-                                            underline: Container(
-                                              color: Colors.teal[800],
-                                              height: 1,
-                                            ),
-                                            iconEnabledColor: Colors.teal[800],
-                                            style: const TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 13, 71, 161),
-                                                fontSize: 13),
-                                            value: dropdownduration,
-                                            icon: const Icon(
-                                                Icons.keyboard_arrow_down),
-                                            items: duration.map((String items) {
-                                              return DropdownMenuItem(
-                                                  value: items,
-                                                  child: Text(items));
-                                            }).toList(),
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                dropdownduration = newValue!;
-                                              });
-                                            })))
-                              ]),
                               // Department
                               Row(children: [
                                 const Text('Department:'),
@@ -164,25 +164,131 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
                                               });
                                             })))
                               ]),
-                              // subjects
+                              // ID...
                               Row(children: [
-                                const Text('Subjects:'),
+                                const Text('Course ID:'),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
-                                        textEditingController:
-                                            subjectController,
+                                        textEditingController: idController,
                                         keyboard: TextInputType.name))
                               ]),
-                              // Languages
+                              // course...
                               Row(children: [
-                                const Text('Course Medium(lang.):'),
+                                const Text('Course Name:'),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
-                                        textEditingController:
-                                            languagesController,
+                                        textEditingController: nameController,
                                         keyboard: TextInputType.name))
-                              ])
+                              ]),
+                              // Semester
+                              Row(children: [
+                                const Text('Semester:'),
+                                Expanded(
+                                    child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 20),
+                                        child: DropdownButton(
+                                            dropdownColor: Colors.teal[400],
+                                            hint: const Text('Select Semester'),
+                                            menuMaxHeight: 300,
+                                            isExpanded: true,
+                                            underline: Container(
+                                              color: Colors.teal[800],
+                                              height: 1,
+                                            ),
+                                            iconEnabledColor: Colors.teal[800],
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 13, 71, 161),
+                                                fontSize: 13),
+                                            value: dropdownduration,
+                                            icon: const Icon(
+                                                Icons.keyboard_arrow_down),
+                                            items: duration.map((String items) {
+                                              return DropdownMenuItem(
+                                                  value: items,
+                                                  child: Text(items));
+                                            }).toList(),
+                                            onChanged: (newValue) {
+                                              setState(() {
+                                                dropdownduration = newValue!;
+                                              });
+                                            })))
+                              ]),
+                              // Fees
+                              Row(children: [
+                                const Text('Fees:'),
+                                Expanded(
+                                    child: InputFieldStudentRegistration(
+                                        textEditingController: feesController,
+                                        keyboard: TextInputType.name))
+                              ]),
+                              //Subject
+                              ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: listController.length,
+                                itemBuilder: (context, index) {
+                                  var n = index + 1;
+                                  return Row(
+                                    children: [
+                                      Text('Subject $n:'),
+                                      Expanded(
+                                        child: InputFieldStudentRegistration(
+                                            textEditingController:
+                                                listController[index],
+                                            keyboard: TextInputType.name),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      index != 0
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  listController[index].clear();
+                                                  listController[index]
+                                                      .dispose();
+                                                  listController
+                                                      .removeAt(index);
+                                                });
+                                              },
+                                              child: const Icon(
+                                                Icons.delete,
+                                                color: Color.fromARGB(
+                                                    255, 197, 72, 72),
+                                                size: 30,
+                                              ),
+                                            )
+                                          : const SizedBox(),
+                                    ],
+                                  );
+                                },
+                              ),
+                              const SizedBox(
+                                height: 50,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    listController.add(TextEditingController());
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 15),
+                                  decoration: BoxDecoration(
+                                      color: Color.fromARGB(255, 0, 105, 92),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Text("Add More Subject",
+                                      style: GoogleFonts.nunito(
+                                          color: const Color(0xFFF8F8FF))),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
                             ])),
+
                     const SizedBox(height: 20.0),
                     // submit button...
                     Padding(
@@ -192,7 +298,10 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    noticeImage('123456789', 'Yash Gupta',
+                                        'saohsahdkjsahj');
+                                  },
                                   style: ElevatedButton.styleFrom(
                                       elevation: 20,
                                       backgroundColor: Colors.teal[600],

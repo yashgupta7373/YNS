@@ -1,72 +1,86 @@
-// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, prefer_typing_uninitialized_variables
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/foundation.dart';
+// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:yns_college_management/Utils/utils.dart';
 import 'package:yns_college_management/widgets/input_field_student_registration.dart';
-import 'dart:typed_data';
+import 'package:google_fonts/google_fonts.dart';
 
-class Try extends StatefulWidget {
-  const Try({super.key});
+import '../../Resources/firestore_method_for_courses.dart';
+
+class AddCoursesPage extends StatefulWidget {
+  const AddCoursesPage({super.key});
   @override
-  State<Try> createState() => _TryState();
+  State<AddCoursesPage> createState() => _AddCoursesPageState();
 }
 
-class _TryState extends State<Try> {
-  var transport = '';
-  bool _isLoading = false;
+class _AddCoursesPageState extends State<AddCoursesPage> {
   final TextEditingController idController = TextEditingController();
+  final TextEditingController feesController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController dateController = TextEditingController();
-  Uint8List? _image;
-  //
-
-  @override
-  var dropdownprofile;
-  var profile = [
-    'HOD',
-    'Assistant Professor',
-    'Associate Professor',
-    'Professor',
-    'Namely',
+  final TextEditingController subjectController = TextEditingController();
+  List<TextEditingController> listController = [TextEditingController()];
+  var dropdowndepartment;
+  var dropdownduration;
+  var department = [
+    'Computer Science Dep.',
+    'Commerce & Business Dep.',
+    'Teacher Education Dep.',
+    'Biotechnology Dep.',
+    'B.Sc(Home Science) Dep.',
+    'B.Sc Department'
+  ];
+  var duration = [
+    '1 Semester',
+    '2 Semester',
+    '3 Semester',
+    '4 Semester',
+    '5 Semester',
+    '6 Semester'
   ];
 
-  void AddAdminOrTeacher() async {
-    Map<String, String> Notice = {
-      'ID': idController.text,
-      'profile': dropdownprofile,
-      'name': nameController.text,
-      'Dob': dateController.text,
-      'transport': transport,
-    };
-    dbRef.push().set(Notice);
-  }
-
-  // for picking up image from gallery
-  pickImage(ImageSource source) async {
-    final ImagePicker imagePicker = ImagePicker();
-    XFile? file = await imagePicker.pickImage(source: source);
-    if (file != null) {
-      return await file.readAsBytes();
-    }
-  }
-
-  //select image
-  selectImage() async {
-    Uint8List im = await pickImage(ImageSource.gallery);
+  //upload notice..
+  bool isLoading = false;
+  void noticeImage(String uid, String name, String photoUrl) async {
     setState(() {
-      _image = im;
+      isLoading = true;
     });
-  }
+    // start the loading
+    try {
+      // upload to storage and db
+      String res = await FireStoreMethods().uploadCourse(
+        uid,
+        name,
+        photoUrl,
+        dropdowndepartment,
+        idController.text,
+        nameController.text,
+        dropdownduration,
+        feesController.text,
+        // subjectController.text,
+      );
+      if (res == "success") {
+        setState(() {
+          isLoading = false;
+        });
+        showSnackBar(
+          context,
+          'Uploded',
+        );
 
-  //real time Database...
-  late DatabaseReference dbRef;
-
-  @override
-  void initState() {
-    super.initState();
-    dbRef = FirebaseDatabase.instance.ref('ClgManagement').child('Notice').child('class');
+        Navigator.pop(context);
+        Navigator.pop(context);
+      } else {
+        showSnackBar(context, res);
+      }
+    } catch (err) {
+      setState(() {
+        isLoading = false;
+      });
+      showSnackBar(
+        context,
+        err.toString(),
+      );
+    }
   }
 
   @override
@@ -74,10 +88,31 @@ class _TryState extends State<Try> {
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
         backgroundColor: Colors.teal[300],
+        appBar: AppBar(
+            title: (const Text("Add Course ")),
+            backgroundColor: Colors.transparent,
+            elevation: 0),
         body: SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          //Id, Job Profile
+          // title...
+          Center(
+              child: SizedBox(
+                  width: mediaQuery.size.width * 0.7,
+                  height: mediaQuery.size.height * 0.15,
+                  child: FittedBox(
+                      child: Text("Add Course",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              shadows: [
+                                Shadow(
+                                    color: Colors.teal.shade900,
+                                    blurRadius: 5,
+                                    offset: const Offset(2, 2))
+                              ],
+                              // fontSize: 50,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white))))),
           Padding(
               padding: const EdgeInsets.only(
                   left: 20, right: 20, top: 20, bottom: 2),
@@ -92,25 +127,17 @@ class _TryState extends State<Try> {
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // ID...
+                              // Department
                               Row(children: [
-                                Text('ID:'),
-                                Expanded(
-                                    child: InputFieldStudentRegistration(
-                                        textEditingController: idController,
-                                        keyboard: TextInputType.text))
-                              ]),
-                              // Profile
-                              Row(children: [
-                                const Text('Job Profile:'),
+                                const Text('Department:'),
                                 Expanded(
                                     child: Padding(
                                         padding:
                                             const EdgeInsets.only(left: 20),
                                         child: DropdownButton(
                                             dropdownColor: Colors.teal[400],
-                                            hint: const Text(
-                                                'Select Job Profile'),
+                                            hint:
+                                                const Text('Select Department'),
                                             menuMaxHeight: 300,
                                             isExpanded: true,
                                             underline: Container(
@@ -122,220 +149,176 @@ class _TryState extends State<Try> {
                                                 color: Color.fromARGB(
                                                     255, 13, 71, 161),
                                                 fontSize: 13),
-                                            value: dropdownprofile,
+                                            value: dropdowndepartment,
                                             icon: const Icon(
                                                 Icons.keyboard_arrow_down),
-                                            items: profile.map((String items) {
+                                            items:
+                                                department.map((String items) {
                                               return DropdownMenuItem(
                                                   value: items,
                                                   child: Text(items));
                                             }).toList(),
                                             onChanged: (newValue) {
                                               setState(() {
-                                                dropdownprofile = newValue!;
+                                                dropdowndepartment = newValue!;
                                               });
                                             })))
                               ]),
-                            ]))
-                  ]))),
-          //image
-          Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 2),
-              child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.teal[400]),
-                  child: Center(
-                    child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Stack(
-                          children: [
-                            _image != null
-                                ? CircleAvatar(
-                                    radius: 64,
-                                    backgroundImage: MemoryImage(_image!),
-                                    backgroundColor: Colors.teal,
-                                  )
-                                : const CircleAvatar(
-                                    radius: 64,
-                                    backgroundImage: NetworkImage(
-                                        'https://i.stack.imgur.com/l60Hf.png'),
-                                    backgroundColor: Colors.teal,
-                                  ),
-                            Positioned(
-                              bottom: -10,
-                              left: 80,
-                              child: IconButton(
-                                onPressed: selectImage,
-                                icon: const Icon(
-                                  Icons.add_a_photo,
-                                  color: Color.fromARGB(255, 0, 73, 65),
-                                ),
-                              ),
-                            )
-                          ],
-                        )),
-                  ))),
-          //Name, Date of birth
-          Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 2),
-              child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.teal[400]),
-                  child: Column(children: [
-                    Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // name...
+                              // ID...
                               Row(children: [
-                                Text('Name:'),
+                                const Text('Course ID:'),
+                                Expanded(
+                                    child: InputFieldStudentRegistration(
+                                        textEditingController: idController,
+                                        keyboard: TextInputType.name))
+                              ]),
+                              // course...
+                              Row(children: [
+                                const Text('Course Name:'),
                                 Expanded(
                                     child: InputFieldStudentRegistration(
                                         textEditingController: nameController,
                                         keyboard: TextInputType.name))
                               ]),
-
-                              // student dob...
+                              // Semester
                               Row(children: [
-                                const Text("Date of Birth:"),
+                                const Text('Semester:'),
                                 Expanded(
                                     child: Padding(
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: TextField(
-                                          style: TextStyle(
-                                              fontSize: 13,
-                                              fontStyle: FontStyle.normal,
-                                              color: Colors.blue[900]),
-                                          controller: dateController,
-                                          decoration: const InputDecoration(
-                                              contentPadding: EdgeInsets.all(8),
-                                              icon: Icon(
-                                                Icons.calendar_today_rounded,
-                                                // color: Colors.teal[800],
-                                              ),
-                                              hintText: "Select Date"),
-                                          onTap: () async {
-                                            DateTime? pickedDate =
-                                                await showDatePicker(
-                                                    context: context,
-                                                    initialDate: DateTime.now(),
-                                                    firstDate: DateTime(1900),
-                                                    lastDate: DateTime.now());
-                                            if (pickedDate != null) {
+                                        padding:
+                                            const EdgeInsets.only(left: 20),
+                                        child: DropdownButton(
+                                            dropdownColor: Colors.teal[400],
+                                            hint: const Text('Select Semester'),
+                                            menuMaxHeight: 300,
+                                            isExpanded: true,
+                                            underline: Container(
+                                              color: Colors.teal[800],
+                                              height: 1,
+                                            ),
+                                            iconEnabledColor: Colors.teal[800],
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 13, 71, 161),
+                                                fontSize: 13),
+                                            value: dropdownduration,
+                                            icon: const Icon(
+                                                Icons.keyboard_arrow_down),
+                                            items: duration.map((String items) {
+                                              return DropdownMenuItem(
+                                                  value: items,
+                                                  child: Text(items));
+                                            }).toList(),
+                                            onChanged: (newValue) {
                                               setState(() {
-                                                dateController.text =
-                                                    DateFormat('dd-MM-yyyy')
-                                                        .format(pickedDate);
+                                                dropdownduration = newValue!;
                                               });
-                                            }
-                                          },
-                                        )))
+                                            })))
                               ]),
-                            ]))
-                  ]))),
-          //transport
-          Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 2),
-              child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.teal[400]),
-                  child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            // College Transport...
-                            const Text("Use College Transport"),
-                            FittedBox(
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
+
+                              // Fees
+                              Row(children: [
+                                const Text('Fees:'),
+                                Expanded(
+                                    child: InputFieldStudentRegistration(
+                                        textEditingController: feesController,
+                                        keyboard: TextInputType.name))
+                              ]),
+                              //Subject
+                              ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: listController.length,
+                                itemBuilder: (context, index) {
+                                  var n = index + 1;
+                                  return Row(
                                     children: [
-                                  const Text('Yes'),
-                                  Radio(
-                                      value: 'Yes',
-                                      groupValue: transport,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          transport = value.toString();
-                                        });
-                                      }),
-                                  SizedBox(width: mediaQuery.size.width * 0.1),
-                                  const Text('No'),
-                                  Radio(
-                                      value: 'No',
-                                      groupValue: transport,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          transport = value.toString();
-                                        });
-                                      }),
-                                ])),
-                          ])))),
-          // submit button
-          Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 2),
-              child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.teal[400]),
-                  child: Column(children: [
+                                      Text('Subject $n:'),
+                                      Expanded(
+                                        child: InputFieldStudentRegistration(
+                                            textEditingController:
+                                                listController[index],
+                                            keyboard: TextInputType.name),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      index != 0
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  listController[index].clear();
+                                                  listController[index]
+                                                      .dispose();
+                                                  listController
+                                                      .removeAt(index);
+                                                });
+                                              },
+                                              child: const Icon(
+                                                Icons.delete,
+                                                color: Color.fromARGB(
+                                                    255, 197, 72, 72),
+                                                size: 30,
+                                              ),
+                                            )
+                                          : const SizedBox(),
+                                    ],
+                                  );
+                                },
+                              ),
+                              const SizedBox(
+                                height: 50,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    listController.add(TextEditingController());
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 15),
+                                  decoration: BoxDecoration(
+                                      color: Color.fromARGB(255, 0, 105, 92),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Text("Add More Subject",
+                                      style: GoogleFonts.nunito(
+                                          color: const Color(0xFFF8F8FF))),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                            ])),
+
+                    const SizedBox(height: 20.0),
+                    // submit button...
                     Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        padding: const EdgeInsets.only(
+                            right: 20, bottom: 15, top: 5),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              const SizedBox(height: 20.0),
-                              // submit button...
-                              Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: 20, bottom: 15, top: 5),
-                                  child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        ElevatedButton(
-                                            onPressed: () {
-                                              AddAdminOrTeacher();
-                                              // Map<String, String> detail = {
-                                              //   'ID': idController.text,
-                                              //   'profile': dropdownprofile,
-                                              //   'name': nameController.text,
-                                              //   'Dob': dateController.text,
-                                              //   'transport': transport
-                                              // };
-                                              // dbRef.push().set(detail);
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                                elevation: 20,
-                                                backgroundColor:
-                                                    Colors.teal[600],
-                                                shadowColor: Colors.teal[600],
-                                                side: BorderSide(
-                                                    color: Colors.teal.shade600,
-                                                    width: 2,
-                                                    style: BorderStyle.solid),
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12.0)),
-                                                minimumSize:
-                                                    const Size(130, 50)),
-                                            child: !_isLoading
-                                                ? const Text('Submit')
-                                                : const CircularProgressIndicator(
-                                                    color: Color.fromARGB(
-                                                        255, 115, 162, 170)))
-                                      ]))
-                            ]))
-                  ]))),
-          const SizedBox(height: 20.0),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    noticeImage('123456789', 'Yash Gupta',
+                                        'saohsahdkjsahj');
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      elevation: 20,
+                                      backgroundColor: Colors.teal[600],
+                                      shadowColor: Colors.teal[600],
+                                      side: BorderSide(
+                                          color: Colors.teal.shade600,
+                                          width: 2,
+                                          style: BorderStyle.solid),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0)),
+                                      minimumSize: const Size(130, 50)),
+                                  child: const Text("Submit"))
+                            ])),
+                    const SizedBox(height: 20.0)
+                  ])))
         ])));
   }
 }

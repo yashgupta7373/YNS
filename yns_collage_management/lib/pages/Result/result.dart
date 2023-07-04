@@ -54,6 +54,15 @@ class _ResultPageState extends State<ResultPage> {
         appBar: AppBar(
             title: const Text('Result'),
             elevation: 0,
+            actions: [
+              Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.filter_alt,
+                      ),
+                      onPressed: () {}))
+            ],
             backgroundColor: Colors.transparent),
         body: StreamBuilder(
           stream: (userData['role'] != 'student')

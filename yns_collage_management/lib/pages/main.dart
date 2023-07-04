@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
             routes: {
               "/": (context) =>
                   SplashPage(image: Lottie.asset('assets/images/img75.json')),
-              // "/": (context) => Try(),
+              // "/": (context) => AddCoursesPage(),
               MyRoutes.ClgWebpageRoute: (context) => const ClgWebPage(),
               MyRoutes.AboutClgpageRoute: (context) => const AboutClgPage(),
               MyRoutes.founderpageRoute: (context) => const AboutFounderPage(),
