@@ -120,8 +120,8 @@ class CheckAttendanceBtn extends StatelessWidget {
 
 // Library for Admin, Teachers and student Home Page
 class LibraryBtn extends StatelessWidget {
-  String role;
-  LibraryBtn({required this.role, super.key});
+  String uid, role;
+  LibraryBtn({required this.uid, required this.role, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -129,41 +129,46 @@ class LibraryBtn extends StatelessWidget {
         text: 'Library    ',
         icon: Icons.local_library,
         ontap: () {
-          showDialog(
-              context: context,
-              builder: (ctx) => AlertDialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  backgroundColor: const Color.fromRGBO(100, 232, 222, 0.7),
-                  content: SizedBox(
-                      child: SingleChildScrollView(
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                        if (role != 'Students')
-                          TextStyleWidget(
-                              text: 'Issue Book',
-                              ontap: (() {
-                                Navigator.of(ctx).pop();
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        type: PageTransitionType.fade,
-                                        child: IssueBook(role: role)));
-                              }),
-                              icon: FontAwesomeIcons.book),
-                        TextStyleWidget(
-                            text: 'Return Book',
-                            ontap: (() {
-                              Navigator.of(ctx).pop();
-                              Navigator.push(
-                                  context,
-                                  PageTransition(
-                                      type: PageTransitionType.fade,
-                                      child: ReturnBook(role: role)));
-                            }),
-                            icon: FontAwesomeIcons.book)
-                      ])))));
+          (role != 'student')
+              ? showDialog(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      backgroundColor: const Color.fromRGBO(100, 232, 222, 0.7),
+                      content: SizedBox(
+                          child: SingleChildScrollView(
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                            TextStyleWidget(
+                                text: 'Issue Book',
+                                ontap: (() {
+                                  Navigator.of(ctx).pop();
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          type: PageTransitionType.fade,
+                                          child: IssueBook(uid: uid)));
+                                }),
+                                icon: FontAwesomeIcons.book),
+                            TextStyleWidget(
+                                text: 'Return Book',
+                                ontap: (() {
+                                  Navigator.of(ctx).pop();
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          type: PageTransitionType.fade,
+                                          child: ReturnBook(uid: uid)));
+                                }),
+                                icon: FontAwesomeIcons.book)
+                          ])))))
+              : Navigator.push(
+                  context,
+                  PageTransition(
+                      type: PageTransitionType.fade,
+                      child: ReturnBook(uid: uid)));
         });
   }
 }

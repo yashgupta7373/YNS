@@ -72,6 +72,9 @@ dependencies:
   readmore: ^2.2.0
   provider: ^6.0.5
   foundation_flutter: ^0.2.0
+  fluttertoast: ^8.2.2
+  pdf: ^3.8.4
+  printing: ^5.9.3
 
 
 

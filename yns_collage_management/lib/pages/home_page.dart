@@ -278,8 +278,10 @@ class _HomePageState extends State<HomePage> {
                                           AttendanceTakerBtn(
                                               name: userData['name']),
                                           const CheckAttendanceBtn(),
-                                          LibraryBtn(role: userData['role']),
-                                          CalendarBtn(role: userData['role']),
+                                          LibraryBtn(
+                                              uid: userData['uid'],
+                                              role: userData['role']),
+                                          CalendarBtn(role: 'student'),
                                           TimeTableBtn(uid: userData['uid']),
                                           ResultBtn(uid: userData['uid']),
                                           TransportBtn(uid: userData['uid']),
@@ -433,7 +435,9 @@ class _HomePageState extends State<HomePage> {
                                       crossAxisCount: 2,
                                       children: [
                                           const CheckAttendanceBtn(),
-                                          LibraryBtn(role: userData['role']),
+                                          LibraryBtn(
+                                              uid: userData['uid'],
+                                              role: 'student'),
                                           CalendarBtn(role: userData['role']),
                                           TimeTableBtn(uid: userData['uid']),
                                           ResultBtn(uid: userData['uid']),

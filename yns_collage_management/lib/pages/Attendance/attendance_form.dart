@@ -262,6 +262,7 @@ class _AttendanceFormState extends State<AttendanceForm> {
                                 isExpanded: false,
                               );
                             })))),
+
             // Select Subject
             Padding(
                 padding: const EdgeInsets.all(20),
@@ -331,12 +332,12 @@ class _AttendanceFormState extends State<AttendanceForm> {
                                   const Icon(Icons.edit_calendar,
                                       color: Colors.white)
                                 ]))))),
+
             // Button
             Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: ElevatedButton(
                     onPressed: () {
-                      // print(selectedTeacher);
                       Navigator.push(
                           context,
                           PageTransition(

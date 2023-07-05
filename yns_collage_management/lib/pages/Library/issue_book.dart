@@ -1,53 +1,75 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:yns_college_management/Utils/utils.dart';
 import 'package:yns_college_management/pages/Library/return_book.dart';
 
+import '../../Resources/firestore_method_for_library.dart';
+
 class IssueBook extends StatefulWidget {
-  String role;
-  IssueBook({required this.role, super.key});
+  String uid;
+  IssueBook({required this.uid, super.key});
 
   @override
   State<IssueBook> createState() => _IssueBookState();
 }
 
 class _IssueBookState extends State<IssueBook> {
-  String dropdownBook = 'Book 1';
-  String dropdownAuthor = 'Author 1';
-  String dropdownClasses = 'Class 1';
-  String dropdownStudentName = 'StudentName 1';
+  var selectedStudent = '0';
+  String dropdownBook = 'Let us C';
+  String dropdownAuthor = 'Yashavant Kanetkar';
+  String dropdownClasses = 'BCA';
+  var name, id, photoUrl;
   var book = [
-    'Book 1',
-    'Book 2',
-    'Book 3',
-    'Book 4',
-    'Book 5',
+    'Let us C',
+    'C++',
+    'Java',
+    'Python',
+    'Flutter',
+    'JavaScript',
+    'Business Communication',
+    'Business Law',
+    'Business Environment',
   ];
   var author = [
-    'Author 1',
-    'Author 2',
-    'Author 3',
-    'Author 4',
-    'Author 5',
+    'Yashavant Kanetkar',
+    'Rashmi Kanta Das',
+    'John Shovic and Alan Simpson',
+    'Dr. Deepti Chopra and Roopal Khurana',
+    'Berg Craig',
+    'Courtland L. Bovee/John V. Hill/Roshan Lal Raina',
+    'Taxmann',
+    'K. Aswathappa',
   ];
   var classes = [
-    'Class 1',
-    'Class 2',
-    'Class 3',
-    'Class 4',
-    'Class 5',
+    'BCA',
+    'MCA',
+    'BBA',
+    'MBA',
+    'Bcom.',
+    'MCom.',
+    'BA',
+    'MA',
+    'B.Ed',
+    'M.Ed',
+    'D.EI.Ed',
+    'B.Sc(Biotechnology)',
+    'M.Sc(Biotechnology)',
+    'B.Sc(HomeScience)',
+    'M.Sc(HomeScience)',
+    'B.Sc(Bio)-BCZ',
+    'B.Sc(Math)-PCM'
   ];
-  var studentName = [
-    'StudentName 1',
-    'StudentName 2',
-    'StudentName 3',
-    'StudentName 4',
-    'StudentName 5',
-  ];
+  final TextEditingController dateController = TextEditingController();
 
   // Create Date-time Variable
   DateTime _dateTime = DateTime.now();
+  void get() {
+    dateController.text = DateFormat('dd-MM-yyyy').format(_dateTime);
+  }
 
   // Show Date Picker Method
   void _showDatePicker() {
@@ -63,8 +85,83 @@ class _IssueBookState extends State<IssueBook> {
     });
   }
 
+  //upload notice..
+  bool isLoading = false;
+  void noticeImage() async {
+    setState(() {
+      isLoading = true;
+    });
+    // start the loading
+    try {
+      // upload to storage and db
+      var res = await FireStoreMethods().libraryBook(
+          name,
+          photoUrl,
+          id,
+          dropdownBook,
+          dropdownAuthor,
+          dropdownClasses,
+          selectedStudent,
+          dateController.text);
+      if (res == "success") {
+        setState(() {
+          isLoading = false;
+        });
+        showSnackBar(
+          context,
+          'Uploded',
+        );
+
+        Navigator.push(
+            context,
+            PageTransition(
+                type: PageTransitionType.rightToLeft,
+                child: ReturnBook(uid: widget.uid)));
+      } else {
+        showSnackBar(context, res);
+      }
+    } catch (err) {
+      setState(() {
+        isLoading = false;
+      });
+      showSnackBar(
+        context,
+        err.toString(),
+      );
+    }
+  }
+
+  //fetch Data
+  var userData = {};
+
+  void getUserData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(selectedStudent)
+          .get();
+      userData = userSnap.data()!;
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    get();
+    name = userData['name'];
+    id = userData['id'];
+    photoUrl = userData['photoUrl'];
     var mediaQuery = MediaQuery.of(context);
     return Scaffold(
         backgroundColor: Colors.teal[300],
@@ -219,25 +316,45 @@ class _IssueBookState extends State<IssueBook> {
                       ]),
                   child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: DropdownButton(
-                          dropdownColor: Colors.teal[400],
-                          hint: const Text('Select Student Name'),
-                          menuMaxHeight: 300,
-                          isExpanded: true,
-                          underline: Container(color: Colors.transparent),
-                          iconEnabledColor: Colors.white,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 18),
-                          value: dropdownStudentName,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          items: studentName.map((String items) {
-                            return DropdownMenuItem(
-                                value: items, child: Text(items));
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownStudentName = newValue!;
-                            });
+                      child: StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('users')
+                              .where('role', isEqualTo: 'student')
+                              .where('Class', isEqualTo: dropdownClasses)
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            List<DropdownMenuItem> student = [];
+                            if (!snapshot.hasData) {
+                              const CircularProgressIndicator();
+                            } else {
+                              final students =
+                                  snapshot.data?.docs.reversed.toList();
+                              student.add(const DropdownMenuItem(
+                                  value: '0',
+                                  child: Text('Select Student Roll-No.')));
+                              for (var users in students!) {
+                                student.add(DropdownMenuItem(
+                                    value: users.id, child: Text(users['id'])));
+                              }
+                            }
+                            return DropdownButton(
+                              dropdownColor: Colors.teal[400],
+                              menuMaxHeight: 300,
+                              underline: Container(color: Colors.transparent),
+                              iconEnabledColor: Colors.white,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 18),
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: student,
+                              onChanged: (usersValue) {
+                                setState(() {
+                                  selectedStudent = usersValue;
+                                  getUserData();
+                                });
+                              },
+                              value: selectedStudent,
+                              isExpanded: false,
+                            );
                           })))),
           // Select date
           Padding(
@@ -270,16 +387,14 @@ class _IssueBookState extends State<IssueBook> {
                                 const Icon(Icons.edit_calendar,
                                     color: Colors.white)
                               ]))))),
+
           // Button
           Padding(
               padding: const EdgeInsets.all(20.0),
               child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            type: PageTransitionType.rightToLeft,
-                            child: ReturnBook(role: widget.role)));
+                    noticeImage();
+                    // print(userData['name']);
                   },
                   style: ElevatedButton.styleFrom(
                       elevation: 10,

@@ -2,19 +2,36 @@
 
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:yns_college_management/pages/waste%20files/try.dart';
+
+import 'attendance_pdf.dart';
 
 class AttendanceOverViwe extends StatefulWidget {
-  var totalStudent, totalPresent, totalAbsent;
+  int totalStudent, totalPresent, totalAbsent;
+  var date, Class, subject;
+  List list, list2;
   AttendanceOverViwe(
       {required this.totalStudent,
       required this.totalPresent,
       required this.totalAbsent,
+      required this.date,
+      required this.Class,
+      required this.subject,
+      required this.list,
+      required this.list2,
       super.key});
   @override
-  State<AttendanceOverViwe> createState() => _AttendanceOverViweState();
+  State<AttendanceOverViwe> createState() =>
+      _AttendanceOverViweState(list: list, list2: list2);
 }
 
 class _AttendanceOverViweState extends State<AttendanceOverViwe> {
+  List list;
+  List list2;
+  _AttendanceOverViweState({
+    required this.list,
+    required this.list2,
+  });
   // Map<String, double> dataMap = {
   //   "Present": 100,
   //   "Absent": 3,
@@ -26,10 +43,14 @@ class _AttendanceOverViweState extends State<AttendanceOverViwe> {
 
   @override
   Widget build(BuildContext context) {
+    int ts = widget.totalStudent;
+    int tp = widget.totalPresent;
+    int ta = widget.totalAbsent;
     Map<String, double> dataMap = {
-      "Present": 10,
-      "Absent": 3,
+      "Present": tp.toDouble(),
+      "Absent": ta.toDouble(),
     };
+
     return Scaffold(
         backgroundColor: Colors.teal[300],
         appBar: AppBar(elevation: 0, backgroundColor: Colors.transparent),
@@ -43,7 +64,7 @@ class _AttendanceOverViweState extends State<AttendanceOverViwe> {
                       fontSize: 22,
                       fontWeight: FontWeight.bold))),
           Center(
-              child: Text(widget.totalStudent,
+              child: Text('$ts',
                   style: TextStyle(color: Colors.teal[900], fontSize: 22))),
           const SizedBox(height: 20),
           Row(
@@ -61,11 +82,10 @@ class _AttendanceOverViweState extends State<AttendanceOverViwe> {
                         fontWeight: FontWeight.bold))
               ]),
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-            Text(widget.totalPresent,
+            Text('$tp',
                 style: const TextStyle(
                     color: Color.fromARGB(255, 21, 255, 0), fontSize: 20)),
-            Text(widget.totalAbsent,
-                style: const TextStyle(color: Colors.red, fontSize: 20))
+            Text('$ta', style: const TextStyle(color: Colors.red, fontSize: 20))
           ]),
           const SizedBox(height: 50),
           Center(
@@ -105,9 +125,20 @@ class _AttendanceOverViweState extends State<AttendanceOverViwe> {
           ElevatedButton(
               onPressed: () {
                 // Save Attendance...
-                Navigator.pop(context);
-                Navigator.pop(context);
-                Navigator.pop(context);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AttendancePDF(
+                        list: list,
+                        list2: list2,
+                        clas: widget.Class,
+                        date: widget.date,
+                        subject: widget.subject),
+                  ),
+                );
+                // Navigator.pop(context);
+                // Navigator.pop(context);
+                // Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal[700],
@@ -120,7 +151,7 @@ class _AttendanceOverViweState extends State<AttendanceOverViwe> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0)),
                   minimumSize: const Size(150, 60)),
-              child: const Text('Save'))
+              child: const Text('Create PDF'))
         ])));
   }
 }

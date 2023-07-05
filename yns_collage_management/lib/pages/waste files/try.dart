@@ -1,324 +1,675 @@
-// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
-import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:yns_college_management/Utils/utils.dart';
-import 'package:yns_college_management/widgets/input_field_student_registration.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter/material.dart';
+// import 'package:fluttertoast/fluttertoast.dart';
 
-import '../../Resources/firestore_method_for_courses.dart';
+// //
 
-class AddCoursesPage extends StatefulWidget {
-  const AddCoursesPage({super.key});
-  @override
-  State<AddCoursesPage> createState() => _AddCoursesPageState();
-}
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter/material.dart';
+// // import 'makepdf.dart';
+// import 'package:pdf/pdf.dart';
 
-class _AddCoursesPageState extends State<AddCoursesPage> {
-  final TextEditingController idController = TextEditingController();
-  final TextEditingController feesController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController subjectController = TextEditingController();
-  List<TextEditingController> listController = [TextEditingController()];
-  var dropdowndepartment;
-  var dropdownduration;
-  var department = [
-    'Computer Science Dep.',
-    'Commerce & Business Dep.',
-    'Teacher Education Dep.',
-    'Biotechnology Dep.',
-    'B.Sc(Home Science) Dep.',
-    'B.Sc Department'
-  ];
-  var duration = [
-    '1 Semester',
-    '2 Semester',
-    '3 Semester',
-    '4 Semester',
-    '5 Semester',
-    '6 Semester'
-  ];
+// //
 
-  //upload notice..
-  bool isLoading = false;
-  void noticeImage(String uid, String name, String photoUrl) async {
-    setState(() {
-      isLoading = true;
-    });
-    // start the loading
-    try {
-      // upload to storage and db
-      String res = await FireStoreMethods().uploadCourse(
-        uid,
-        name,
-        photoUrl,
-        dropdowndepartment,
-        idController.text,
-        nameController.text,
-        dropdownduration,
-        feesController.text,
-        // subjectController.text,
-      );
-      if (res == "success") {
-        setState(() {
-          isLoading = false;
-        });
-        showSnackBar(
-          context,
-          'Uploded',
-        );
+// import 'dart:typed_data';
+// import 'package:flutter/material.dart';
+// import 'package:pdf/pdf.dart';
+// import 'package:pdf/widgets.dart' as pw;
+// import 'package:printing/printing.dart';
 
-        Navigator.pop(context);
-        Navigator.pop(context);
-      } else {
-        showSnackBar(context, res);
-      }
-    } catch (err) {
-      setState(() {
-        isLoading = false;
-      });
-      showSnackBar(
-        context,
-        err.toString(),
-      );
-    }
-  }
+// class add extends StatefulWidget {
+//   @override
+//   State<add> createState() => _addState();
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
-    return Scaffold(
-        backgroundColor: Colors.teal[300],
-        appBar: AppBar(
-            title: (const Text("Add Course ")),
-            backgroundColor: Colors.transparent,
-            elevation: 0),
-        body: SingleChildScrollView(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          // title...
-          Center(
-              child: SizedBox(
-                  width: mediaQuery.size.width * 0.7,
-                  height: mediaQuery.size.height * 0.15,
-                  child: FittedBox(
-                      child: Text("Add Course",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              shadows: [
-                                Shadow(
-                                    color: Colors.teal.shade900,
-                                    blurRadius: 5,
-                                    offset: const Offset(2, 2))
-                              ],
-                              // fontSize: 50,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white))))),
-          Padding(
-              padding: const EdgeInsets.only(
-                  left: 20, right: 20, top: 20, bottom: 2),
-              child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.teal[400]),
-                  child: Column(children: [
-                    Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Department
-                              Row(children: [
-                                const Text('Department:'),
-                                Expanded(
-                                    child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20),
-                                        child: DropdownButton(
-                                            dropdownColor: Colors.teal[400],
-                                            hint:
-                                                const Text('Select Department'),
-                                            menuMaxHeight: 300,
-                                            isExpanded: true,
-                                            underline: Container(
-                                              color: Colors.teal[800],
-                                              height: 1,
-                                            ),
-                                            iconEnabledColor: Colors.teal[800],
-                                            style: const TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 13, 71, 161),
-                                                fontSize: 13),
-                                            value: dropdowndepartment,
-                                            icon: const Icon(
-                                                Icons.keyboard_arrow_down),
-                                            items:
-                                                department.map((String items) {
-                                              return DropdownMenuItem(
-                                                  value: items,
-                                                  child: Text(items));
-                                            }).toList(),
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                dropdowndepartment = newValue!;
-                                              });
-                                            })))
-                              ]),
-                              // ID...
-                              Row(children: [
-                                const Text('Course ID:'),
-                                Expanded(
-                                    child: InputFieldStudentRegistration(
-                                        textEditingController: idController,
-                                        keyboard: TextInputType.name))
-                              ]),
-                              // course...
-                              Row(children: [
-                                const Text('Course Name:'),
-                                Expanded(
-                                    child: InputFieldStudentRegistration(
-                                        textEditingController: nameController,
-                                        keyboard: TextInputType.name))
-                              ]),
-                              // Semester
-                              Row(children: [
-                                const Text('Semester:'),
-                                Expanded(
-                                    child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20),
-                                        child: DropdownButton(
-                                            dropdownColor: Colors.teal[400],
-                                            hint: const Text('Select Semester'),
-                                            menuMaxHeight: 300,
-                                            isExpanded: true,
-                                            underline: Container(
-                                              color: Colors.teal[800],
-                                              height: 1,
-                                            ),
-                                            iconEnabledColor: Colors.teal[800],
-                                            style: const TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 13, 71, 161),
-                                                fontSize: 13),
-                                            value: dropdownduration,
-                                            icon: const Icon(
-                                                Icons.keyboard_arrow_down),
-                                            items: duration.map((String items) {
-                                              return DropdownMenuItem(
-                                                  value: items,
-                                                  child: Text(items));
-                                            }).toList(),
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                dropdownduration = newValue!;
-                                              });
-                                            })))
-                              ]),
+// class _addState extends State<add> {
+//   TextEditingController name = TextEditingController();
+//   TextEditingController div = TextEditingController();
+//   TextEditingController rolln = TextEditingController();
 
-                              // Fees
-                              Row(children: [
-                                const Text('Fees:'),
-                                Expanded(
-                                    child: InputFieldStudentRegistration(
-                                        textEditingController: feesController,
-                                        keyboard: TextInputType.name))
-                              ]),
-                              //Subject
-                              ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: listController.length,
-                                itemBuilder: (context, index) {
-                                  var n = index + 1;
-                                  return Row(
-                                    children: [
-                                      Text('Subject $n:'),
-                                      Expanded(
-                                        child: InputFieldStudentRegistration(
-                                            textEditingController:
-                                                listController[index],
-                                            keyboard: TextInputType.name),
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      index != 0
-                                          ? GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  listController[index].clear();
-                                                  listController[index]
-                                                      .dispose();
-                                                  listController
-                                                      .removeAt(index);
-                                                });
-                                              },
-                                              child: const Icon(
-                                                Icons.delete,
-                                                color: Color.fromARGB(
-                                                    255, 197, 72, 72),
-                                                size: 30,
-                                              ),
-                                            )
-                                          : const SizedBox(),
-                                    ],
-                                  );
-                                },
-                              ),
-                              const SizedBox(
-                                height: 50,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    listController.add(TextEditingController());
-                                  });
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 15),
-                                  decoration: BoxDecoration(
-                                      color: Color.fromARGB(255, 0, 105, 92),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Text("Add More Subject",
-                                      style: GoogleFonts.nunito(
-                                          color: const Color(0xFFF8F8FF))),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                            ])),
+//   CollectionReference ref = FirebaseFirestore.instance.collection('users');
+//   var ww = '1A';
+//   var options = [
+//     '1',
+//     '2',
+//     '3',
+//     '4',
+//     '5',
+//     '6',
+//     '7',
+//     '8',
+//     '9',
+//     '10',
+//   ];
+//   var _currentItemSelected = "1";
+//   var rool = "1";
 
-                    const SizedBox(height: 20.0),
-                    // submit button...
-                    Padding(
-                        padding: const EdgeInsets.only(
-                            right: 20, bottom: 15, top: 5),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              ElevatedButton(
-                                  onPressed: () {
-                                    noticeImage('123456789', 'Yash Gupta',
-                                        'saohsahdkjsahj');
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      elevation: 20,
-                                      backgroundColor: Colors.teal[600],
-                                      shadowColor: Colors.teal[600],
-                                      side: BorderSide(
-                                          color: Colors.teal.shade600,
-                                          width: 2,
-                                          style: BorderStyle.solid),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12.0)),
-                                      minimumSize: const Size(130, 50)),
-                                  child: const Text("Submit"))
-                            ])),
-                    const SizedBox(height: 20.0)
-                  ])))
-        ])));
-  }
-}
+//   var options1 = [
+//     'A',
+//     'B',
+//   ];
+//   var _currentItemSelected1 = "A";
+//   var rool1 = "A";
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Add a student'),
+//       ),
+//       body: Container(
+//         child: Column(
+//           children: [
+//             SizedBox(
+//               height: 20,
+//             ),
+//             Container(
+//               decoration: BoxDecoration(border: Border.all()),
+//               child: TextField(
+//                 textAlign: TextAlign.center,
+//                 controller: name,
+//                 decoration: InputDecoration(
+//                   hintText: 'Name',
+//                 ),
+//               ),
+//             ),
+//             SizedBox(
+//               height: 10,
+//             ),
+//             Container(
+//               decoration: BoxDecoration(border: Border.all()),
+//               child: TextField(
+//                 textAlign: TextAlign.center,
+//                 controller: rolln,
+//                 decoration: InputDecoration(
+//                   hintText: 'Roll Number',
+//                 ),
+//               ),
+//             ),
+//             SizedBox(
+//               height: 30,
+//             ),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.center,
+//               children: [
+//                 Row(
+//                   children: [
+//                     Text('Class : '),
+//                     DropdownButton<String>(
+//                       dropdownColor: Color.fromARGB(255, 0, 255, 21),
+//                       isDense: true,
+//                       isExpanded: false,
+//                       iconEnabledColor: Color.fromARGB(255, 1, 1, 255),
+//                       focusColor: Color.fromARGB(255, 0, 17, 251),
+//                       items: options.map((String dropDownStringItem) {
+//                         return DropdownMenuItem<String>(
+//                           value: dropDownStringItem,
+//                           child: Text(
+//                             dropDownStringItem,
+//                             style: TextStyle(
+//                               color: Color.fromARGB(255, 11, 0, 0),
+//                               fontWeight: FontWeight.bold,
+//                               fontSize: 20,
+//                             ),
+//                           ),
+//                         );
+//                       }).toList(),
+//                       onChanged: (newValueSelected) {
+//                         setState(() {
+//                           _currentItemSelected = newValueSelected!;
+//                           rool = newValueSelected;
+
+//                           ww = '';
+//                           ww = _currentItemSelected + _currentItemSelected1;
+//                         });
+//                         print(ww);
+//                       },
+//                       value: _currentItemSelected,
+//                     ),
+//                   ],
+//                 ),
+//                 SizedBox(
+//                   width: 35,
+//                 ),
+//                 Row(
+//                   children: [
+//                     Text('Div : '),
+//                     DropdownButton<String>(
+//                       dropdownColor: Color.fromARGB(255, 26, 255, 0),
+//                       isDense: true,
+//                       isExpanded: false,
+//                       iconEnabledColor: Colors.blue[900],
+//                       focusColor: Colors.blue[900],
+//                       items: options1.map((String dropDownStringItem) {
+//                         return DropdownMenuItem<String>(
+//                           value: dropDownStringItem,
+//                           child: Text(
+//                             dropDownStringItem,
+//                             style: TextStyle(
+//                               color: Color.fromARGB(255, 0, 0, 0),
+//                               fontWeight: FontWeight.bold,
+//                               fontSize: 20,
+//                             ),
+//                           ),
+//                         );
+//                       }).toList(),
+//                       onChanged: (newValueSelected1) {
+//                         setState(() {
+//                           _currentItemSelected1 = newValueSelected1!;
+//                           rool1 = newValueSelected1;
+//                           ww = '';
+//                           ww = _currentItemSelected + _currentItemSelected1;
+//                         });
+//                         print(ww);
+//                       },
+//                       value: _currentItemSelected1,
+//                     ),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//             SizedBox(
+//               height: 20,
+//             ),
+//             MaterialButton(
+//               color: Color.fromARGB(255, 2, 11, 128),
+//               shape: RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(20)),
+//               onPressed: () {
+//                 ref.add({
+//                   'name': name.text,
+//                   'div': ww,
+//                   'roll': rolln.text,
+//                 }).whenComplete(() {
+//                   Fluttertoast.showToast(
+//                     msg: "added",
+//                     toastLength: Toast.LENGTH_SHORT,
+//                     gravity: ToastGravity.BOTTOM,
+//                     timeInSecForIosWeb: 1,
+//                     backgroundColor: Colors.red,
+//                     textColor: Colors.white,
+//                     fontSize: 16.0,
+//                   );
+//                 });
+//               },
+//               child: Text(
+//                 'ADD',
+//                 style: TextStyle(
+//                   color: Colors.white,
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// ////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////
+// ////////////////////////////////////////////////////
+
+// class mainpage extends StatefulWidget {
+//   @override
+//   State<mainpage> createState() => _mainpageState();
+// }
+
+// class _mainpageState extends State<mainpage> {
+//   // var ww = '1A';
+//   // var options = [
+//   //   '1',
+//   //   '2',
+//   //   '3',
+//   //   '4',
+//   //   '5',
+//   //   '6',
+//   //   '7',
+//   //   '8',
+//   //   '9',
+//   //   '10',
+//   // ];
+//   // var _currentItemSelected = "1";
+//   // var rool = "1";
+
+//   // var options1 = [
+//   //   'A',
+//   //   'B',
+//   // ];
+//   // var _currentItemSelected1 = "A";
+//   // var rool1 = "A";
+
+//   var temp = [];
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final Stream<QuerySnapshot> _usersStream = FirebaseFirestore.instance
+//         .collection('users')
+//         .where(
+//           'Class',
+//           isEqualTo: 'BCA',
+//         )
+//         .snapshots();
+
+//     return SafeArea(
+//       child: Scaffold(
+//         floatingActionButton: FloatingActionButton(
+//           onPressed: () {
+//             // Navigator.pushReplacement(
+//             //   context,
+//             //   MaterialPageRoute(
+//             //     builder: (context) => reportt(
+//             //       list: temp,
+//             //       clas: "BCA",
+//             //     ),
+//             //   ),
+//             // );
+//           },
+//           child: Icon(
+//             Icons.send,
+//           ),
+//         ),
+//         appBar: AppBar(
+//           title: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceAround,
+//             children: [
+//               Text(
+//                 'Attendance Page',
+//                 style: TextStyle(
+//                   fontSize: 15,
+//                 ),
+//               ),
+//               // SizedBox(
+//               //   width: 15,
+//               // ),
+//               //       DropdownButton<String>(
+//               //         dropdownColor: Colors.blue[900],
+//               //         isDense: true,
+//               //         isExpanded: false,
+//               //         iconEnabledColor: Colors.white,
+//               //         focusColor: Colors.white,
+//               //         items: options.map((String dropDownStringItem) {
+//               //           return DropdownMenuItem<String>(
+//               //             value: dropDownStringItem,
+//               //             child: Text(
+//               //               dropDownStringItem,
+//               //               style: TextStyle(
+//               //                 color: Colors.white,
+//               //                 fontWeight: FontWeight.bold,
+//               //                 fontSize: 20,
+//               //               ),
+//               //             ),
+//               //           );
+//               //         }).toList(),
+//               //         onChanged: (newValueSelected) {
+//               //           setState(() {
+//               //             _currentItemSelected = newValueSelected!;
+//               //             rool = newValueSelected;
+//               //             ww = '';
+//               //             ww = _currentItemSelected + _currentItemSelected1;
+//               //           });
+//               //           print(ww);
+//               //         },
+//               //         value: _currentItemSelected,
+//               //       ),
+//               //       SizedBox(
+//               //         width: 10,
+//               //       ),
+//               //       DropdownButton<String>(
+//               //         dropdownColor: Colors.blue[900],
+//               //         isDense: true,
+//               //         isExpanded: false,
+//               //         iconEnabledColor: Colors.white,
+//               //         focusColor: Colors.white,
+//               //         items: options1.map((String dropDownStringItem) {
+//               //           return DropdownMenuItem<String>(
+//               //             value: dropDownStringItem,
+//               //             child: Text(
+//               //               dropDownStringItem,
+//               //               style: TextStyle(
+//               //                 color: Colors.white,
+//               //                 fontWeight: FontWeight.bold,
+//               //                 fontSize: 20,
+//               //               ),
+//               //             ),
+//               //           );
+//               //         }).toList(),
+//               //         onChanged: (newValueSelected1) {
+//               //           setState(() {
+//               //             _currentItemSelected1 = newValueSelected1!;
+//               //             rool1 = newValueSelected1;
+//               //             ww = '';
+//               //             ww = _currentItemSelected + _currentItemSelected1;
+//               //           });
+//               //           print(ww);
+//               //         },
+//               //         value: _currentItemSelected1,
+//               //       ),
+//               //       SizedBox(
+//               //         width: 25,
+//               //       ),
+//             ],
+//           ),
+//         ),
+//         body: Column(
+//           children: [
+//             Container(
+//               height: 200,
+//               child: StreamBuilder(
+//                 stream: _usersStream,
+//                 builder: (BuildContext context,
+//                     AsyncSnapshot<QuerySnapshot> snapshot) {
+//                   if (snapshot.hasError) {
+//                     return Text("something is wrong");
+//                   }
+//                   if (snapshot.connectionState == ConnectionState.waiting) {
+//                     return Center(
+//                       child: CircularProgressIndicator(),
+//                     );
+//                   }
+
+//                   return Container(
+//                     decoration: BoxDecoration(
+//                       borderRadius: BorderRadius.circular(12),
+//                     ),
+//                     child: ListView.builder(
+//                       itemCount: snapshot.data!.docs.length,
+//                       itemBuilder: (_, index) {
+//                         return InkWell(
+//                           onTap: () {
+//                             // 1019
+//                             setState(() {
+//                               if (temp.contains(snapshot
+//                                   .data!.docChanges[index].doc['name'])) {
+//                                 temp.remove(snapshot
+//                                     .data!.docChanges[index].doc['name']);
+//                               } else {
+//                                 temp.add(snapshot
+//                                     .data!.docChanges[index].doc['name']);
+//                               }
+//                             });
+//                             print(temp);
+//                             setState(() {});
+//                           },
+//                           child: Card(
+//                             color: Colors.teal[700],
+//                             elevation: 5,
+//                             // shadowColor:
+//                             //     presentArray.contains(arrRollno[index].toString())
+//                             //         ? Colors.green
+//                             //         : Colors.red,
+//                             child: ListTile(
+//                               title: Text(
+//                                   snapshot.data!.docChanges[index].doc['name']),
+//                               trailing: Container(
+//                                 height: 40,
+//                                 width: 100,
+//                                 decoration: BoxDecoration(
+//                                   color: temp.contains(snapshot
+//                                           .data!.docChanges[index].doc['name'])
+//                                       ? Color.fromARGB(255, 248, 20, 4)
+//                                       : Color.fromARGB(255, 0, 228, 8),
+//                                   borderRadius: BorderRadius.circular(10),
+//                                 ),
+//                                 child: Center(
+//                                   child: Text(
+//                                     temp.contains(snapshot.data!
+//                                             .docChanges[index].doc['name'])
+//                                         ? 'Remove'
+//                                         : 'add',
+//                                     style: TextStyle(
+//                                       color: Colors.white,
+//                                       fontSize: 20,
+//                                     ),
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                         );
+//                       },
+//                     ),
+//                   );
+//                 },
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// /////////////////////////////////////
+// /////////////////////////////////////
+// /////////////////////////////////////
+// /////////////////////////////////////
+// /////////////////////////////////////
+
+// class reportt extends StatefulWidget {
+//   List list;
+//   List list2;
+//   String clas;
+//   String date;
+//   String subject;
+//   reportt(
+//       {required this.list,
+//       required this.list2,
+//       required this.clas,
+//       required this.date,
+//       required this.subject});
+//   @override
+//   State<reportt> createState() => _reporttState(
+//       list: list, list2: list2, clas: clas, date: date, subject: subject);
+// }
+
+// class _reporttState extends State<reportt> {
+//   List list;
+//   List list2;
+//   String clas;
+//   String date;
+//   String subject;
+
+//   _reporttState(
+//       {required this.list,
+//       required this.list2,
+//       required this.clas,
+//       required this.date,
+//       required this.subject});
+//   final pdf = pw.Document();
+//   var marks;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text(''),
+//       ),
+//       body: PdfPreview(
+//         canChangeOrientation: false,
+//         canDebug: false,
+//         build: (format) => generateDocument(
+//           format,
+//         ),
+//       ),
+//     );
+//   }
+
+//   Future<Uint8List> generateDocument(PdfPageFormat format) async {
+//     final doc = pw.Document(pageMode: PdfPageMode.outlines);
+
+//     final font1 = await PdfGoogleFonts.openSansRegular();
+//     final font2 = await PdfGoogleFonts.openSansBold();
+
+//     doc.addPage(
+//       pw.Page(
+//         pageTheme: pw.PageTheme(
+//           pageFormat: format.copyWith(
+//             marginBottom: 0,
+//             marginLeft: 0,
+//             marginRight: 0,
+//             marginTop: 0,
+//           ),
+//           orientation: pw.PageOrientation.portrait,
+//           theme: pw.ThemeData.withFont(
+//             base: font1,
+//             bold: font2,
+//           ),
+//         ),
+//         build: (context) {
+//           return pw.Column(
+//             // mainAxisAlignment: pw.MainAxisAlignment.center,
+//             children: [
+//               pw.SizedBox(
+//                 height: 20,
+//               ),
+//               pw.Text(
+//                 'Attendance sheet',
+//                 style: pw.TextStyle(
+//                   fontSize: 25,
+//                 ),
+//               ),
+//               pw.SizedBox(
+//                 height: 20,
+//               ),
+//               pw.Row(
+//                 mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly,
+//                 children: [
+//                   pw.Row(children: [
+//                     pw.Text(
+//                       'Date: ',
+//                       style: pw.TextStyle(
+//                         fontSize: 20,
+//                       ),
+//                     ),
+//                     pw.Text(
+//                       date,
+//                       style: pw.TextStyle(
+//                         fontSize: 20,
+//                       ),
+//                     ),
+//                   ]),
+//                   pw.Row(
+//                     children: [
+//                       pw.Text(
+//                         'Class : ',
+//                         style: pw.TextStyle(
+//                           fontSize: 25,
+//                         ),
+//                       ),
+//                       pw.Text(
+//                         clas,
+//                         style: pw.TextStyle(
+//                           fontSize: 25,
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//               //subject
+//               pw.Row(
+//                 mainAxisAlignment: pw.MainAxisAlignment.center,
+//                 children: [
+//                   pw.Text(
+//                     'Subject : ',
+//                     style: pw.TextStyle(
+//                       fontSize: 25,
+//                     ),
+//                   ),
+//                   pw.Text(
+//                     subject,
+//                     style: pw.TextStyle(
+//                       fontSize: 25,
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//               pw.SizedBox(
+//                 height: 20,
+//               ),
+//               pw.Table(
+//                 defaultColumnWidth: pw.FixedColumnWidth(120.0),
+//                 border: pw.TableBorder.all(
+//                   style: pw.BorderStyle.solid,
+//                   width: 2,
+//                 ),
+//                 children: [
+//                   pw.TableRow(children: [
+//                     pw.Column(
+//                         mainAxisAlignment: pw.MainAxisAlignment.center,
+//                         children: [
+//                           pw.Text(
+//                             'Roll-No.',
+//                             style: pw.TextStyle(
+//                               fontSize: 20.0,
+//                               fontWeight: pw.FontWeight.bold,
+//                             ),
+//                           ),
+//                         ]),
+//                     pw.Column(
+//                         mainAxisAlignment: pw.MainAxisAlignment.center,
+//                         children: [
+//                           pw.Text(
+//                             'Name',
+//                             style: pw.TextStyle(
+//                               fontSize: 20.0,
+//                               fontWeight: pw.FontWeight.bold,
+//                             ),
+//                           ),
+//                         ]),
+//                   ]),
+//                 ],
+//               ),
+//               pw.ListView.builder(
+//                 itemCount: list.length,
+//                 itemBuilder: (_, index) {
+//                   return pw.Table(
+//                     defaultColumnWidth: pw.FixedColumnWidth(120.0),
+//                     border: pw.TableBorder.all(
+//                         style: pw.BorderStyle.solid, width: 2),
+//                     children: [
+//                       pw.TableRow(
+//                         children: [
+//                           // pw.Column(children: [
+//                           //   pw.Text(
+//                           //     index.toString(),
+//                           //     textAlign: pw.TextAlign.center,
+//                           //     style: pw.TextStyle(
+//                           //       fontSize: 20.0,
+//                           //     ),
+//                           //   ),
+//                           // ]),
+//                           pw.Column(
+//                             children: [
+//                               pw.Text(
+//                                 list2[index],
+//                                 textAlign: pw.TextAlign.center,
+//                                 style: pw.TextStyle(fontSize: 20.0),
+//                               ),
+//                             ],
+//                           ),
+//                           pw.Column(
+//                             children: [
+//                               pw.Text(
+//                                 list[index],
+//                                 textAlign: pw.TextAlign.center,
+//                                 style: pw.TextStyle(fontSize: 20.0),
+//                               ),
+//                             ],
+//                           ),
+//                         ],
+//                       ),
+//                     ],
+//                   );
+//                 },
+//               ),
+//             ],
+//           );
+//         },
+//       ),
+//     );
+
+//     return doc.save();
+//   }
+// }
