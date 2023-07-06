@@ -141,9 +141,6 @@ class _AttendanceFormState extends State<AttendanceForm> {
       userData = userSnap.data()!;
       setState(() {
         cls = userData['cName'];
-        print('===>');
-        print(cls);
-        print('===>');
       });
     } catch (e) {
       showSnackBar(

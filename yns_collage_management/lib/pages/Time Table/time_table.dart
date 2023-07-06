@@ -87,6 +87,7 @@ class _TimeTablePageState extends State<TimeTablePage> {
                     itemBuilder: (ctx, index) => Container(
                       margin: EdgeInsets.symmetric(),
                       child: TimeTableCard(
+                        uid: userData['uid'],
                         snap: snapshot.data!.docs[index].data(),
                       ),
                     ),

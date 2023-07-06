@@ -102,6 +102,7 @@ class _NoticeBoardState extends State<NoticeBoard> {
                     itemBuilder: (ctx, index) => Container(
                       margin: EdgeInsets.symmetric(),
                       child: NoticeCard(
+                        uid: userData['uid'],
                         snap: snapshot.data!.docs[index].data(),
                       ),
                     ),

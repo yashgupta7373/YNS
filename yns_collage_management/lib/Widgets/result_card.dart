@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:readmore/readmore.dart';
@@ -8,7 +10,14 @@ import 'package:yns_college_management/pages/photo_view_page.dart';
 
 class ResultCard extends StatelessWidget {
   final snap;
-  ResultCard({required this.snap, Key? key}) : super(key: key);
+  String uid;
+  ResultCard({required this.snap, required this.uid, Key? key})
+      : super(key: key);
+
+  void deleteUser(id) {
+    FirebaseFirestore.instance.collection('result').doc(id).delete();
+    Fluttertoast.showToast(msg: "Result Deleted");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,23 +30,63 @@ class ResultCard extends StatelessWidget {
         child: Column(
           children: [
             // Title
-            Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(8),
-                child: ReadMoreText(
-                  snap['title'],
-                  trimLines: 1,
-                  textAlign: TextAlign.justify,
-                  trimMode: TrimMode.Line,
-                  lessStyle: TextStyle(
-                      color: Colors.red, fontWeight: FontWeight.normal),
-                  moreStyle: TextStyle(
-                      color: Colors.red, fontWeight: FontWeight.normal),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 255, 255, 255),
-                  ),
-                )),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(8),
+                      child: ReadMoreText(
+                        snap['title'],
+                        trimLines: 1,
+                        textAlign: TextAlign.justify,
+                        trimMode: TrimMode.Line,
+                        lessStyle: TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.normal),
+                        moreStyle: TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.normal),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 255, 255, 255),
+                        ),
+                      )),
+                ),
+                IconButton(
+                    onPressed: () {
+                      showDialog(
+                        useRootNavigator: false,
+                        context: context,
+                        builder: (context) {
+                          return Dialog(
+                              backgroundColor: Colors.teal[300],
+                              child: SizedBox(
+                                height: 80,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    InkWell(
+                                        onTap: () => Navigator.pop(context),
+                                        child: Text('Download Result')),
+                                    InkWell(
+                                        onTap: () => Navigator.pop(context),
+                                        child: Text('Save')),
+                                    if (snap['uid'] == uid)
+                                      InkWell(
+                                          onTap: () {
+                                            deleteUser(snap['resultId']);
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Delete"))
+                                  ],
+                                ),
+                              ));
+                        },
+                      );
+                    },
+                    icon: Icon(Icons.more_vert, color: Colors.white)),
+              ],
+            ),
 
             // class
             Container(

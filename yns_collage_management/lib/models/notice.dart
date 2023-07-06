@@ -12,6 +12,7 @@ class Notice {
   final DateTime datePublished;
   final String noticeUrl;
   final String photoUrl;
+  final String docId;
 
   const Notice({
     required this.description,
@@ -25,6 +26,7 @@ class Notice {
     required this.datePublished,
     required this.noticeUrl,
     required this.photoUrl,
+    required this.docId,
   });
 
   static Notice fromSnap(DocumentSnapshot snap) {
@@ -41,7 +43,8 @@ class Notice {
         datePublished: snapshot["datePublished"],
         name: snapshot["name"],
         noticeUrl: snapshot['noticeUrl'],
-        photoUrl: snapshot['photoUrl']);
+        photoUrl: snapshot['photoUrl'],
+        docId: snapshot['docId']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -55,6 +58,7 @@ class Notice {
         "noticeId": noticeId,
         "datePublished": datePublished,
         'noticeUrl': noticeUrl,
-        'photoUrl': photoUrl
+        'photoUrl': photoUrl,
+        'docId': docId,
       };
 }

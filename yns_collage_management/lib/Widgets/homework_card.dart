@@ -1,14 +1,23 @@
 // ignore_for_file: prefer_const_constructors_in_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:readmore/readmore.dart';
 import 'package:yns_college_management/pages/photo_view_page.dart';
 
 class HomeWorkCard extends StatelessWidget {
+  String uid;
   final snap;
-  HomeWorkCard({required this.snap, Key? key}) : super(key: key);
+  HomeWorkCard({required this.uid, required this.snap, Key? key})
+      : super(key: key);
+
+  void deleteUser(id) {
+    FirebaseFirestore.instance.collection('homeWork').doc(id).delete();
+    Fluttertoast.showToast(msg: "HomeWork Deleted");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,32 +60,36 @@ class HomeWorkCard extends StatelessWidget {
                           context: context,
                           builder: (context) {
                             return Dialog(
-                              backgroundColor: Colors.teal[300],
-                              child: ListView(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 16),
-                                  shrinkWrap: true,
-                                  children: ['Share', 'Copy link', 'Save']
-                                      .map(
-                                        (e) => InkWell(
-                                            child: Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 12,
-                                                      horizontal: 16),
-                                              child: Text(e),
-                                            ),
+                                backgroundColor: Colors.teal[300],
+                                child: SizedBox(
+                                  height: 120,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      InkWell(
+                                          onTap: () => Navigator.pop(context),
+                                          child: Text('Share')),
+                                      InkWell(
+                                          onTap: () => Navigator.pop(context),
+                                          child: Text('Copy link')),
+                                      InkWell(
+                                          onTap: () => Navigator.pop(context),
+                                          child: Text('Save')),
+                                      if (snap['uid'] == uid)
+                                        InkWell(
                                             onTap: () {
-                                              // remove the dialog box
-                                              Navigator.of(context).pop();
-                                            }),
-                                      )
-                                      .toList()),
-                            );
+                                              deleteUser(snap['homeWorkId']);
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text("Delete"))
+                                    ],
+                                  ),
+                                ));
                           },
                         );
                       },
-                      icon: const Icon(Icons.more_vert, color: Colors.white)),
+                      icon: Icon(Icons.more_vert, color: Colors.white))
                 ],
               ),
             ),

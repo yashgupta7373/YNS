@@ -34,6 +34,7 @@ class FireStoreMethods {
         datePublished: DateTime.now(),
         timeTableUrl: timeTableUrl,
         photoUrl: photoUrl,
+        docId: timeTableId,
       );
       _firestore
           .collection('timeTable')

@@ -11,6 +11,7 @@ class TimeTable {
   final DateTime datePublished;
   final String timeTableUrl;
   final String photoUrl;
+  final String docId;
 
   const TimeTable({
     required this.description,
@@ -23,22 +24,25 @@ class TimeTable {
     required this.datePublished,
     required this.timeTableUrl,
     required this.photoUrl,
+    required this.docId,
   });
 
   static TimeTable fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return TimeTable(
-        description: snapshot["description"],
-        title: snapshot["title"],
-        Class: snapshot["Class"],
-        department: snapshot["department"],
-        uid: snapshot["uid"],
-        timeTableId: snapshot["timeTableId"],
-        datePublished: snapshot["datePublished"],
-        name: snapshot["name"],
-        timeTableUrl: snapshot['timeTableUrl'],
-        photoUrl: snapshot['photoUrl']);
+      description: snapshot["description"],
+      title: snapshot["title"],
+      Class: snapshot["Class"],
+      department: snapshot["department"],
+      uid: snapshot["uid"],
+      timeTableId: snapshot["timeTableId"],
+      datePublished: snapshot["datePublished"],
+      name: snapshot["name"],
+      timeTableUrl: snapshot['timeTableUrl'],
+      photoUrl: snapshot['photoUrl'],
+      docId: snapshot['docId'],
+    );
   }
 
   Map<String, dynamic> toJson() => {
@@ -51,6 +55,7 @@ class TimeTable {
         "timeTableId": timeTableId,
         "datePublished": datePublished,
         'timeTableUrl': timeTableUrl,
-        'photoUrl': photoUrl
+        'photoUrl': photoUrl,
+        'docId': docId,
       };
 }

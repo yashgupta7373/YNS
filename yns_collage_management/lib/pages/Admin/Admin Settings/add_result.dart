@@ -23,36 +23,16 @@ class _AddResultScreenState extends State<AddResultScreen> {
   Uint8List? _file;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  var dropdownclass;
   var dropdowndepartment;
+  var selectedClass = '0';
   var selectedRollNo = '0';
   var department = [
     'Computer Science Dep.',
     'Commerce & Business Dep.',
     'Teacher Education Dep.',
-    'Biotechnology Dep.',
-    'B.Sc(Home Science) Dep.',
-    'B.Sc Department'
+    'Department of Science.',
   ];
-  var classes = [
-    'BCA',
-    'MCA',
-    'BBA',
-    'MBA',
-    'Bcom.',
-    'MCom.',
-    'BA',
-    'MA',
-    'B.Ed',
-    'M.Ed',
-    'D.EI.Ed',
-    'B.Sc(Biotechnology)',
-    'M.Sc(Biotechnology)',
-    'B.Sc(HomeScience)',
-    'M.Sc(HomeScience)',
-    'B.Sc(Bio)-BCZ',
-    'B.Sc(Math)-PCM'
-  ];
+
   //fetch Data
   var userData = {};
   var studentData = {};
@@ -164,7 +144,7 @@ class _AddResultScreenState extends State<AddResultScreen> {
           uid,
           name,
           photoUrl,
-          dropdownclass,
+          cls,
           dropdowndepartment,
           _titleController.text,
           id);
@@ -201,6 +181,36 @@ class _AddResultScreenState extends State<AddResultScreen> {
   void clearImage() {
     setState(() {
       _file = null;
+    });
+  }
+
+//fetch Class
+  var userClass = {};
+  var cls;
+
+  // bool isLoading = false;
+
+  void getClassData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('courses')
+          .doc(selectedClass)
+          .get();
+      userClass = userSnap.data()!;
+      setState(() {
+        cls = userClass['cName'];
+      });
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -408,32 +418,55 @@ class _AddResultScreenState extends State<AddResultScreen> {
                           style: TextStyle(color: Colors.white)),
                       Expanded(
                           child: Padding(
-                              padding: const EdgeInsets.only(left: 20),
-                              child: DropdownButton(
-                                  dropdownColor: Colors.teal[300],
-                                  hint: const Text('Select Class',
-                                      style: TextStyle(
-                                          color: Color.fromARGB(
-                                              153, 255, 255, 255))),
-                                  menuMaxHeight: 300,
-                                  isExpanded: true,
-                                  underline: Container(
-                                    color: Colors.white,
-                                    height: 1,
-                                  ),
-                                  iconEnabledColor: Colors.white,
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 13),
-                                  value: dropdownclass,
-                                  icon: const Icon(Icons.keyboard_arrow_down),
-                                  items: classes.map((String items) {
-                                    return DropdownMenuItem(
-                                        value: items, child: Text(items));
-                                  }).toList(),
-                                  onChanged: (newValue) {
-                                    setState(() {
-                                      dropdownclass = newValue!;
-                                    });
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: StreamBuilder<QuerySnapshot>(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('courses')
+                                      .where('department',
+                                          isEqualTo: dropdowndepartment)
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    List<DropdownMenuItem> Class = [];
+                                    if (!snapshot.hasData) {
+                                      const CircularProgressIndicator();
+                                    } else {
+                                      final Classes =
+                                          snapshot.data?.docs.reversed.toList();
+                                      Class.add(const DropdownMenuItem(
+                                          value: '0',
+                                          child: Text('Select Class',
+                                              style: TextStyle(
+                                                  color: Color.fromARGB(
+                                                      153, 255, 255, 255)))));
+                                      for (var users in Classes!) {
+                                        Class.add(DropdownMenuItem(
+                                            value: users.id,
+                                            child: Text(users['cName'])));
+                                      }
+                                    }
+                                    return DropdownButton(
+                                      dropdownColor: Colors.teal[300],
+                                      menuMaxHeight: 300,
+                                      underline: Container(
+                                        color: Colors.white,
+                                        height: 1,
+                                      ),
+                                      iconEnabledColor: Colors.white,
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 13),
+                                      icon:
+                                          const Icon(Icons.keyboard_arrow_down),
+                                      items: Class,
+                                      onChanged: (usersValue) {
+                                        setState(() {
+                                          selectedClass = usersValue;
+                                          getClassData();
+                                        });
+                                      },
+                                      value: selectedClass,
+                                      isExpanded: false,
+                                    );
                                   })))
                     ]),
                   ),
@@ -452,7 +485,7 @@ class _AddResultScreenState extends State<AddResultScreen> {
                                       .where('role', isEqualTo: 'student')
                                       .where('department',
                                           isEqualTo: dropdowndepartment)
-                                      .where('Class', isEqualTo: dropdownclass)
+                                      .where('Class', isEqualTo: cls)
                                       .snapshots(),
                                   builder: (context, snapshot) {
                                     List<DropdownMenuItem> teacher = [];

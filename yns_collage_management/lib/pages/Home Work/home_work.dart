@@ -105,6 +105,7 @@ class _HomeWorkPageState extends State<HomeWorkPage> {
                     itemBuilder: (ctx, index) => Container(
                         margin: EdgeInsets.symmetric(),
                         child: HomeWorkCard(
+                          uid: userData['uid'],
                           snap: snapshot.data!.docs[index].data(),
                         )),
                   )

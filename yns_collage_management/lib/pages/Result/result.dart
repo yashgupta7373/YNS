@@ -86,6 +86,7 @@ class _ResultPageState extends State<ResultPage> {
                     itemBuilder: (ctx, index) => Container(
                       margin: EdgeInsets.symmetric(),
                       child: ResultCard(
+                        uid: userData['uid'],
                         snap: snapshot.data!.docs[index].data(),
                       ),
                     ),

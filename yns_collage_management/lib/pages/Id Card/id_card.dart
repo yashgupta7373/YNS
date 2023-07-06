@@ -147,7 +147,7 @@ class _IdCardState extends State<IdCard> {
                                   backgroundColor:
                                       const Color.fromRGBO(100, 232, 222, 0.7),
                                   content: Container(
-                                    height: 530,
+                                    height: 460,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                         color:
@@ -369,53 +369,6 @@ class _IdCardState extends State<IdCard> {
                                                           style: style2),
                                                     )
                                                   ]),
-                                              SizedBox(height: 8),
-
-                                              Stack(
-                                                children: [
-                                                  Container(
-                                                      height: 80,
-                                                      width: 80,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                    .all(
-                                                                Radius.circular(
-                                                                    20)),
-                                                        border: Border.all(
-                                                            width: 1,
-                                                            color: Colors
-                                                                .teal.shade700),
-                                                        image: DecorationImage(
-                                                          image: const AssetImage(
-                                                              'assets/images/img78.png'),
-                                                          fit: BoxFit.fill,
-                                                        ),
-                                                      )),
-                                                  Positioned(
-                                                    top: 30,
-                                                    left: 30,
-                                                    child: Container(
-                                                      height: 20,
-                                                      width: 20,
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              const BorderRadius
-                                                                      .all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          10)),
-                                                          image:
-                                                              DecorationImage(
-                                                            image: NetworkImage(
-                                                                userData[
-                                                                    'photoUrl']),
-                                                            fit: BoxFit.fill,
-                                                          )),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
                                               SizedBox(height: 8),
                                             ],
                                           ),
