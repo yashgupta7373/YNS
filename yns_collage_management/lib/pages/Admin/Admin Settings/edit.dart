@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable, non_constant_identifier_names
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../profile_page.dart';
 
@@ -33,6 +34,17 @@ class _EditState extends State<Edit> {
       items = tempList;
       isLoaded = true;
     });
+  }
+
+  TextStyle style1 = TextStyle(
+      fontStyle: FontStyle.normal,
+      fontSize: 14,
+      color: Color.fromARGB(255, 206, 216, 214),
+      fontWeight: FontWeight.bold);
+
+  void deleteUser(id) {
+    FirebaseFirestore.instance.collection('users').doc(id).delete();
+    Fluttertoast.showToast(msg: "User Deleted");
   }
 
   @override
@@ -110,7 +122,114 @@ class _EditState extends State<Edit> {
                                                   255, 47, 0, 255))),
                                       const SizedBox(width: 15),
                                       InkWell(
-                                          onTap: (() {}),
+                                          onTap: (() {
+                                            showDialog(
+                                                context: context,
+                                                builder: (ctx) => AlertDialog(
+                                                    shape: RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    30.0)),
+                                                    backgroundColor:
+                                                        const Color.fromRGBO(
+                                                            100, 232, 222, 0.7),
+                                                    title: const Text(
+                                                        'Are You Sure...',
+                                                        style: TextStyle(
+                                                            fontSize: 18)),
+                                                    content: SizedBox(
+                                                      height: 175,
+                                                      child: Column(
+                                                        children: [
+                                                          CircleAvatar(
+                                                              backgroundColor:
+                                                                  Colors.white,
+                                                              radius: 40,
+                                                              backgroundImage:
+                                                                  NetworkImage((items[
+                                                                          index]
+                                                                      [
+                                                                      'photoUrl']))),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                'Name: ',
+                                                                style: style1,
+                                                              ),
+                                                              Text(
+                                                                  items[index]
+                                                                      ['name'],
+                                                                  style:
+                                                                      style1),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text('Roll-No: ',
+                                                                  style:
+                                                                      style1),
+                                                              Text(
+                                                                  items[index]
+                                                                      ['id'],
+                                                                  style:
+                                                                      style1),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .end,
+                                                              children: [
+                                                                TextButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      Navigator.of(
+                                                                              ctx)
+                                                                          .pop();
+                                                                    },
+                                                                    child: const Text(
+                                                                        'No',
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                17,
+                                                                            color: Color.fromARGB(
+                                                                                255,
+                                                                                0,
+                                                                                77,
+                                                                                64)))),
+                                                                TextButton(
+                                                                    onPressed:
+                                                                        () {
+                                                                      deleteUser(
+                                                                          items[index]
+                                                                              [
+                                                                              'uid']);
+                                                                      Navigator.of(
+                                                                              ctx)
+                                                                          .pop();
+                                                                    },
+                                                                    child: const Text(
+                                                                        'Yes',
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                17,
+                                                                            color: Color.fromARGB(
+                                                                                255,
+                                                                                0,
+                                                                                77,
+                                                                                64))))
+                                                              ]),
+                                                        ],
+                                                      ),
+                                                    )));
+                                          }),
                                           child: const Icon(Icons.delete,
                                               color: Colors.red)),
                                     ],
