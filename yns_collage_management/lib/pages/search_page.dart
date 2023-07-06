@@ -57,58 +57,66 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: CircularProgressIndicator(),
                     );
                   }
-                  return ListView.builder(
-                    itemCount: (snapshot.data! as dynamic).docs.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => ProfilePage(
-                              uid: (snapshot.data! as dynamic).docs[index]
-                                  ['uid'],
-                            ),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Container(
-                            color: Colors.teal[200],
-                            child: ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                  (snapshot.data! as dynamic).docs[index]
-                                      ['photoUrl'],
+                  return ((snapshot.data! as dynamic).docs.length >= 1)
+                      ? ListView.builder(
+                          itemCount: (snapshot.data! as dynamic).docs.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => ProfilePage(
+                                    uid: (snapshot.data! as dynamic).docs[index]
+                                        ['uid'],
+                                  ),
                                 ),
-                                radius: 22,
                               ),
-                              title: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    (snapshot.data! as dynamic).docs[index]
-                                        ['name'],
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: FontStyle.normal,
-                                        color: Colors.teal[900],
-                                        fontSize: 14),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Container(
+                                  color: Colors.teal[200],
+                                  child: ListTile(
+                                    leading: CircleAvatar(
+                                      backgroundImage: NetworkImage(
+                                        (snapshot.data! as dynamic).docs[index]
+                                            ['photoUrl'],
+                                      ),
+                                      radius: 22,
+                                    ),
+                                    title: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          (snapshot.data! as dynamic)
+                                              .docs[index]['name'],
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontStyle: FontStyle.normal,
+                                              color: Colors.teal[900],
+                                              fontSize: 14),
+                                        ),
+                                        Text(
+                                          (snapshot.data! as dynamic)
+                                              .docs[index]['id'],
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontStyle: FontStyle.normal,
+                                              color: Colors.teal[700]),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  Text(
-                                    (snapshot.data! as dynamic).docs[index]
-                                        ['id'],
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: FontStyle.normal,
-                                        color: Colors.teal[700]),
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  );
+                            );
+                          },
+                        )
+                      : Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Lottie.asset('assets/images/img81.json'),
+                          ],
+                        );
                 })
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,

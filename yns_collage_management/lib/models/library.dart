@@ -6,9 +6,10 @@ class Detail {
   final String photoUrl;
   final String Class;
   final String book;
-  final String author;
+  // final String author;
   final String uid;
-  final String date;
+  final String issueDate;
+  final String docId;
 
   const Detail({
     required this.name,
@@ -16,9 +17,10 @@ class Detail {
     required this.photoUrl,
     required this.Class,
     required this.book,
-    required this.author,
+    // required this.author,
     required this.uid,
-    required this.date,
+    required this.issueDate,
+    required this.docId,
   });
 
   static Detail fromSnap(DocumentSnapshot snap) {
@@ -29,10 +31,11 @@ class Detail {
       id: snapshot["id"],
       photoUrl: snapshot["photoUrl"],
       book: snapshot["book"],
-      author: snapshot["author"],
+      // author: snapshot["author"],
       Class: snapshot["Class"],
       uid: snapshot["uid"],
-      date: snapshot["date"],
+      issueDate: snapshot["issueDate"],
+      docId: snapshot["docId"],
     );
   }
 
@@ -41,9 +44,10 @@ class Detail {
         "id": id,
         "photoUrl": photoUrl,
         "book": book,
-        "author": author,
+        // "author": author,
         "Class": Class,
         "uid": uid,
-        "date": date,
+        "issueDate": issueDate,
+        "docId": docId,
       };
 }

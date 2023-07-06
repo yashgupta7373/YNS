@@ -299,7 +299,7 @@ class Dep_BSC_HS extends StatelessWidget {
           const Headerpng(),
           Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Text("Department of B.Sc. Home science",
+              child: Text("Department of Science B.Sc. (Home science)",
                   style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w900,
@@ -629,7 +629,7 @@ class Dep_Bio extends StatelessWidget {
           const Headerpng(),
           Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Text("Department of Biotechnology",
+              child: Text("Department of Science\nBiotechnology",
                   style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w900,
@@ -753,6 +753,8 @@ class Dep_Bio extends StatelessWidget {
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.white))),
+          Image.asset('assets/images/img77.jpeg',
+              width: double.infinity, fit: BoxFit.cover),
           const footer()
         ])));
   }
@@ -779,13 +781,12 @@ class Dep_BSC extends StatelessWidget {
           const Headerpng(),
           Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Text("Department of B.Sc.",
+              child: Text("Department of Science",
                   style: TextStyle(
                       fontSize: 25,
                       fontWeight: FontWeight.w900,
                       color: Colors.teal[900]),
                   textAlign: TextAlign.center)),
-          Icon(Icons.compare_arrows, color: Colors.teal[900]),
           Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text("B.Sc (Bio)- BCZ 'Scope'",
@@ -794,6 +795,7 @@ class Dep_BSC extends StatelessWidget {
                       fontWeight: FontWeight.w900,
                       color: Colors.teal[900]),
                   textAlign: TextAlign.center)),
+          Icon(Icons.compare_arrows, color: Colors.teal[900]),
           const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
@@ -925,6 +927,8 @@ class Dep_BSC extends StatelessWidget {
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                       fontStyle: FontStyle.italic, color: Colors.white))),
+          Image.asset('assets/images/img80.jpeg',
+              width: double.infinity, fit: BoxFit.cover),
           const footer()
         ])));
   }

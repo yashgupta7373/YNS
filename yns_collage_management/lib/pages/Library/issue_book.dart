@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -19,31 +19,31 @@ class IssueBook extends StatefulWidget {
 
 class _IssueBookState extends State<IssueBook> {
   var selectedStudent = '0';
-  String dropdownBook = 'Let us C';
-  String dropdownAuthor = 'Yashavant Kanetkar';
+  String dropdownBook = 'Let us C (Yashavant Kanetkar)';
+  // String dropdownAuthor = 'Yashavant Kanetkar';
   String dropdownClasses = 'BCA';
   var name, id, photoUrl;
   var book = [
-    'Let us C',
-    'C++',
-    'Java',
-    'Python',
-    'Flutter',
-    'JavaScript',
-    'Business Communication',
-    'Business Law',
-    'Business Environment',
+    'Let us C (Yashavant Kanetkar)',
+    'C++ (Yashavant Kanetkar)',
+    'Java (Rashmi Kanta Das)',
+    'Python (John Shovic and Alan Simpson)',
+    'Flutter (Dr. Deepti Chopra and Roopal Khurana)',
+    'JavaScript (Berg Craig)',
+    'Business Communication (Courtland L. Bovee/John V. Hill/Roshan Lal Raina)',
+    'Business Law (Taxmann)',
+    'Business Environment (K. Aswathappa)',
   ];
-  var author = [
-    'Yashavant Kanetkar',
-    'Rashmi Kanta Das',
-    'John Shovic and Alan Simpson',
-    'Dr. Deepti Chopra and Roopal Khurana',
-    'Berg Craig',
-    'Courtland L. Bovee/John V. Hill/Roshan Lal Raina',
-    'Taxmann',
-    'K. Aswathappa',
-  ];
+  // var author = [
+  //   'Yashavant Kanetkar',
+  //   'Rashmi Kanta Das',
+  //   'John Shovic and Alan Simpson',
+  //   'Dr. Deepti Chopra and Roopal Khurana',
+  //   'Berg Craig',
+  //   'Courtland L. Bovee/John V. Hill/Roshan Lal Raina',
+  //   'Taxmann',
+  //   'K. Aswathappa',
+  // ];
   var classes = [
     'BCA',
     'MCA',
@@ -99,7 +99,7 @@ class _IssueBookState extends State<IssueBook> {
           photoUrl,
           id,
           dropdownBook,
-          dropdownAuthor,
+          // dropdownAuthor,
           dropdownClasses,
           selectedStudent,
           dateController.text);
@@ -109,7 +109,7 @@ class _IssueBookState extends State<IssueBook> {
         });
         showSnackBar(
           context,
-          'Uploded',
+          'Book Issued',
         );
 
         Navigator.push(
@@ -192,6 +192,7 @@ class _IssueBookState extends State<IssueBook> {
                         fontWeight: FontWeight.bold,
                         color: Colors.white))
               ])),
+          SizedBox(height: 40),
           // Select Book
           Padding(
               padding: const EdgeInsets.all(20),
@@ -228,42 +229,43 @@ class _IssueBookState extends State<IssueBook> {
                               dropdownBook = newValue!;
                             });
                           })))),
-          // Select Author
-          Padding(
-              padding: const EdgeInsets.all(20),
-              child: Container(
-                  width: mediaQuery.size.width * 0.7,
-                  decoration: BoxDecoration(
-                      color: Colors.teal[500],
-                      borderRadius: const BorderRadius.all(Radius.circular(15)),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.teal.shade500,
-                            blurRadius: 15,
-                            offset: const Offset(0, 10))
-                      ]),
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: DropdownButton(
-                          dropdownColor: Colors.teal[400],
-                          hint: const Text('Select Author'),
-                          menuMaxHeight: 300,
-                          isExpanded: true,
-                          underline: Container(color: Colors.transparent),
-                          iconEnabledColor: Colors.white,
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 18),
-                          value: dropdownAuthor,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          items: author.map((String items) {
-                            return DropdownMenuItem(
-                                value: items, child: Text(items));
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              dropdownAuthor = newValue!;
-                            });
-                          })))),
+          // // Select Author
+          // Padding(
+          //     padding: const EdgeInsets.all(20),
+          //     child: Container(
+          //         width: mediaQuery.size.width * 0.7,
+          //         decoration: BoxDecoration(
+          //             color: Colors.teal[500],
+          //             borderRadius: const BorderRadius.all(Radius.circular(15)),
+          //             boxShadow: [
+          //               BoxShadow(
+          //                   color: Colors.teal.shade500,
+          //                   blurRadius: 15,
+          //                   offset: const Offset(0, 10))
+          //             ]),
+          //         child: Padding(
+          //             padding: const EdgeInsets.symmetric(horizontal: 10),
+          //             child: DropdownButton(
+          //                 dropdownColor: Colors.teal[400],
+          //                 hint: const Text('Select Author'),
+          //                 menuMaxHeight: 300,
+          //                 isExpanded: true,
+          //                 underline: Container(color: Colors.transparent),
+          //                 iconEnabledColor: Colors.white,
+          //                 style: const TextStyle(
+          //                     color: Colors.white, fontSize: 18),
+          //                 value: dropdownAuthor,
+          //                 icon: const Icon(Icons.keyboard_arrow_down),
+          //                 items: author.map((String items) {
+          //                   return DropdownMenuItem(
+          //                       value: items, child: Text(items));
+          //                 }).toList(),
+          //                 onChanged: (String? newValue) {
+          //                   setState(() {
+          //                     dropdownAuthor = newValue!;
+          //                   });
+          //                 })))),
+
           // Select Class
           Padding(
               padding: const EdgeInsets.all(20),

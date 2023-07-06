@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:uuid/uuid.dart';
 import 'package:yns_college_management/Resources/stroage_method.dart';
 import 'package:yns_college_management/models/user.dart' as model;
 
@@ -63,6 +64,7 @@ class AuthMethods {
         // register the user...
         UserCredential cred = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
+        // String uid = const Uuid().v1();
         //image
         String photoUrl = await StorageMethods()
             .uploadImageToStorage('profilePics', file, false);
@@ -91,7 +93,9 @@ class AuthMethods {
             .collection('users')
             .doc(cred.user!.uid)
             .set(user.toJson());
+        // _firestore.collection('users').doc(uid).set(user.toJson());
         res = "Success";
+        signOut();
       }
     } catch (err) {
       res = err.toString();
@@ -176,7 +180,9 @@ class AuthMethods {
             .collection('users')
             .doc(cred.user!.uid)
             .set(user.toJson());
+        // _firestore.collection('users').doc(cred.user!.uid).set(user.toJson());
         res = "Success";
+        signOut();
       }
     } catch (err) {
       res = err.toString();

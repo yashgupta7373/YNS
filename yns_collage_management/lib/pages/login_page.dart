@@ -20,7 +20,6 @@ class _LoginPageState extends State<LoginPage> {
   var isPasswordVisible = true;
   bool isLoading = false;
   final forrmkey = GlobalKey<FormState>();
-  
 
   @override
   void dispose() {
@@ -87,9 +86,9 @@ class _LoginPageState extends State<LoginPage> {
                             fontFamily: 'Pacifico'))),
                 Padding(
                     padding:
-                        const EdgeInsets.only(top: 15.0, left: 15, right: 15),
+                        const EdgeInsets.only(top: 25.0, left: 15, right: 15),
                     child: Container(
-                        height: mediaQuery.size.height * 0.64,
+                        height: mediaQuery.size.height * 0.6,
                         width: double.infinity,
                         decoration: BoxDecoration(
                             gradient: const LinearGradient(
@@ -118,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                                   // Title
                                   Padding(
                                       padding: const EdgeInsets.only(
-                                          top: 30, left: 35, bottom: 20),
+                                          top: 30, left: 35, bottom: 30),
                                       child: Text('Log In',
                                           style: TextStyle(
                                               fontSize: 40,
@@ -126,61 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'Pacifico'))),
                                   SizedBox(height: 5),
-                                  // // Role
-                                  // Column(children: [
-                                  //   Center(
-                                  //       child: FittedBox(
-                                  //           child: Row(
-                                  //               mainAxisAlignment:
-                                  //                   MainAxisAlignment.start,
-                                  //               children: [
-                                  //         const Text('Admin',
-                                  //             style: TextStyle(
-                                  //                 color: Colors.white)),
-                                  //         Radio(
-                                  //             value: 'Admin',
-                                  //             activeColor: Colors.white,
-                                  //             fillColor: MaterialStateColor
-                                  //                 .resolveWith(
-                                  //                     (states) => Colors.white),
-                                  //             groupValue: role,
-                                  //             onChanged: (value) {
-                                  //               setState(() {
-                                  //                 role = value.toString();
-                                  //               });
-                                  //             }),
-                                  //         const Text('Teacher',
-                                  //             style: TextStyle(
-                                  //                 color: Colors.white)),
-                                  //         Radio(
-                                  //             value: 'Teachers',
-                                  //             activeColor: Colors.white,
-                                  //             fillColor: MaterialStateColor
-                                  //                 .resolveWith(
-                                  //                     (states) => Colors.white),
-                                  //             groupValue: role,
-                                  //             onChanged: (value) {
-                                  //               setState(() {
-                                  //                 role = value.toString();
-                                  //               });
-                                  //             }),
-                                  //         const Text('Student',
-                                  //             style: TextStyle(
-                                  //                 color: Colors.white)),
-                                  //         Radio(
-                                  //             value: 'Students',
-                                  //             activeColor: Colors.white,
-                                  //             fillColor: MaterialStateColor
-                                  //                 .resolveWith(
-                                  //                     (states) => Colors.white),
-                                  //             groupValue: role,
-                                  //             onChanged: (value) {
-                                  //               setState(() {
-                                  //                 role = value.toString();
-                                  //               });
-                                  //             })
-                                  //       ])))
-                                  // ]),
+
                                   // Enter Email ID...
                                   SignUpPageTextField(
                                       textEditingController: email,
@@ -285,19 +230,19 @@ class _LoginPageState extends State<LoginPage> {
                                           text1: 'Forgot Password?',
                                           text2: '',
                                           ontap: () {})),
-                                  // sign up link...
-                                  Center(
-                                      child: SignUpPageChangeButton(
-                                          text1: 'Don\'t have an account?  ',
-                                          text2: 'Sign Up',
-                                          ontap: () {
-                                            Navigator.push(
-                                                context,
-                                                PageTransition(
-                                                    type: PageTransitionType
-                                                        .rightToLeft,
-                                                    child: const SignUpPage()));
-                                          }))
+                                  // // sign up link...
+                                  // Center(
+                                  //     child: SignUpPageChangeButton(
+                                  //         text1: 'Don\'t have an account?  ',
+                                  //         text2: 'Sign Up',
+                                  //         ontap: () {
+                                  //           Navigator.push(
+                                  //               context,
+                                  //               PageTransition(
+                                  //                   type: PageTransitionType
+                                  //                       .rightToLeft,
+                                  //                   child: const SignUpPage()));
+                                  //         }))
                                 ])))),
                 // signup with...
                 Center(

@@ -14,7 +14,7 @@ class FireStoreMethods {
     String photoUrl,
     String id,
     String book,
-    String author,
+    // String author,
     String Class,
     String uid,
     String date,
@@ -25,15 +25,15 @@ class FireStoreMethods {
     try {
       String issueId = const Uuid().v1(); // creates unique id based on time
       Detail detail = Detail(
-        name: name,
-        photoUrl: photoUrl,
-        id: id,
-        book: book,
-        author: author,
-        Class: Class,
-        uid: uid,
-        date: date,
-      );
+          name: name,
+          photoUrl: photoUrl,
+          id: id,
+          book: book,
+          // author: author,
+          Class: Class,
+          uid: uid,
+          issueDate: date,
+          docId: issueId);
       _firestore.collection('library').doc(issueId).set(detail.toJson());
       res = "success";
     } catch (err) {

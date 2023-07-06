@@ -281,7 +281,7 @@ class _ClgWebPageState extends State<ClgWebPage> {
                                     fontStyle: FontStyle.italic,
                                     color: Color.fromARGB(255, 0, 0, 0)))
                           ])))),
-          // Department of Biotechnology
+          // Department of Science
           Padding(
               padding: const EdgeInsets.only(right: 16, left: 16, bottom: 16),
               child: InkWell(
@@ -305,109 +305,147 @@ class _ClgWebPageState extends State<ClgWebPage> {
                                 color: Colors.teal.shade900,
                                 spreadRadius: 1)
                           ]),
-                      height: 70,
+                      height: 90,
                       width: double.infinity,
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Text("Department of Biotechnology",
+                            Text("Department of Science",
                                 style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.teal[600])),
-                            const Text("B.Sc & M.Sc. in Biotechnology",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 0, 0, 0)))
-                          ])))),
-          // Department of B.Sc(Home Science)
-          Padding(
-              padding: const EdgeInsets.only(right: 16, left: 16, bottom: 16),
-              child: InkWell(
-                  splashColor: Colors.teal[900],
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            type: PageTransitionType.fade,
-                            child: const Dep_BSC_HS()));
-                  },
-                  child: Ink(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(11),
-                          border:
-                              Border.all(width: 1, color: Colors.teal.shade600),
-                          boxShadow: [
-                            BoxShadow(
-                                blurRadius: 10,
-                                color: Colors.teal.shade900,
-                                spreadRadius: 1)
-                          ]),
-                      height: 70,
-                      width: double.infinity,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text("Department of B.Sc (Home Science)",
-                                style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.teal[600])),
-                            const Text("B.Sc (Home Science)",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 0, 0, 0)))
-                          ])))),
-          // Department of B.Sc
-          Padding(
-              padding: const EdgeInsets.only(
-                right: 16,
-                left: 16,
-                bottom: 10,
-              ),
-              child: InkWell(
-                  splashColor: Colors.teal[900],
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            type: PageTransitionType.fade,
-                            child: const Dep_BSC()));
-                  },
-                  child: Ink(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(11),
-                          border:
-                              Border.all(width: 1, color: Colors.teal.shade600),
-                          boxShadow: [
-                            BoxShadow(
-                                blurRadius: 10,
-                                color: Colors.teal.shade900,
-                                spreadRadius: 1)
-                          ]),
-                      height: 70,
-                      width: double.infinity,
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              "Department of B.Sc",
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.teal[600],
-                              ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.fade,
+                                        child: const Dep_Bio()));
+                              },
+                              child: const Text("B.Sc & M.Sc. in Biotechnology",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontStyle: FontStyle.italic,
+                                      color: Color.fromARGB(255, 233, 85, 85))),
                             ),
-                            const Text("B.Sc (Bio) and B.Sc (Maths)-PCM",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontStyle: FontStyle.italic,
-                                    color: Color.fromARGB(255, 0, 0, 0)))
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.fade,
+                                        child: const Dep_BSC_HS()));
+                              },
+                              child: const Text("B.Sc (Home Science)",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontStyle: FontStyle.italic,
+                                      color: Color.fromARGB(255, 233, 85, 85))),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.fade,
+                                        child: const Dep_BSC()));
+                              },
+                              child: const Text(
+                                  "B.Sc (Bio) and B.Sc (Maths)-PCM",
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontStyle: FontStyle.italic,
+                                      color: Color.fromARGB(255, 233, 85, 85))),
+                            )
                           ])))),
+          // // Department of B.Sc(Home Science)
+          // Padding(
+          //     padding: const EdgeInsets.only(right: 16, left: 16, bottom: 16),
+          //     child: InkWell(
+          //         splashColor: Colors.teal[900],
+          //         onTap: () {
+          //           Navigator.push(
+          //               context,
+          //               PageTransition(
+          //                   type: PageTransitionType.fade,
+          //                   child: const Dep_BSC_HS()));
+          //         },
+          //         child: Ink(
+          //             decoration: BoxDecoration(
+          //                 color: Colors.white,
+          //                 borderRadius: BorderRadius.circular(11),
+          //                 border:
+          //                     Border.all(width: 1, color: Colors.teal.shade600),
+          //                 boxShadow: [
+          //                   BoxShadow(
+          //                       blurRadius: 10,
+          //                       color: Colors.teal.shade900,
+          //                       spreadRadius: 1)
+          //                 ]),
+          //             height: 70,
+          //             width: double.infinity,
+          //             child: Column(
+          //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //                 children: [
+          //                   Text("Department of B.Sc (Home Science)",
+          //                       style: TextStyle(
+          //                           fontSize: 17,
+          //                           fontWeight: FontWeight.bold,
+          //                           color: Colors.teal[600])),
+          //                   const Text("B.Sc (Home Science)",
+          //                       style: TextStyle(
+          //                           fontSize: 15,
+          //                           fontStyle: FontStyle.italic,
+          //                           color: Color.fromARGB(255, 0, 0, 0)))
+          //                 ])))),
+          // // Department of B.Sc
+          // Padding(
+          //     padding: const EdgeInsets.only(
+          //       right: 16,
+          //       left: 16,
+          //       bottom: 10,
+          //     ),
+          //     child: InkWell(
+          //         splashColor: Colors.teal[900],
+          //         onTap: () {
+          //           Navigator.push(
+          //               context,
+          //               PageTransition(
+          //                   type: PageTransitionType.fade,
+          //                   child: const Dep_BSC()));
+          //         },
+          //         child: Ink(
+          //             decoration: BoxDecoration(
+          //                 color: Colors.white,
+          //                 borderRadius: BorderRadius.circular(11),
+          //                 border:
+          //                     Border.all(width: 1, color: Colors.teal.shade600),
+          //                 boxShadow: [
+          //                   BoxShadow(
+          //                       blurRadius: 10,
+          //                       color: Colors.teal.shade900,
+          //                       spreadRadius: 1)
+          //                 ]),
+          //             height: 70,
+          //             width: double.infinity,
+          //             child: Column(
+          //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //                 children: [
+          //                   Text(
+          //                     "Department of B.Sc",
+          //                     style: TextStyle(
+          //                       fontSize: 17,
+          //                       fontWeight: FontWeight.bold,
+          //                       color: Colors.teal[600],
+          //                     ),
+          //                   ),
+          //                   const Text("B.Sc (Bio) and B.Sc (Maths)-PCM",
+          //                       style: TextStyle(
+          //                           fontSize: 15,
+          //                           fontStyle: FontStyle.italic,
+          //                           color: Color.fromARGB(255, 0, 0, 0)))
+          //                 ])))),
           Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
