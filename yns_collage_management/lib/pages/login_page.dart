@@ -129,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                                   // Enter Email ID...
                                   SignUpPageTextField(
                                       textEditingController: email,
-                                      hint: 'YNSManagement@gmail.com',
+                                      hint: 'YNSmanagement@gmail.com',
                                       label: 'Enter Your Email ID',
                                       icon: Icons.email),
                                   // Create Password...

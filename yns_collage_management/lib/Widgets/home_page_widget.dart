@@ -9,6 +9,7 @@ import '../pages/Calender/calender.dart';
 import '../pages/Check Attendance/check_attendance.dart';
 import '../pages/Home Work/home_work.dart';
 import '../pages/Id Card/id_card.dart';
+import '../pages/Library/library_old_record.dart';
 import '../pages/Library/return_book.dart';
 import '../pages/Notice Board/notice_board.dart';
 import '../pages/Result/result.dart';
@@ -129,46 +130,60 @@ class LibraryBtn extends StatelessWidget {
         text: 'Library    ',
         icon: Icons.local_library,
         ontap: () {
-          (role != 'student')
-              ? showDialog(
-                  context: context,
-                  builder: (ctx) => AlertDialog(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                      backgroundColor: const Color.fromRGBO(100, 232, 222, 0.7),
-                      content: SizedBox(
-                          child: SingleChildScrollView(
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                            TextStyleWidget(
-                                text: 'Issue Book',
-                                ontap: (() {
-                                  Navigator.of(ctx).pop();
-                                  Navigator.push(
-                                      context,
-                                      PageTransition(
-                                          type: PageTransitionType.fade,
-                                          child: IssueBook(uid: uid)));
-                                }),
-                                icon: FontAwesomeIcons.book),
-                            TextStyleWidget(
-                                text: 'Return Book',
-                                ontap: (() {
-                                  Navigator.of(ctx).pop();
-                                  Navigator.push(
-                                      context,
-                                      PageTransition(
-                                          type: PageTransitionType.fade,
-                                          child: ReturnBook(uid: uid)));
-                                }),
-                                icon: FontAwesomeIcons.book)
-                          ])))))
-              : Navigator.push(
-                  context,
-                  PageTransition(
-                      type: PageTransitionType.fade,
-                      child: ReturnBook(uid: uid)));
+          // (role != 'student')
+          //     ?
+          showDialog(
+              context: context,
+              builder: (ctx) => AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  backgroundColor: const Color.fromRGBO(100, 232, 222, 0.7),
+                  content: SizedBox(
+                      child: SingleChildScrollView(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                        if (role != 'student')
+                          TextStyleWidget(
+                              text: 'Issue Book',
+                              ontap: (() {
+                                Navigator.of(ctx).pop();
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.fade,
+                                        child: IssueBook(uid: uid)));
+                              }),
+                              icon: FontAwesomeIcons.book),
+                        TextStyleWidget(
+                            text: 'Return Book',
+                            ontap: (() {
+                              Navigator.of(ctx).pop();
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.fade,
+                                      child: ReturnBook(uid: uid)));
+                            }),
+                            icon: FontAwesomeIcons.book),
+                        TextStyleWidget(
+                            text: 'Old Record',
+                            ontap: (() {
+                              Navigator.of(ctx).pop();
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.fade,
+                                      child: LibraryOldRecord(uid: uid)));
+                            }),
+                            icon: FontAwesomeIcons.book),
+                      ])))));
+          // :
+          // // Navigator.push(
+          // //     context,
+          // //     PageTransition(
+          // //         type: PageTransitionType.fade,
+          // //         child: ReturnBook(uid: uid)));
         });
   }
 }
