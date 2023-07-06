@@ -57,16 +57,13 @@ class _TRegistrationPageState extends State<TRegistrationPage> {
     'Computer Science Dep.',
     'Commerce & Business Dep.',
     'Teacher Education Dep.',
-    'Biotechnology Dep.',
-    'B.Sc(Home Science) Dep.',
-    'B.Sc Department'
+    'Department of Science.',
   ];
   var profile = [
     'HOD',
     'Assistant Professor',
     'Associate Professor',
     'Professor',
-    'Namely',
   ];
   var subject = [
     'Mathematics',

@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, prefer_typing_uninitialized_variables
 import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -15,6 +16,8 @@ class SRegistrationPage extends StatefulWidget {
 
 class _SRegistrationPageState extends State<SRegistrationPage> {
   var role = 'student';
+  var selectedClass = '0';
+
   var gender = '';
   var transport = '';
   var Category = '';
@@ -44,35 +47,33 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
 
   //
 
-  var dropdownclass;
+  // var dropdownclass;
   var dropdowndepartment;
   var department = [
     'Computer Science Dep.',
     'Commerce & Business Dep.',
     'Teacher Education Dep.',
-    'Biotechnology Dep.',
-    'B.Sc(Home Science) Dep.',
-    'B.Sc Department'
+    'Department of Science.',
   ];
-  var classes = [
-    'BCA',
-    'MCA',
-    'BBA',
-    'MBA',
-    'Bcom.',
-    'MCom.',
-    'BA',
-    'MA',
-    'B.Ed',
-    'M.Ed',
-    'D.EI.Ed',
-    'B.Sc(Biotechnology)',
-    'M.Sc(Biotechnology)',
-    'B.Sc(HomeScience)',
-    'M.Sc(HomeScience)',
-    'B.Sc(Bio)-BCZ',
-    'B.Sc(Math)-PCM'
-  ];
+  // var classes = [
+  //   'BCA',
+  //   'MCA',
+  //   'BBA',
+  //   'MBA',
+  //   'Bcom.',
+  //   'MCom.',
+  //   'BA',
+  //   'MA',
+  //   'B.Ed',
+  //   'M.Ed',
+  //   'D.EI.Ed',
+  //   'B.Sc(Biotechnology)',
+  //   'M.Sc(Biotechnology)',
+  //   'B.Sc(HomeScience)',
+  //   'M.Sc(HomeScience)',
+  //   'B.Sc(Bio)-BCZ',
+  //   'B.Sc(Math)-PCM'
+  // ];
   @override
   void dispose() {
     super.dispose();
@@ -105,7 +106,7 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
         email: EmailController.text,
         password: PasswordController.text,
         id: idController.text,
-        Class: dropdownclass,
+        Class: cls,
         aadharNo: aadharController.text,
         address: AddressController.text,
         category: Category,
@@ -156,6 +157,36 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
     // set state because we need to display the image we selected on the circle avatar
     setState(() {
       _image = im;
+    });
+  }
+
+//fetch Class
+  var userClass = {};
+  var cls;
+
+  bool isLoading = false;
+
+  void getClassData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('courses')
+          .doc(selectedClass)
+          .get();
+      userClass = userSnap.data()!;
+      setState(() {
+        cls = userClass['cName'];
+      });
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -253,40 +284,81 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
                               ]),
 
                               // class...
-                              Row(children: [
-                                const Text('Class:'),
-                                Expanded(
-                                    child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20),
-                                        child: DropdownButton(
-                                            dropdownColor: Colors.teal[400],
-                                            hint: const Text('Select Class'),
-                                            menuMaxHeight: 300,
-                                            isExpanded: true,
-                                            underline: Container(
-                                              color: Colors.teal[800],
-                                              height: 1,
-                                            ),
-                                            iconEnabledColor: Colors.teal[800],
-                                            style: const TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 13, 71, 161),
-                                                fontSize: 13),
-                                            value: dropdownclass,
-                                            icon: const Icon(
-                                                Icons.keyboard_arrow_down),
-                                            items: classes.map((String items) {
-                                              return DropdownMenuItem(
-                                                  value: items,
-                                                  child: Text(items));
-                                            }).toList(),
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                dropdownclass = newValue!;
-                                              });
-                                            })))
-                              ]),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                child: Row(children: [
+                                  const Text(
+                                    'Class:',
+                                  ),
+                                  Expanded(
+                                      child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          child: StreamBuilder<QuerySnapshot>(
+                                              stream: FirebaseFirestore.instance
+                                                  .collection('courses')
+                                                  .where('department',
+                                                      isEqualTo:
+                                                          dropdowndepartment)
+                                                  .snapshots(),
+                                              builder: (context, snapshot) {
+                                                List<DropdownMenuItem> Class =
+                                                    [];
+                                                if (!snapshot.hasData) {
+                                                  const CircularProgressIndicator();
+                                                } else {
+                                                  final Classes = snapshot
+                                                      .data?.docs.reversed
+                                                      .toList();
+                                                  Class.add(
+                                                      const DropdownMenuItem(
+                                                          value: '0',
+                                                          child: Text(
+                                                              'Select Class',
+                                                              style: TextStyle(
+                                                                  color: Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          1,
+                                                                          44,
+                                                                          40)))));
+                                                  for (var users in Classes!) {
+                                                    Class.add(DropdownMenuItem(
+                                                        value: users.id,
+                                                        child: Text(
+                                                            users['cName'])));
+                                                  }
+                                                }
+                                                return DropdownButton(
+                                                  dropdownColor:
+                                                      Colors.teal[400],
+                                                  menuMaxHeight: 300,
+                                                  underline: Container(
+                                                    color: Colors.teal[800],
+                                                    height: 1,
+                                                  ),
+                                                  iconEnabledColor:
+                                                      Colors.teal[800],
+                                                  style: const TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 13, 71, 161),
+                                                      fontSize: 13),
+                                                  icon: const Icon(Icons
+                                                      .keyboard_arrow_down),
+                                                  items: Class,
+                                                  onChanged: (usersValue) {
+                                                    setState(() {
+                                                      selectedClass =
+                                                          usersValue;
+                                                      getClassData();
+                                                    });
+                                                  },
+                                                  value: selectedClass,
+                                                  isExpanded: false,
+                                                );
+                                              })))
+                                ]),
+                              ),
 
                               // rollno...
                               Row(children: [

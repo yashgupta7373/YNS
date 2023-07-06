@@ -17,7 +17,7 @@ class CallClasses extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30.0)),
                   backgroundColor: const Color.fromRGBO(100, 232, 222, 0.7),
                   content: SizedBox(
-                      height: 80,
+                      height: 50,
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -44,30 +44,30 @@ class CallClasses extends StatelessWidget {
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white))
                                     ])),
-                            // Class Room
-                            InkWell(
-                                onTap: (() async {
-                                  Navigator.of(ctx).pop();
-                                  await LaunchApp.openApp(
-                                      androidPackageName:
-                                          'com.google.android.apps.classroom',
-                                      iosUrlScheme:
-                                          'google-classroom/id924620788',
-                                      openStore: true);
-                                }),
-                                child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: const [
-                                      Icon(FontAwesomeIcons.chalkboardUser,
-                                          color: Colors.white),
-                                      Text('Class Room       ',
-                                          style: TextStyle(
-                                              fontSize: 15,
-                                              fontStyle: FontStyle.normal,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white))
-                                    ]))
+                            // // Class Room
+                            // InkWell(
+                            //     onTap: (() async {
+                            //       Navigator.of(ctx).pop();
+                            //       await LaunchApp.openApp(
+                            //           androidPackageName:
+                            //               'com.google.android.apps.classroom',
+                            //           iosUrlScheme:
+                            //               'google-classroom/id924620788',
+                            //           openStore: true);
+                            //     }),
+                            //     child: Row(
+                            //         mainAxisAlignment:
+                            //             MainAxisAlignment.spaceAround,
+                            //         children: const [
+                            //           Icon(FontAwesomeIcons.chalkboardUser,
+                            //               color: Colors.white),
+                            //           Text('Class Room       ',
+                            //               style: TextStyle(
+                            //                   fontSize: 15,
+                            //                   fontStyle: FontStyle.normal,
+                            //                   fontWeight: FontWeight.bold,
+                            //                   color: Colors.white))
+                            //         ]))
                           ]))));
         },
         child:
