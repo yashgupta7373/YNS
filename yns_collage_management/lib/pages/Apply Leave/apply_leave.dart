@@ -355,7 +355,7 @@ class _ApplyLeaveState extends State<ApplyLeave> {
                                         onPressed: () {
                                           String msg = resion.text.toString();
                                           launch(
-                                              'mailto: ykg1357@gmail.com?subject=Apply Leave&body=$msg');
+                                              'mailto: ykg1357@gmail.com?subject=Apply Leave&body=Apply Date \n$_dateTime\n\n To \n$_LeaveDate\n\n From \n$_LeaveDateFrom\n\n $msg ');
                                         },
                                         style: TextButton.styleFrom(
                                             minimumSize: const Size(120, 40)),
