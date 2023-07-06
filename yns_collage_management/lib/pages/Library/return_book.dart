@@ -271,6 +271,15 @@ class _ReturnBookState extends State<ReturnBook> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         // elevation: 0,
+        actions: [
+          Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: IconButton(
+                  icon: Icon(
+                    Icons.filter_alt,
+                  ),
+                  onPressed: () {}))
+        ],
         title: Text('Library Record'),
       ),
       body: Column(children: [

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:yns_college_management/Utils/utils.dart';
 import 'attendance_taker.dart';
 
 class AttendanceForm extends StatefulWidget {
@@ -16,28 +17,16 @@ class AttendanceForm extends StatefulWidget {
 class _AttendanceFormState extends State<AttendanceForm> {
   final TextEditingController dateController = TextEditingController();
 
-  String dropdownclass = 'BCA';
+  String dropdownDepartment = 'Computer Science Dep.';
   var selectedTeacher = '0';
+  var selectedClass = '0';
   String dropdownsubject = 'Mathematics';
 
-  var classes = [
-    'BCA',
-    'MCA',
-    'BBA',
-    'MBA',
-    'Bcom.',
-    'MCom.',
-    'BA',
-    'MA',
-    'B.Ed',
-    'M.Ed',
-    'D.EI.Ed',
-    'B.Sc(Biotechnology)',
-    'M.Sc(Biotechnology)',
-    'B.Sc(HomeScience)',
-    'M.Sc(HomeScience)',
-    'B.Sc(Bio)-BCZ',
-    'B.Sc(Math)-PCM'
+  var Department = [
+    'Computer Science Dep.',
+    'Commerce & Business Dep.',
+    'Teacher Education Dep.',
+    'Department of Science.',
   ];
 
   var subject = [
@@ -134,6 +123,39 @@ class _AttendanceFormState extends State<AttendanceForm> {
     });
   }
 
+//fetch Data
+  var userData = {};
+  var cls;
+
+  bool isLoading = false;
+
+  void getUserData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('courses')
+          .doc(selectedClass)
+          .get();
+      userData = userSnap.data()!;
+      setState(() {
+        cls = userData['cName'];
+        print('===>');
+        print(cls);
+        print('===>');
+      });
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     get();
@@ -169,7 +191,7 @@ class _AttendanceFormState extends State<AttendanceForm> {
               child: SizedBox(
                   child: SingleChildScrollView(
                       child: Column(children: [
-            // Select Class
+            // Select Department
             Padding(
                 padding: const EdgeInsets.all(20),
                 child: Container(
@@ -188,23 +210,80 @@ class _AttendanceFormState extends State<AttendanceForm> {
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: DropdownButton(
                             dropdownColor: Colors.teal[400],
-                            hint: const Text('Select Class'),
+                            hint: const Text('Select Department'),
                             menuMaxHeight: 300,
                             isExpanded: true,
                             underline: Container(color: Colors.transparent),
                             iconEnabledColor: Colors.white,
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 18),
-                            value: dropdownclass,
+                            value: dropdownDepartment,
                             icon: const Icon(Icons.keyboard_arrow_down),
-                            items: classes.map((String items) {
+                            items: Department.map((String items) {
                               return DropdownMenuItem(
                                   value: items, child: Text(items));
                             }).toList(),
                             onChanged: (String? newValue) {
                               setState(() {
-                                dropdownclass = newValue!;
+                                dropdownDepartment = newValue!;
                               });
+                            })))),
+            // Select Class
+            Padding(
+                padding: const EdgeInsets.all(20),
+                child: Container(
+                    width: mediaQuery.size.width * 0.7,
+                    decoration: BoxDecoration(
+                        color: Colors.teal[500],
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15)),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.teal.shade500,
+                              blurRadius: 15,
+                              offset: const Offset(0, 10))
+                        ]),
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: StreamBuilder<QuerySnapshot>(
+                            stream: FirebaseFirestore.instance
+                                .collection('courses')
+                                .where('department',
+                                    isEqualTo: dropdownDepartment)
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              List<DropdownMenuItem> Class = [];
+                              if (!snapshot.hasData) {
+                                const CircularProgressIndicator();
+                              } else {
+                                final Classes =
+                                    snapshot.data?.docs.reversed.toList();
+                                Class.add(const DropdownMenuItem(
+                                    value: '0', child: Text('Select Class')));
+                                for (var users in Classes!) {
+                                  Class.add(DropdownMenuItem(
+                                      value: users.id,
+                                      child: Text(users['cName'])));
+                                }
+                              }
+                              return DropdownButton(
+                                dropdownColor: Colors.teal[400],
+                                menuMaxHeight: 300,
+                                underline: Container(color: Colors.transparent),
+                                iconEnabledColor: Colors.white,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                                icon: const Icon(Icons.keyboard_arrow_down),
+                                items: Class,
+                                onChanged: (usersValue) {
+                                  setState(() {
+                                    selectedClass = usersValue;
+                                    getUserData();
+                                  });
+                                },
+                                value: selectedClass,
+                                isExpanded: false,
+                              );
                             })))),
             // Select Teacher
             Padding(
@@ -262,7 +341,6 @@ class _AttendanceFormState extends State<AttendanceForm> {
                                 isExpanded: false,
                               );
                             })))),
-
             // Select Subject
             Padding(
                 padding: const EdgeInsets.all(20),
@@ -332,7 +410,6 @@ class _AttendanceFormState extends State<AttendanceForm> {
                                   const Icon(Icons.edit_calendar,
                                       color: Colors.white)
                                 ]))))),
-
             // Button
             Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -345,7 +422,7 @@ class _AttendanceFormState extends State<AttendanceForm> {
                               child: AttendanceTaker(
                                   uid: selectedTeacher,
                                   date: dateController.text,
-                                  Class: dropdownclass,
+                                  Class: cls,
                                   subject: dropdownsubject)));
                     },
                     style: ElevatedButton.styleFrom(

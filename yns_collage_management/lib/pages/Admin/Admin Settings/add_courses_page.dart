@@ -1,4 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:yns_college_management/Utils/utils.dart';
@@ -8,7 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../Resources/firestore_method_for_courses.dart';
 
 class AddCoursesPage extends StatefulWidget {
-  const AddCoursesPage({super.key});
+  String uid;
+  AddCoursesPage({required this.uid, super.key});
   @override
   State<AddCoursesPage> createState() => _AddCoursesPageState();
 }
@@ -20,23 +22,21 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
   // final TextEditingController subjectController = TextEditingController();
   List<TextEditingController> listController = [TextEditingController()];
   var dropdowndepartment;
-  var dropdownduration;
+  // var dropdownduration;
   var department = [
     'Computer Science Dep.',
     'Commerce & Business Dep.',
     'Teacher Education Dep.',
-    'Biotechnology Dep.',
-    'B.Sc(Home Science) Dep.',
-    'B.Sc Department'
+    'Department of Science.',
   ];
-  var duration = [
-    '1 Semester',
-    '2 Semester',
-    '3 Semester',
-    '4 Semester',
-    '5 Semester',
-    '6 Semester'
-  ];
+  // var duration = [
+  //   '1 Semester',
+  //   '2 Semester',
+  //   '3 Semester',
+  //   '4 Semester',
+  //   '5 Semester',
+  //   '6 Semester'
+  // ];
 
   //upload notice..
   bool isLoading = false;
@@ -54,7 +54,7 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
         dropdowndepartment,
         idController.text,
         nameController.text,
-        dropdownduration,
+        // dropdownduration,
         feesController.text,
         // listController.text,
       );
@@ -81,6 +81,37 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
         err.toString(),
       );
     }
+  }
+
+  //fetch Data
+  var userData = {};
+  // bool isLoading = false;
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
+
+  void getUserData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.uid)
+          .get();
+      userData = userSnap.data()!;
+      setState(() {});
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -180,41 +211,42 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
                                         textEditingController: nameController,
                                         keyboard: TextInputType.name))
                               ]),
-                              // Semester
-                              Row(children: [
-                                const Text('Semester:'),
-                                Expanded(
-                                    child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(left: 20),
-                                        child: DropdownButton(
-                                            dropdownColor: Colors.teal[400],
-                                            hint: const Text('Select Semester'),
-                                            menuMaxHeight: 300,
-                                            isExpanded: true,
-                                            underline: Container(
-                                              color: Colors.teal[800],
-                                              height: 1,
-                                            ),
-                                            iconEnabledColor: Colors.teal[800],
-                                            style: const TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 13, 71, 161),
-                                                fontSize: 13),
-                                            value: dropdownduration,
-                                            icon: const Icon(
-                                                Icons.keyboard_arrow_down),
-                                            items: duration.map((String items) {
-                                              return DropdownMenuItem(
-                                                  value: items,
-                                                  child: Text(items));
-                                            }).toList(),
-                                            onChanged: (newValue) {
-                                              setState(() {
-                                                dropdownduration = newValue!;
-                                              });
-                                            })))
-                              ]),
+                              // // Semester
+                              // Row(children: [
+                              //   const Text('Semester:'),
+                              //   Expanded(
+                              //       child: Padding(
+                              //           padding:
+                              //               const EdgeInsets.only(left: 20),
+                              //           child: DropdownButton(
+                              //               dropdownColor: Colors.teal[400],
+                              //               hint: const Text('Select Semester'),
+                              //               menuMaxHeight: 300,
+                              //               isExpanded: true,
+                              //               underline: Container(
+                              //                 color: Colors.teal[800],
+                              //                 height: 1,
+                              //               ),
+                              //               iconEnabledColor: Colors.teal[800],
+                              //               style: const TextStyle(
+                              //                   color: Color.fromARGB(
+                              //                       255, 13, 71, 161),
+                              //                   fontSize: 13),
+                              //               value: dropdownduration,
+                              //               icon: const Icon(
+                              //                   Icons.keyboard_arrow_down),
+                              //               items: duration.map((String items) {
+                              //                 return DropdownMenuItem(
+                              //                     value: items,
+                              //                     child: Text(items));
+                              //               }).toList(),
+                              //               onChanged: (newValue) {
+                              //                 setState(() {
+                              //                   dropdownduration = newValue!;
+                              //                 });
+                              //               })))
+                              // ]),
+
                               // Fees
                               Row(children: [
                                 const Text('Fees:'),
@@ -223,70 +255,71 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
                                         textEditingController: feesController,
                                         keyboard: TextInputType.name))
                               ]),
-                              //Subject
-                              ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: listController.length,
-                                itemBuilder: (context, index) {
-                                  var n = index + 1;
-                                  return Row(
-                                    children: [
-                                      Text('Subject $n:'),
-                                      Expanded(
-                                        child: InputFieldStudentRegistration(
-                                            textEditingController:
-                                                listController[index],
-                                            keyboard: TextInputType.name),
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      index != 0
-                                          ? GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  listController[index].clear();
-                                                  listController[index]
-                                                      .dispose();
-                                                  listController
-                                                      .removeAt(index);
-                                                });
-                                              },
-                                              child: const Icon(
-                                                Icons.delete,
-                                                color: Color.fromARGB(
-                                                    255, 197, 72, 72),
-                                                size: 30,
-                                              ),
-                                            )
-                                          : const SizedBox(),
-                                    ],
-                                  );
-                                },
-                              ),
-                              const SizedBox(
-                                height: 50,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    listController.add(TextEditingController());
-                                  });
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 15),
-                                  decoration: BoxDecoration(
-                                      color: Color.fromARGB(255, 0, 105, 92),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Text("Add More Subject",
-                                      style: GoogleFonts.nunito(
-                                          color: const Color(0xFFF8F8FF))),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
+
+                              // //Subject
+                              // ListView.builder(
+                              //   shrinkWrap: true,
+                              //   itemCount: listController.length,
+                              //   itemBuilder: (context, index) {
+                              //     var n = index + 1;
+                              //     return Row(
+                              //       children: [
+                              //         Text('Subject $n:'),
+                              //         Expanded(
+                              //           child: InputFieldStudentRegistration(
+                              //               textEditingController:
+                              //                   listController[index],
+                              //               keyboard: TextInputType.name),
+                              //         ),
+                              //         const SizedBox(
+                              //           width: 10,
+                              //         ),
+                              //         index != 0
+                              //             ? GestureDetector(
+                              //                 onTap: () {
+                              //                   setState(() {
+                              //                     listController[index].clear();
+                              //                     listController[index]
+                              //                         .dispose();
+                              //                     listController
+                              //                         .removeAt(index);
+                              //                   });
+                              //                 },
+                              //                 child: const Icon(
+                              //                   Icons.delete,
+                              //                   color: Color.fromARGB(
+                              //                       255, 197, 72, 72),
+                              //                   size: 30,
+                              //                 ),
+                              //               )
+                              //             : const SizedBox(),
+                              //       ],
+                              //     );
+                              //   },
+                              // ),
+                              // const SizedBox(
+                              //   height: 50,
+                              // ),
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     setState(() {
+                              //       listController.add(TextEditingController());
+                              //     });
+                              //   },
+                              //   child: Container(
+                              //     padding: const EdgeInsets.symmetric(
+                              //         horizontal: 20, vertical: 15),
+                              //     decoration: BoxDecoration(
+                              //         color: Color.fromARGB(255, 0, 105, 92),
+                              //         borderRadius: BorderRadius.circular(10)),
+                              //     child: Text("Add More Subject",
+                              //         style: GoogleFonts.nunito(
+                              //             color: const Color(0xFFF8F8FF))),
+                              //   ),
+                              // ),
+                              // const SizedBox(
+                              //   width: 10,
+                              // ),
                             ])),
 
                     const SizedBox(height: 20.0),
@@ -299,8 +332,8 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
                             children: [
                               ElevatedButton(
                                   onPressed: () {
-                                    noticeImage('123456789', 'Yash Gupta',
-                                        'saohsahdkjsahj');
+                                    noticeImage(userData['uid'],
+                                        userData['name'], userData['photoUrl']);
                                   },
                                   style: ElevatedButton.styleFrom(
                                       elevation: 20,

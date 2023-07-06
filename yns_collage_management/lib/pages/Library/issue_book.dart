@@ -19,10 +19,19 @@ class IssueBook extends StatefulWidget {
 
 class _IssueBookState extends State<IssueBook> {
   var selectedStudent = '0';
+  var selectedClass = '0';
+
   String dropdownBook = 'Let us C (Yashavant Kanetkar)';
+  String dropdownDepartment = 'Computer Science Dep.';
+
   // String dropdownAuthor = 'Yashavant Kanetkar';
-  String dropdownClasses = 'BCA';
   var name, id, photoUrl;
+  var Department = [
+    'Computer Science Dep.',
+    'Commerce & Business Dep.',
+    'Teacher Education Dep.',
+    'Department of Science.',
+  ];
   var book = [
     'Let us C (Yashavant Kanetkar)',
     'C++ (Yashavant Kanetkar)',
@@ -44,25 +53,7 @@ class _IssueBookState extends State<IssueBook> {
   //   'Taxmann',
   //   'K. Aswathappa',
   // ];
-  var classes = [
-    'BCA',
-    'MCA',
-    'BBA',
-    'MBA',
-    'Bcom.',
-    'MCom.',
-    'BA',
-    'MA',
-    'B.Ed',
-    'M.Ed',
-    'D.EI.Ed',
-    'B.Sc(Biotechnology)',
-    'M.Sc(Biotechnology)',
-    'B.Sc(HomeScience)',
-    'M.Sc(HomeScience)',
-    'B.Sc(Bio)-BCZ',
-    'B.Sc(Math)-PCM'
-  ];
+
   final TextEditingController dateController = TextEditingController();
 
   // Create Date-time Variable
@@ -100,7 +91,7 @@ class _IssueBookState extends State<IssueBook> {
           id,
           dropdownBook,
           // dropdownAuthor,
-          dropdownClasses,
+          cls,
           selectedStudent,
           dateController.text);
       if (res == "success") {
@@ -129,6 +120,36 @@ class _IssueBookState extends State<IssueBook> {
         err.toString(),
       );
     }
+  }
+
+  //fetch Data
+  var ClassData = {};
+  var cls;
+
+  // bool isLoading = false;
+
+  void getClassData() async {
+    setState(() {
+      isLoading = true;
+    });
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('courses')
+          .doc(selectedClass)
+          .get();
+      ClassData = userSnap.data()!;
+      setState(() {
+        cls = ClassData['cName'];
+      });
+    } catch (e) {
+      showSnackBar(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   //fetch Data
@@ -266,7 +287,7 @@ class _IssueBookState extends State<IssueBook> {
           //                   });
           //                 })))),
 
-          // Select Class
+          // Select Department
           Padding(
               padding: const EdgeInsets.all(20),
               child: Container(
@@ -284,24 +305,81 @@ class _IssueBookState extends State<IssueBook> {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: DropdownButton(
                           dropdownColor: Colors.teal[400],
-                          hint: const Text('Select Class'),
+                          hint: const Text('Select Department'),
                           menuMaxHeight: 300,
                           isExpanded: true,
                           underline: Container(color: Colors.transparent),
                           iconEnabledColor: Colors.white,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 18),
-                          value: dropdownClasses,
+                          value: dropdownDepartment,
                           icon: const Icon(Icons.keyboard_arrow_down),
-                          items: classes.map((String items) {
+                          items: Department.map((String items) {
                             return DropdownMenuItem(
                                 value: items, child: Text(items));
                           }).toList(),
                           onChanged: (String? newValue) {
                             setState(() {
-                              dropdownClasses = newValue!;
+                              dropdownDepartment = newValue!;
                             });
                           })))),
+          // Select Class
+          Padding(
+              padding: const EdgeInsets.all(20),
+              child: Container(
+                  width: mediaQuery.size.width * 0.7,
+                  decoration: BoxDecoration(
+                      color: Colors.teal[500],
+                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.teal.shade500,
+                            blurRadius: 15,
+                            offset: const Offset(0, 10))
+                      ]),
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: StreamBuilder<QuerySnapshot>(
+                          stream: FirebaseFirestore.instance
+                              .collection('courses')
+                              .where('department',
+                                  isEqualTo: dropdownDepartment)
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            List<DropdownMenuItem> Class = [];
+                            if (!snapshot.hasData) {
+                              const CircularProgressIndicator();
+                            } else {
+                              final Classes =
+                                  snapshot.data?.docs.reversed.toList();
+                              Class.add(const DropdownMenuItem(
+                                  value: '0', child: Text('Select Class')));
+                              for (var users in Classes!) {
+                                Class.add(DropdownMenuItem(
+                                    value: users.id,
+                                    child: Text(users['cName'])));
+                              }
+                            }
+                            return DropdownButton(
+                              dropdownColor: Colors.teal[400],
+                              menuMaxHeight: 300,
+                              underline: Container(color: Colors.transparent),
+                              iconEnabledColor: Colors.white,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 18),
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: Class,
+                              onChanged: (usersValue) {
+                                setState(() {
+                                  selectedClass = usersValue;
+                                  getClassData();
+                                });
+                              },
+                              value: selectedClass,
+                              isExpanded: false,
+                            );
+                          })))),
+
           // Select Student
           Padding(
               padding: const EdgeInsets.all(20),
@@ -322,7 +400,7 @@ class _IssueBookState extends State<IssueBook> {
                           stream: FirebaseFirestore.instance
                               .collection('users')
                               .where('role', isEqualTo: 'student')
-                              .where('Class', isEqualTo: dropdownClasses)
+                              .where('Class', isEqualTo: cls)
                               .snapshots(),
                           builder: (context, snapshot) {
                             List<DropdownMenuItem> student = [];

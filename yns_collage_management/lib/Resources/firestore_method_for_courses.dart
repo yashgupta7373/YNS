@@ -15,7 +15,7 @@ class FireStoreMethods {
     String department,
     String cId,
     String cName,
-    String semester,
+    // String semester,
     String fees,
     // List<String> subject,
   ) async {
@@ -26,16 +26,17 @@ class FireStoreMethods {
       //     await StorageMethods().uploadImageToStorage('Notice', file, true);
       String courseId = const Uuid().v1(); // creates unique id based on time
       Course course = Course(
-        uid: uid,
-        name: name,
-        photoUrl: photoUrl,
-        department: department,
-        cId: cId,
-        cName: cName,
-        semester: semester,
-        fees: fees,
-        // subject: subject,
-      );
+          uid: uid,
+          name: name,
+          photoUrl: photoUrl,
+          department: department,
+          cId: cId,
+          cName: cName,
+          // semester: semester,
+          fees: fees,
+          docId: courseId
+          // subject: subject,
+          );
       _firestore.collection('courses').doc(courseId).set(course.toJson());
       res = "success";
     } catch (err) {

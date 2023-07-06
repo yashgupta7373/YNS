@@ -390,7 +390,7 @@ class _HomePageState extends State<HomePage> {
                                                                             (() {
                                                                           Navigator.push(
                                                                               context,
-                                                                              PageTransition(type: PageTransitionType.fade, child: const AddCoursesPage()));
+                                                                              PageTransition(type: PageTransitionType.fade, child: AddCoursesPage(uid: userData['uid'])));
                                                                         }),
                                                                         icon: FontAwesomeIcons
                                                                             .bookMedical),

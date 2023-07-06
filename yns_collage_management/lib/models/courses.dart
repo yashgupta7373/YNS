@@ -7,8 +7,9 @@ class Course {
   final String department;
   final String cId;
   final String cName;
-  final String semester;
+  // final String semester;
   final String fees;
+  final String docId;
   // final subject;
 
   const Course({
@@ -18,8 +19,9 @@ class Course {
     required this.department,
     required this.cId,
     required this.cName,
-    required this.semester,
+    // required this.semester,
     required this.fees,
+    required this.docId,
     // required this.subject,
   });
 
@@ -33,8 +35,9 @@ class Course {
       department: snapshot["department"],
       cId: snapshot["cId"],
       cName: snapshot["cName"],
-      semester: snapshot["semester"],
+      // semester: snapshot["semester"],
       fees: snapshot["fees"],
+      docId: snapshot["docId"],
       // subject: snapshot["subject"],
     );
   }
@@ -46,8 +49,9 @@ class Course {
         "department": department,
         "cId": cId,
         "cName": cName,
-        "semester": semester,
+        // "semester": semester,
         "fees": fees,
+        "docId": docId,
         // "subject": subject,
       };
 }
