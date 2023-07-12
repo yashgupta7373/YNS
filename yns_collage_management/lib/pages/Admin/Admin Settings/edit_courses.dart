@@ -1,9 +1,7 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable, non_constant_identifier_names
+// ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable, non_constant_identifier_names, prefer_const_constructors_in_immutables
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:page_transition/page_transition.dart';
-import '../../profile_page.dart';
 
 class EditCourse extends StatefulWidget {
   EditCourse({super.key});
@@ -32,7 +30,7 @@ class _EditCourseState extends State<EditCourse> {
     });
   }
 
-  TextStyle style1 = TextStyle(
+  TextStyle style1 = const TextStyle(
       fontStyle: FontStyle.normal,
       fontSize: 14,
       color: Color.fromARGB(255, 206, 216, 214),
@@ -54,7 +52,7 @@ class _EditCourseState extends State<EditCourse> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         // elevation: 0,
-        title: Text('Edit Courses'),
+        title: const Text('Edit Courses'),
       ),
       body: Column(children: [
         Expanded(
@@ -66,9 +64,6 @@ class _EditCourseState extends State<EditCourse> {
                   physics: const ScrollPhysics(parent: null),
                   itemCount: items.length,
                   itemBuilder: (context, index) {
-                    // var course = items[index]['cName'];
-                    // var year = items[index]['semester'];
-
                     return Card(
                         color: Colors.teal[700],
                         elevation: 5,
@@ -111,7 +106,8 @@ class _EditCourseState extends State<EditCourse> {
                                                   height: 120,
                                                   child: Column(
                                                     children: [
-                                                      SizedBox(height: 15),
+                                                      const SizedBox(
+                                                          height: 15),
                                                       Row(
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
@@ -140,7 +136,8 @@ class _EditCourseState extends State<EditCourse> {
                                                               style: style1),
                                                         ],
                                                       ),
-                                                      SizedBox(height: 20),
+                                                      const SizedBox(
+                                                          height: 20),
                                                       Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment

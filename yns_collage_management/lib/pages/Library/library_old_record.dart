@@ -1,10 +1,7 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable, non_constant_identifier_names
-import 'dart:ffi';
+// ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable, non_constant_identifier_names, await_only_futures, unused_local_variable
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:yns_college_management/Utils/utils.dart';
@@ -78,7 +75,7 @@ class _LibraryOldRecordState extends State<LibraryOldRecord> {
     });
   }
 
-  TextStyle style1 = TextStyle(
+  TextStyle style1 = const TextStyle(
       fontStyle: FontStyle.normal,
       fontSize: 14,
       color: Color.fromARGB(255, 206, 216, 214),
@@ -97,16 +94,16 @@ class _LibraryOldRecordState extends State<LibraryOldRecord> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         // elevation: 0,
-        actions: [
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: IconButton(
-                  icon: Icon(
-                    Icons.filter_alt,
-                  ),
-                  onPressed: () {}))
-        ],
-        title: Text('Old Library Record'),
+        // actions: [
+        //   Padding(
+        //       padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        //       child: IconButton(
+        //           icon: const Icon(
+        //             Icons.filter_alt,
+        //           ),
+        //           onPressed: () {}))
+        // ],
+        title: const Text('Old Library Record'),
       ),
       body: Column(children: [
         Expanded(
@@ -248,11 +245,11 @@ class _LibraryOldRecordState extends State<LibraryOldRecord> {
                                                   child:
                                                       ProfilePage(uid: uid)));
                                         },
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.info,
                                           color: Colors.white,
                                         ))
-                                    : SizedBox())));
+                                    : const SizedBox())));
                   })
               : SizedBox(
                   height: mediaQuery.size.height * 0.85,
@@ -269,7 +266,7 @@ class _LibraryOldRecordState extends State<LibraryOldRecord> {
           if (items.length == 0)
             Column(
               children: [
-                SizedBox(height: 60),
+                const SizedBox(height: 60),
                 SizedBox(
                   child: Lottie.asset('assets/images/img81.json'),
                 ),

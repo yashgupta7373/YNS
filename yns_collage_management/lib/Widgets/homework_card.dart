@@ -69,27 +69,27 @@ class HomeWorkCard extends StatelessWidget {
                                     children: [
                                       InkWell(
                                           onTap: () => Navigator.pop(context),
-                                          child: Text('Share')),
+                                          child: const Text('Share')),
                                       InkWell(
                                           onTap: () => Navigator.pop(context),
-                                          child: Text('Copy link')),
+                                          child: const Text('Copy link')),
                                       InkWell(
                                           onTap: () => Navigator.pop(context),
-                                          child: Text('Save')),
+                                          child: const Text('Save')),
                                       if (snap['uid'] == uid)
                                         InkWell(
                                             onTap: () {
                                               deleteUser(snap['homeWorkId']);
                                               Navigator.pop(context);
                                             },
-                                            child: Text("Delete"))
+                                            child: const Text("Delete"))
                                     ],
                                   ),
                                 ));
                           },
                         );
                       },
-                      icon: Icon(Icons.more_vert, color: Colors.white))
+                      icon: const Icon(Icons.more_vert, color: Colors.white))
                 ],
               ),
             ),

@@ -55,15 +55,15 @@ class _TimeTablePageState extends State<TimeTablePage> {
         appBar: AppBar(
             title: const Text('Time Table'),
             elevation: 0,
-            actions: [
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.filter_alt,
-                      ),
-                      onPressed: () {}))
-            ],
+            // actions: [
+            //   Padding(
+            //       padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            //       child: IconButton(
+            //           icon: const Icon(
+            //             Icons.filter_alt,
+            //           ),
+            //           onPressed: () {}))
+            // ],
             backgroundColor: Colors.transparent),
         body: StreamBuilder(
           stream: (userData['role'] != 'student')
@@ -85,7 +85,7 @@ class _TimeTablePageState extends State<TimeTablePage> {
                 ? ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (ctx, index) => Container(
-                      margin: EdgeInsets.symmetric(),
+                      margin: const EdgeInsets.symmetric(),
                       child: TimeTableCard(
                         uid: userData['uid'],
                         snap: snapshot.data!.docs[index].data(),
@@ -97,7 +97,7 @@ class _TimeTablePageState extends State<TimeTablePage> {
                       SizedBox(
                         child: Lottie.asset('assets/images/img59.json'),
                       ),
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       const Text(
                         "TIME TABLE NOT AVAILABLE*",
                         style: TextStyle(

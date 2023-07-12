@@ -1,9 +1,6 @@
-import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
-import 'package:yns_college_management/Resources/stroage_method.dart';
 import 'package:yns_college_management/models/courses.dart';
-import 'package:yns_college_management/models/notice.dart';
 
 class FireStoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;

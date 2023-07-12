@@ -70,15 +70,15 @@ class _NoticeBoardState extends State<NoticeBoard> {
         appBar: AppBar(
             title: const Text('Notice Board'),
             elevation: 0,
-            actions: [
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.filter_alt,
-                      ),
-                      onPressed: () {}))
-            ],
+            // actions: [
+            //   Padding(
+            //       padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            //       child: IconButton(
+            //           icon: const Icon(
+            //             Icons.filter_alt,
+            //           ),
+            //           onPressed: () {}))
+            // ],
             backgroundColor: Colors.transparent),
         body: StreamBuilder(
           stream: (userData['role'] != 'student')
@@ -100,7 +100,7 @@ class _NoticeBoardState extends State<NoticeBoard> {
                 ? ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (ctx, index) => Container(
-                      margin: EdgeInsets.symmetric(),
+                      margin: const EdgeInsets.symmetric(),
                       child: NoticeCard(
                         uid: userData['uid'],
                         snap: snapshot.data!.docs[index].data(),
@@ -112,7 +112,7 @@ class _NoticeBoardState extends State<NoticeBoard> {
                       SizedBox(
                         child: Lottie.asset('assets/images/img72.json'),
                       ),
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       const Text(
                         "NOTICE NOT AVAILABLE*",
                         style: TextStyle(
@@ -147,6 +147,6 @@ class _NoticeBoardState extends State<NoticeBoard> {
                       )
                     ],
                   )
-                : Text('')));
+                : const Text('')));
   }
 }

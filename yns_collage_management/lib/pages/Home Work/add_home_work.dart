@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, use_build_context_synchronously
+// ignore_for_file: must_be_immutable, use_build_context_synchronously, prefer_typing_uninitialized_variables, non_constant_identifier_names
 
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -280,7 +280,7 @@ class _AddHomeWorkScreenState extends State<AddHomeWorkScreen> {
             backgroundColor: Colors.teal[300],
             appBar: AppBar(
               leading: IconButton(
-                icon: Icon(Icons.arrow_back),
+                icon: const Icon(Icons.arrow_back),
                 onPressed: () {
                   Navigator.pushReplacement(
                       context,
@@ -395,7 +395,7 @@ class _AddHomeWorkScreenState extends State<AddHomeWorkScreen> {
                     width: MediaQuery.of(context).size.width * 0.85,
                     child: TextField(
                       controller: _descriptionController,
-                      cursorColor: Color.fromARGB(171, 255, 255, 255),
+                      cursorColor: const Color.fromARGB(171, 255, 255, 255),
                       style: const TextStyle(
                           fontSize: 12,
                           fontStyle: FontStyle.normal,

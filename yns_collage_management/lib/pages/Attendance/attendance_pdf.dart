@@ -1,11 +1,10 @@
-// ignore_for_file: must_be_immutable, no_logic_in_create_state, use_key_in_widget_constructors
+// ignore_for_file: must_be_immutable, no_logic_in_create_state, use_key_in_widget_constructors, prefer_typing_uninitialized_variables
 
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-import 'package:yns_college_management/pages/College%20Web/developer_page.dart';
 
 class AttendancePDF extends StatefulWidget {
   List list;
@@ -201,15 +200,6 @@ class _AttendancePDFState extends State<AttendancePDF> {
                     children: [
                       pw.TableRow(
                         children: [
-                          // pw.Column(children: [
-                          //   pw.Text(
-                          //     index.toString(),
-                          //     textAlign: pw.TextAlign.center,
-                          //     style: pw.TextStyle(
-                          //       fontSize: 20.0,
-                          //     ),
-                          //   ),
-                          // ]),
                           pw.Column(
                             children: [
                               pw.Text(

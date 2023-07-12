@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Notice {
@@ -7,7 +9,6 @@ class Notice {
   final String department;
   final String uid;
   final String name;
-  // final likes;
   final String noticeId;
   final DateTime datePublished;
   final String noticeUrl;
@@ -21,7 +22,6 @@ class Notice {
     required this.department,
     required this.uid,
     required this.name,
-    // required this.likes,
     required this.noticeId,
     required this.datePublished,
     required this.noticeUrl,
@@ -38,7 +38,6 @@ class Notice {
         Class: snapshot["Class"],
         department: snapshot["department"],
         uid: snapshot["uid"],
-        // likes: snapshot["likes"],
         noticeId: snapshot["noticeId"],
         datePublished: snapshot["datePublished"],
         name: snapshot["name"],
@@ -53,7 +52,6 @@ class Notice {
         "Class": Class,
         "department": department,
         "uid": uid,
-        // "likes": likes,
         "name": name,
         "noticeId": noticeId,
         "datePublished": datePublished,

@@ -1,8 +1,6 @@
-// ignore_for_file: must_be_immutable
-import 'dart:ffi';
+// ignore_for_file: must_be_immutable, unused_field, prefer_is_empty
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
@@ -10,7 +8,6 @@ import 'dart:io';
 import 'package:page_transition/page_transition.dart';
 import 'package:yns_college_management/Utils/utils.dart';
 import 'package:yns_college_management/Widgets/homework_card.dart';
-import 'package:yns_college_management/pages/College%20Web/bottomNav.dart';
 import 'package:yns_college_management/pages/Home%20Work/add_home_work.dart';
 
 class HomeWorkPage extends StatefulWidget {
@@ -71,15 +68,15 @@ class _HomeWorkPageState extends State<HomeWorkPage> {
         backgroundColor: Colors.teal[300],
         appBar: AppBar(
             title: const Text('Home Work'),
-            actions: [
-              Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.filter_alt,
-                      ),
-                      onPressed: () {}))
-            ],
+            // actions: [
+            //   Padding(
+            //       padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            //       child: IconButton(
+            //           icon: const Icon(
+            //             Icons.filter_alt,
+            //           ),
+            //           onPressed: () {}))
+            // ],
             elevation: 0,
             backgroundColor: Colors.transparent),
         body: StreamBuilder(
@@ -103,7 +100,7 @@ class _HomeWorkPageState extends State<HomeWorkPage> {
                 ? ListView.builder(
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (ctx, index) => Container(
-                        margin: EdgeInsets.symmetric(),
+                        margin: const EdgeInsets.symmetric(),
                         child: HomeWorkCard(
                           uid: userData['uid'],
                           snap: snapshot.data!.docs[index].data(),
@@ -114,7 +111,7 @@ class _HomeWorkPageState extends State<HomeWorkPage> {
                       SizedBox(
                         child: Lottie.asset('assets/images/img74.json'),
                       ),
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       const Text(
                         "HOME WORK NOT AVAILABLE*",
                         style: TextStyle(
@@ -149,6 +146,6 @@ class _HomeWorkPageState extends State<HomeWorkPage> {
                       )
                     ],
                   )
-                : Text('')));
+                : const Text('')));
   }
 }

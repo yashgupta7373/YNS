@@ -1,8 +1,7 @@
-// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables
+// ignore_for_file: must_be_immutable, prefer_typing_uninitialized_variables, non_constant_identifier_names, no_logic_in_create_state
 
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
-import 'package:yns_college_management/pages/waste%20files/try.dart';
 
 import 'attendance_pdf.dart';
 
@@ -32,10 +31,7 @@ class _AttendanceOverViweState extends State<AttendanceOverViwe> {
     required this.list,
     required this.list2,
   });
-  // Map<String, double> dataMap = {
-  //   "Present": 100,
-  //   "Absent": 3,
-  // };
+
   final colorList = <Color>[
     const Color.fromARGB(255, 47, 255, 0),
     const Color.fromARGB(255, 255, 0, 0)
@@ -136,9 +132,6 @@ class _AttendanceOverViweState extends State<AttendanceOverViwe> {
                         subject: widget.subject),
                   ),
                 );
-                // Navigator.pop(context);
-                // Navigator.pop(context);
-                // Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal[700],

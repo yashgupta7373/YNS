@@ -98,17 +98,17 @@ class _TransportState extends State<Transport> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: [
-          (userData['role'] != 'student')
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: IconButton(
-                      icon: Icon(
-                        Icons.filter_alt,
-                      ),
-                      onPressed: () {}))
-              : Text('')
-        ],
+        // actions: [
+        //   (userData['role'] != 'student')
+        //       ? Padding(
+        //           padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        //           child: IconButton(
+        //               icon: const Icon(
+        //                 Icons.filter_alt,
+        //               ),
+        //               onPressed: () {}))
+        //       : const Text('')
+        // ],
       ),
       body: Column(children: [
         Center(

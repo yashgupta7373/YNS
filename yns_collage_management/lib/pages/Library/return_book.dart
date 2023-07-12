@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable, non_constant_identifier_names
+// ignore_for_file: prefer_typing_uninitialized_variables, must_be_immutable, non_constant_identifier_names, await_only_futures, unused_local_variable
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -76,7 +76,7 @@ class _ReturnBookState extends State<ReturnBook> {
     });
   }
 
-  TextStyle style1 = TextStyle(
+  TextStyle style1 = const TextStyle(
       fontStyle: FontStyle.normal,
       fontSize: 14,
       color: Color.fromARGB(255, 206, 216, 214),
@@ -138,16 +138,16 @@ class _ReturnBookState extends State<ReturnBook> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         // elevation: 0,
-        actions: [
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: IconButton(
-                  icon: Icon(
-                    Icons.filter_alt,
-                  ),
-                  onPressed: () {}))
-        ],
-        title: Text('Library Record'),
+        // actions: [
+        //   Padding(
+        //       padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        //       child: IconButton(
+        //           icon: const Icon(
+        //             Icons.filter_alt,
+        //           ),
+        //           onPressed: () {}))
+        // ],
+        title: const Text('Library Record'),
       ),
       body: Column(children: [
         Expanded(
@@ -390,13 +390,12 @@ class _ReturnBookState extends State<ReturnBook> {
                                         child: Container(
                                           height: 40,
                                           width: 90,
-                                          decoration: BoxDecoration(
+                                          decoration: const BoxDecoration(
                                             color: Colors.green,
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                                    Radius.circular(10)),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10)),
                                           ),
-                                          child: Center(
+                                          child: const Center(
                                             child: Text(
                                               'Return',
                                               style: TextStyle(
@@ -409,7 +408,7 @@ class _ReturnBookState extends State<ReturnBook> {
                                       )
                                     : IconButton(
                                         onPressed: () {},
-                                        icon: Icon(
+                                        icon: const Icon(
                                           Icons.info,
                                           color: Colors.white,
                                         )))));
@@ -429,7 +428,7 @@ class _ReturnBookState extends State<ReturnBook> {
           if (items.length == 0)
             Column(
               children: [
-                SizedBox(height: 60),
+                const SizedBox(height: 60),
                 SizedBox(
                   child: Lottie.asset('assets/images/img81.json'),
                 ),

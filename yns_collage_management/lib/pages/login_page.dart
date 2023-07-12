@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:yns_college_management/pages/signup_page.dart';
+import 'package:yns_college_management/pages/forgot_Password.dart';
 import '../../Resources/auth_method.dart';
 import '../../Utils/utils.dart';
 import '../../Widgets/siginup_and_login_page_widget.dart';
@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                             fontFamily: 'Pacifico'))),
                 Padding(
                     padding:
-                        const EdgeInsets.only(top: 25.0, left: 15, right: 15),
+                        const EdgeInsets.only(top: 40.0, left: 15, right: 15),
                     child: Container(
                         height: mediaQuery.size.height * 0.6,
                         width: double.infinity,
@@ -229,7 +229,15 @@ class _LoginPageState extends State<LoginPage> {
                                       child: SignUpPageChangeButton(
                                           text1: 'Forgot Password?',
                                           text2: '',
-                                          ontap: () {})),
+                                          ontap: () {
+                                            Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    child:
+                                                        ForgotPasswordPage()));
+                                          })),
                                   // // sign up link...
                                   // Center(
                                   //     child: SignUpPageChangeButton(
@@ -244,46 +252,46 @@ class _LoginPageState extends State<LoginPage> {
                                   //                   child: const SignUpPage()));
                                   //         }))
                                 ])))),
-                // signup with...
-                Center(
-                    child: SignUpPageChangeButton(
-                        text1: '--- Log In With ---',
-                        text2: '',
-                        ontap: () {
-                          Navigator.push(
-                              context,
-                              PageTransition(
-                                  type: PageTransitionType.rightToLeft,
-                                  child: const LoginPage()));
-                        })),
-                // logo
-                Center(
-                    child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 70),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: const [
-                              CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 15,
-                                  backgroundImage:
-                                      AssetImage("assets/images/img67.png")),
-                              CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 15,
-                                  backgroundImage:
-                                      AssetImage("assets/images/img68.jpg")),
-                              CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 15,
-                                  backgroundImage:
-                                      AssetImage("assets/images/img69.png")),
-                              CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 15,
-                                  backgroundImage:
-                                      AssetImage("assets/images/img70.jpg"))
-                            ])))
+                // // signup with...
+                // Center(
+                //     child: SignUpPageChangeButton(
+                //         text1: '--- Log In With ---',
+                //         text2: '',
+                //         ontap: () {
+                //           Navigator.push(
+                //               context,
+                //               PageTransition(
+                //                   type: PageTransitionType.rightToLeft,
+                //                   child: const LoginPage()));
+                //         })),
+                // // logo
+                // Center(
+                //     child: Padding(
+                //         padding: const EdgeInsets.symmetric(horizontal: 70),
+                //         child: Row(
+                //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //             children: const [
+                //               CircleAvatar(
+                //                   backgroundColor: Colors.white,
+                //                   radius: 15,
+                //                   backgroundImage:
+                //                       AssetImage("assets/images/img67.png")),
+                //               CircleAvatar(
+                //                   backgroundColor: Colors.white,
+                //                   radius: 15,
+                //                   backgroundImage:
+                //                       AssetImage("assets/images/img68.jpg")),
+                //               CircleAvatar(
+                //                   backgroundColor: Colors.white,
+                //                   radius: 15,
+                //                   backgroundImage:
+                //                       AssetImage("assets/images/img69.png")),
+                //               CircleAvatar(
+                //                   backgroundColor: Colors.white,
+                //                   radius: 15,
+                //                   backgroundImage:
+                //                       AssetImage("assets/images/img70.jpg"))
+                //             ])))
               ])
             ]))));
   }

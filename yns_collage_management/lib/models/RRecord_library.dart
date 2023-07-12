@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RDetail {
@@ -6,7 +8,6 @@ class RDetail {
   final String photoUrl;
   final String Class;
   final String book;
-  // final String author;
   final String uid;
   final String issueDate;
   final String docId;
@@ -18,7 +19,6 @@ class RDetail {
     required this.photoUrl,
     required this.Class,
     required this.book,
-    // required this.author,
     required this.uid,
     required this.issueDate,
     required this.docId,
@@ -33,7 +33,6 @@ class RDetail {
       id: snapshot["id"],
       photoUrl: snapshot["photoUrl"],
       book: snapshot["book"],
-      // author: snapshot["author"],
       Class: snapshot["Class"],
       uid: snapshot["uid"],
       issueDate: snapshot["issueDate"],
@@ -47,7 +46,6 @@ class RDetail {
         "id": id,
         "photoUrl": photoUrl,
         "book": book,
-        // "author": author,
         "Class": Class,
         "uid": uid,
         "issueDate": issueDate,

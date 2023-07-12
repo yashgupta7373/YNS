@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, non_constant_identifier_names, must_be_immutable
+// ignore_for_file: deprecated_member_use, non_constant_identifier_names, must_be_immutable, prefer_const_constructors_in_immutables
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:external_app_launcher/external_app_launcher.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +16,7 @@ import 'Admin/Admin Settings/add_result.dart';
 import 'Admin/Admin Settings/add_teachers_or_admin_page.dart';
 import 'Admin/Admin Settings/edit.dart';
 import 'Admin/Admin Settings/edit_courses.dart';
+import 'Admin/Admin Settings/edit_page_form.dart';
 
 class HomePage extends StatefulWidget {
   final String uid;
@@ -347,7 +348,7 @@ class _HomePageState extends State<HomePage> {
                                                                               context,
                                                                               PageTransition(
                                                                                   type: PageTransitionType.fade,
-                                                                                  child: Edit(
+                                                                                  child: EditFormPage(
                                                                                     role: 'student',
                                                                                   )));
                                                                         }),
@@ -362,7 +363,7 @@ class _HomePageState extends State<HomePage> {
                                                                               context,
                                                                               PageTransition(
                                                                                   type: PageTransitionType.fade,
-                                                                                  child: Edit(
+                                                                                  child: EditFormPage(
                                                                                     role: 'teacher',
                                                                                   )));
                                                                         }),
@@ -377,7 +378,7 @@ class _HomePageState extends State<HomePage> {
                                                                               context,
                                                                               PageTransition(
                                                                                   type: PageTransitionType.fade,
-                                                                                  child: Edit(
+                                                                                  child: EditFormPage(
                                                                                     role: 'admin',
                                                                                   )));
                                                                         }),

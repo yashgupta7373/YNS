@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 class InputFieldStudentRegistration extends StatelessWidget {
   final TextEditingController textEditingController;
   final TextInputType keyboard;
-  const InputFieldStudentRegistration(
-      {Key? key, required this.textEditingController, required this.keyboard})
-      : super(key: key);
+
+  const InputFieldStudentRegistration({
+    Key? key,
+    required this.textEditingController,
+    required this.keyboard,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

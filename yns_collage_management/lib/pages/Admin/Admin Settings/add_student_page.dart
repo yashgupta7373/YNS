@@ -21,15 +21,10 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
   var gender = '';
   var transport = '';
   var Category = '';
-  // var SubCategory = '';
-  // var OrdinaryResidentOf = '';
-  // var ParticipationInSports = '';
-  // var Graduationform = '';
-  // var spouse = '';
+ 
   //controller
   bool _isLoading = false;
   final TextEditingController sessionController = TextEditingController();
-  // final TextEditingController classController = TextEditingController();
   final TextEditingController idController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController fatherController = TextEditingController();
@@ -42,12 +37,9 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
   final TextEditingController MobileController = TextEditingController();
   final TextEditingController EmailController = TextEditingController();
   final TextEditingController PasswordController = TextEditingController();
-  // final TextEditingController departmentController = TextEditingController();
   Uint8List? _image;
 
-  //
 
-  // var dropdownclass;
   var dropdowndepartment;
   var department = [
     'Computer Science Dep.',
@@ -55,25 +47,7 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
     'Teacher Education Dep.',
     'Department of Science.',
   ];
-  // var classes = [
-  //   'BCA',
-  //   'MCA',
-  //   'BBA',
-  //   'MBA',
-  //   'Bcom.',
-  //   'MCom.',
-  //   'BA',
-  //   'MA',
-  //   'B.Ed',
-  //   'M.Ed',
-  //   'D.EI.Ed',
-  //   'B.Sc(Biotechnology)',
-  //   'M.Sc(Biotechnology)',
-  //   'B.Sc(HomeScience)',
-  //   'M.Sc(HomeScience)',
-  //   'B.Sc(Bio)-BCZ',
-  //   'B.Sc(Math)-PCM'
-  // ];
+
   @override
   void dispose() {
     super.dispose();
@@ -91,7 +65,6 @@ class _SRegistrationPageState extends State<SRegistrationPage> {
     MobileController.dispose();
     EmailController.dispose();
     PasswordController.dispose();
-    // departmentController.dispose();
   }
 
   void AddStudent() async {

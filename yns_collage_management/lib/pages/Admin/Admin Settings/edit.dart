@@ -3,11 +3,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:yns_college_management/pages/Admin/Admin%20Settings/update_student_data.dart';
 import '../../profile_page.dart';
 
 class Edit extends StatefulWidget {
   String role;
-  Edit({super.key, required this.role});
+  final department, Class, student;
+  Edit(
+      {super.key,
+      required this.role,
+      this.department,
+      this.Class,
+      this.student});
   @override
   State<Edit> createState() => _EditState();
 }
@@ -15,10 +22,25 @@ class Edit extends StatefulWidget {
 class _EditState extends State<Edit> {
   var collection;
   void getData() {
-    collection = FirebaseFirestore.instance.collection('users').where(
-          'role',
-          isEqualTo: widget.role,
-        );
+    if (widget.role != 'student') {
+      collection = FirebaseFirestore.instance
+          .collection('users')
+          .where(
+            'role',
+            isEqualTo: widget.role,
+          )
+          .where('department', isEqualTo: widget.department);
+    } else {
+      collection = FirebaseFirestore.instance
+          .collection('users')
+          .where(
+            'role',
+            isEqualTo: widget.role,
+          )
+          .where('department', isEqualTo: widget.department)
+          .where('Class', isEqualTo: widget.Class)
+          .where('id', isEqualTo: widget.student);
+    }
   }
 
   var items;
@@ -36,7 +58,7 @@ class _EditState extends State<Edit> {
     });
   }
 
-  TextStyle style1 = TextStyle(
+  TextStyle style1 = const TextStyle(
       fontStyle: FontStyle.normal,
       fontSize: 14,
       color: Color.fromARGB(255, 206, 216, 214),
@@ -116,7 +138,17 @@ class _EditState extends State<Edit> {
                                   child: Row(
                                     children: [
                                       InkWell(
-                                          onTap: (() {}),
+                                          onTap: (() {
+                                            // Navigator.push(
+                                            //     context,
+                                            //     PageTransition(
+                                            //         type: PageTransitionType
+                                            //             .rightToLeft,
+                                            //         child:
+                                            //             UpdateStudentDataPage(
+                                            //                 uid: items[index]
+                                            //                     ['uid'])));
+                                          }),
                                           child: const Icon(Icons.edit,
                                               color: Color.fromARGB(
                                                   255, 47, 0, 255))),

@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, unused_local_variable
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:yns_college_management/Utils/utils.dart';
@@ -49,7 +51,7 @@ class _IdCardState extends State<IdCard> {
       fontStyle: FontStyle.normal,
       color: Colors.teal[900],
       fontWeight: FontWeight.bold);
-  TextStyle style2 = TextStyle(
+  TextStyle style2 = const TextStyle(
       fontStyle: FontStyle.normal,
       color: Color.fromARGB(255, 88, 177, 162),
       fontWeight: FontWeight.bold);
@@ -83,7 +85,7 @@ class _IdCardState extends State<IdCard> {
                       child: Container(
                         // width: double.infinity,
                         decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 243, 218, 218),
+                            color: const Color.fromARGB(255, 243, 218, 218),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(25)),
                             border: Border.all(
@@ -119,7 +121,7 @@ class _IdCardState extends State<IdCard> {
                                 child: Container(
                                     height: 170,
                                     width: 120,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       image: DecorationImage(
                                           image: AssetImage(
                                               'assets/images/img30.png'),
@@ -147,11 +149,11 @@ class _IdCardState extends State<IdCard> {
                                   backgroundColor:
                                       const Color.fromRGBO(100, 232, 222, 0.7),
                                   content: Container(
-                                    height: 460,
+                                    height: 500,
                                     width: double.infinity,
                                     decoration: BoxDecoration(
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
+                                        color: const Color.fromARGB(
+                                            255, 255, 255, 255),
                                         borderRadius: const BorderRadius.all(
                                             Radius.circular(25)),
                                         border: Border.all(
@@ -350,6 +352,7 @@ class _IdCardState extends State<IdCard> {
                                                     Expanded(
                                                       child: Text(
                                                           userData['address'],
+                                                          maxLines: 5,
                                                           style: style2),
                                                     )
                                                   ]),
@@ -369,7 +372,7 @@ class _IdCardState extends State<IdCard> {
                                                           style: style2),
                                                     )
                                                   ]),
-                                              SizedBox(height: 8),
+                                              const SizedBox(height: 8),
                                             ],
                                           ),
                                         ),

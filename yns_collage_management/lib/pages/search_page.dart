@@ -23,13 +23,13 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(223, 38, 166, 153),
+        backgroundColor: const Color.fromARGB(223, 38, 166, 153),
         appBar: AppBar(
           backgroundColor: Colors.teal[700],
           elevation: 0,
           title: TextFormField(
             controller: searchController,
-            style: TextStyle(
+            style: const TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white),
             decoration: const InputDecoration(
                 labelText: 'Search for a user',
@@ -39,8 +39,6 @@ class _SearchScreenState extends State<SearchScreen> {
               setState(() {
                 isShowUsers = true;
               });
-              print(_);
-              print(searchController.text);
             },
           ),
         ),

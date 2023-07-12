@@ -1,10 +1,8 @@
-// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables
+// ignore_for_file: non_constant_identifier_names, prefer_typing_uninitialized_variables, must_be_immutable, use_build_context_synchronously
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:yns_college_management/Utils/utils.dart';
 import 'package:yns_college_management/widgets/input_field_student_registration.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../Resources/firestore_method_for_courses.dart';
 
@@ -19,24 +17,14 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
   final TextEditingController idController = TextEditingController();
   final TextEditingController feesController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
-  // final TextEditingController subjectController = TextEditingController();
   List<TextEditingController> listController = [TextEditingController()];
   var dropdowndepartment;
-  // var dropdownduration;
   var department = [
     'Computer Science Dep.',
     'Commerce & Business Dep.',
     'Teacher Education Dep.',
     'Department of Science.',
   ];
-  // var duration = [
-  //   '1 Semester',
-  //   '2 Semester',
-  //   '3 Semester',
-  //   '4 Semester',
-  //   '5 Semester',
-  //   '6 Semester'
-  // ];
 
   //upload notice..
   bool isLoading = false;
@@ -54,9 +42,7 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
         dropdowndepartment,
         idController.text,
         nameController.text,
-        // dropdownduration,
         feesController.text,
-        // listController.text,
       );
       if (res == "success") {
         setState(() {
@@ -64,7 +50,7 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
         });
         showSnackBar(
           context,
-          'Uploded',
+          'Uploaded',
         );
 
         Navigator.pop(context);
@@ -85,7 +71,6 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
 
   //fetch Data
   var userData = {};
-  // bool isLoading = false;
   @override
   void initState() {
     super.initState();
@@ -211,41 +196,6 @@ class _AddCoursesPageState extends State<AddCoursesPage> {
                                         textEditingController: nameController,
                                         keyboard: TextInputType.name))
                               ]),
-                              // // Semester
-                              // Row(children: [
-                              //   const Text('Semester:'),
-                              //   Expanded(
-                              //       child: Padding(
-                              //           padding:
-                              //               const EdgeInsets.only(left: 20),
-                              //           child: DropdownButton(
-                              //               dropdownColor: Colors.teal[400],
-                              //               hint: const Text('Select Semester'),
-                              //               menuMaxHeight: 300,
-                              //               isExpanded: true,
-                              //               underline: Container(
-                              //                 color: Colors.teal[800],
-                              //                 height: 1,
-                              //               ),
-                              //               iconEnabledColor: Colors.teal[800],
-                              //               style: const TextStyle(
-                              //                   color: Color.fromARGB(
-                              //                       255, 13, 71, 161),
-                              //                   fontSize: 13),
-                              //               value: dropdownduration,
-                              //               icon: const Icon(
-                              //                   Icons.keyboard_arrow_down),
-                              //               items: duration.map((String items) {
-                              //                 return DropdownMenuItem(
-                              //                     value: items,
-                              //                     child: Text(items));
-                              //               }).toList(),
-                              //               onChanged: (newValue) {
-                              //                 setState(() {
-                              //                   dropdownduration = newValue!;
-                              //                 });
-                              //               })))
-                              // ]),
 
                               // Fees
                               Row(children: [

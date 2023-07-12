@@ -41,9 +41,9 @@ class TimeTableCard extends StatelessWidget {
                         trimLines: 1,
                         textAlign: TextAlign.justify,
                         trimMode: TrimMode.Line,
-                        lessStyle: TextStyle(
+                        lessStyle: const TextStyle(
                             color: Colors.red, fontWeight: FontWeight.normal),
-                        moreStyle: TextStyle(
+                        moreStyle: const TextStyle(
                             color: Colors.red, fontWeight: FontWeight.normal),
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
@@ -67,27 +67,27 @@ class TimeTableCard extends StatelessWidget {
                                   children: [
                                     InkWell(
                                         onTap: () => Navigator.pop(context),
-                                        child: Text('Share')),
+                                        child: const Text('Share')),
                                     InkWell(
                                         onTap: () => Navigator.pop(context),
-                                        child: Text('Copy link')),
+                                        child: const Text('Copy link')),
                                     InkWell(
                                         onTap: () => Navigator.pop(context),
-                                        child: Text('Save')),
+                                        child: const Text('Save')),
                                     if (snap['uid'] == uid)
                                       InkWell(
                                           onTap: () {
                                             deleteUser(snap['docId']);
                                             Navigator.pop(context);
                                           },
-                                          child: Text("Delete"))
+                                          child: const Text("Delete"))
                                   ],
                                 ),
                               ));
                         },
                       );
                     },
-                    icon: Icon(Icons.more_vert, color: Colors.white)),
+                    icon: const Icon(Icons.more_vert, color: Colors.white)),
               ],
             ),
 
@@ -134,8 +134,8 @@ class TimeTableCard extends StatelessWidget {
                   trimLines: 3,
                   textAlign: TextAlign.justify,
                   trimMode: TrimMode.Line,
-                  lessStyle: TextStyle(color: Colors.red),
-                  moreStyle: TextStyle(color: Colors.red),
+                  lessStyle: const TextStyle(color: Colors.red),
+                  moreStyle: const TextStyle(color: Colors.red),
                 )),
             // date
             Container(

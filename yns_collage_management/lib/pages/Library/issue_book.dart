@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, use_build_context_synchronously
+// ignore_for_file: must_be_immutable, use_build_context_synchronously, prefer_typing_uninitialized_variables, non_constant_identifier_names
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,6 @@ class _IssueBookState extends State<IssueBook> {
   String dropdownBook = 'Let us C (Yashavant Kanetkar)';
   String dropdownDepartment = 'Computer Science Dep.';
 
-  // String dropdownAuthor = 'Yashavant Kanetkar';
   var name, id, photoUrl;
   var Department = [
     'Computer Science Dep.',
@@ -213,7 +212,7 @@ class _IssueBookState extends State<IssueBook> {
                         fontWeight: FontWeight.bold,
                         color: Colors.white))
               ])),
-          SizedBox(height: 40),
+          const SizedBox(height: 40),
           // Select Book
           Padding(
               padding: const EdgeInsets.all(20),
